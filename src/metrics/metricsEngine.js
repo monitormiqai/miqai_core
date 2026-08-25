@@ -62,7 +62,7 @@ export function calculateMetrics(ctx) {
             calculateOccupancy(ctx),
 
         dewPoint:
-            calculateDewPoint(ctx)   
+            calculateDewPoint(ctx),   
 
     };
 
