@@ -34,6 +34,7 @@ import { calculateParticulateLoad } from "./calculators/particulateLoad.js";
 import { calculateOccupancy } from "./calculators/occupancy.js";
 import { calculateQaiScore } from "./calculators/qaiScore.js";
 import { calculateHealthRisk } from "./calculators/healthRisk.js";
+import { calculateDewPoint } from "./calculators/dewPoint.js";
 
 /* ======================================================================
  * METRICS ENGINE
@@ -58,7 +59,10 @@ export function calculateMetrics(ctx) {
             calculateParticulateLoad(ctx),
 
         occupancy:
-            calculateOccupancy(ctx)
+            calculateOccupancy(ctx),
+
+        dewPoint:
+            calculateDewPoint(ctx)   
 
     };
 
