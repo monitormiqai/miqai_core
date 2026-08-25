@@ -1,0 +1,23 @@
+{
+  "name": "core-qai",
+  "version": "1.0.0",
+  "description": "CORE QAI - Knowledge Engine for Indoor Air Quality Analysis",
+  "type": "module",
+  "main": "src/engine/analysis.js",
+  "exports": {
+    ".": "./src/engine/analysis.js"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "air-quality",
+    "iaq",
+    "knowledge-engine",
+    "climcare",
+    "core-qai"
+  ],
+  "author": "Giovane Lopes",
+  "license": "Proprietary",
+  "private": true
+}
