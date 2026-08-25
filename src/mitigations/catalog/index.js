@@ -24,6 +24,7 @@ import reduceOccupancy from "./reduceOccupancy.js";
 import inspectHvacSystem from "./inspectHvacSystem.js";
 import eliminatePollutionSource from "./eliminatePollutionSource.js";
 import useAirPurification from "./useAirPurification.js";
+import controlHumidity from "./controlHumidity.js";
 
 /* ======================================================================
  * MITIGATIONS CATALOG
@@ -42,7 +43,9 @@ const MITIGATIONS_CATALOG = Object.freeze([
 
     eliminatePollutionSource,
 
-    useAirPurification
+    useAirPurification,
+
+    controlHumidity
 
 ]);
 

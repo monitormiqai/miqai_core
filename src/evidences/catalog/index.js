@@ -24,6 +24,7 @@ import elevatedParticulate from "./elevatedParticulate.js";
 import thermalDeviation from "./thermalDeviation.js";
 import elevatedVoc from "./elevatedVoc.js";
 import elevatedNox from "./elevatedNox.js";
+import dewPointCondensation from "./dewPointCondensation.js";
 
 /* ======================================================================
  * EVIDENCES CATALOG
@@ -41,7 +42,9 @@ const EVIDENCES = Object.freeze([
 
     elevatedVoc,
 
-    elevatedNox
+    elevatedNox,
+
+    dewPointCondensation
 
 ]);
 

@@ -136,11 +136,25 @@ export function calculateDewPoint(ctx) {
             point.toFixed(1)
         );
 
+    const airToDewPointDifference =
+        parseFloat((t - value).toFixed(1));
+
+    const level =
+        humidity.state === "HIGH"
+            ? "MODERATE"
+            : humidity.state === "MISSING"
+                ? "UNKNOWN"
+                : "NORMAL";
+
     return {
 
         value,
 
-        unit: "°C"
+        unit: "°C",
+
+        level,
+
+        airToDewPointDifference
 
     };
 

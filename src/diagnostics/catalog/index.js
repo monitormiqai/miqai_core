@@ -36,6 +36,7 @@ import thermalDiscomfort from "./thermalDiscomfort.js";
 import particulatePollution from "./particulatePollution.js";
 import poorAirQuality from "./poorAirQuality.js";
 import highHealthRisk from "./highHealthRisk.js";
+import dewPointCondensation from "./dewPointCondensation.js";
 
 /* ======================================================================
  * DIAGNOSTICS CATALOG
@@ -89,7 +90,9 @@ const DIAGNOSTICS = Object.freeze([
 
     poorAirQuality,
 
-    highHealthRisk
+    highHealthRisk,
+
+    dewPointCondensation
 
 ]);
 

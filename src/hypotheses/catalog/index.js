@@ -24,6 +24,7 @@ import excessiveOccupancy from "./excessiveOccupancy.js";
 import outdoorPollution from "./outdoorPollution.js";
 import hvacFailure from "./hvacFailure.js";
 import chemicalContamination from "./chemicalContamination.js";
+import dewPointCondensation from "./dewPointCondensation.js";
 
 /* ======================================================================
  * HYPOTHESES CATALOG
@@ -42,7 +43,9 @@ const HYPOTHESES_CATALOG = Object.freeze([
 
     hvacFailure,
 
-    chemicalContamination
+    chemicalContamination,
+
+    dewPointCondensation
 
 ]);
 
