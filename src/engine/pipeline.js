@@ -34,11 +34,10 @@ import EvidenceLibrary from "../evidences/index.js";
 import HypothesisLibrary from "../hypotheses/index.js";
 import MitigationLibrary from "../mitigations/index.js";
 
-import resolveReferences
-    from "../references/resolver.js";
+import resolveReferences from "../references/resolver.js";
 
-import EnvironmentalScenarioLibrary
-    from "../environmentalScenarios/index.js";
+import EnvironmentalScenarioLibrary from "../environmentalScenarios/index.js";
+import RelationshipsLibrary from "../relationships/index.js";
 
 
 /* ======================================================================
@@ -106,6 +105,12 @@ export function executePipeline(ctx) {
     executeStep(ctx, "environmentalScenario", () => {
 
         EnvironmentalScenarioLibrary.execute(ctx);
+
+    });
+
+    executeStep(ctx, "relationships", () => {
+
+        RelationshipsLibrary.execute(ctx);
 
     });
 
