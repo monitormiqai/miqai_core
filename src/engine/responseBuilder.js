@@ -113,6 +113,14 @@ export function buildResponse(ctx) {
 
         mitigation: ctx.mitigation,
 
+
+        /* ==========================================================
+        * ENVIRONMENTAL SCENARIO
+        * ========================================================== */
+
+        environmentalScenario:
+            ctx.environmentalScenario,
+
         /* ==========================================================
          * REFERENCES
          * ========================================================== */

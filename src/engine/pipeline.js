@@ -37,6 +37,9 @@ import MitigationLibrary from "../mitigations/index.js";
 import resolveReferences
     from "../references/resolver.js";
 
+import EnvironmentalScenarioLibrary
+    from "../environmentalScenarios/index.js";
+
 
 /* ======================================================================
  * PIPELINE
@@ -99,6 +102,13 @@ export function executePipeline(ctx) {
         MitigationLibrary.execute(ctx);
 
     });
+
+    executeStep(ctx, "environmentalScenario", () => {
+
+        EnvironmentalScenarioLibrary.execute(ctx);
+
+    });
+
 
     /*
      * ================================================================
