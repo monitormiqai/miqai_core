@@ -48,7 +48,7 @@ const ELEVATED_VOC = Object.freeze({
      */
 
     description:
-        "Foi identificado índice de Compostos Orgânicos Voláteis (VOC) acima do limite de referência aplicável ao ambiente analisado.",
+        "Foi identificado VOC Index acima do baseline técnico documentado pela Sensirion. O índice é relativo e não representa concentração absoluta de VOC nem um limite regulatório.",
 
     /*
      * Referências técnicas relacionadas.
@@ -90,7 +90,7 @@ const ELEVATED_VOC = Object.freeze({
 
     }
 
-    return validation.passed === false;
+    return validation.currentAssessment === "ABOVE_REFERENCE";
 
     }
 

@@ -54,7 +54,7 @@ const ELEVATED_PARTICULATE = Object.freeze({
      */
 
     description:
-        "Foi identificada concentração elevada de material particulado fino (PM2.5) e/ou particulado inalável (PM10) acima dos limites regulatórios aplicáveis.",
+        "A leitura atual de PM2.5 e/ou PM10 está acima da referência técnica aplicável. Quando a referência exigir média temporal, a leitura isolada não representa, por si só, uma não conformidade para o período exigido.",
 
     /*
      * Referências técnicas relacionadas.
@@ -100,11 +100,11 @@ const ELEVATED_PARTICULATE = Object.freeze({
 
         return (
 
-            (pm25Evaluated && pm25.passed === false)
+            (pm25Evaluated && pm25.currentAssessment === "ABOVE_REFERENCE")
 
             ||
 
-            (pm10Evaluated && pm10.passed === false)
+            (pm10Evaluated && pm10.currentAssessment === "ABOVE_REFERENCE")
 
         );
 

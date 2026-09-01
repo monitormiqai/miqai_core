@@ -103,12 +103,14 @@ const THERMAL_DEVIATION = Object.freeze({
         return (
 
             (temperatureEvaluated &&
-             temperature.passed === false)
+             temperature.currentAssessment === "ABOVE_REFERENCE" ||
+             temperature.currentAssessment === "BELOW_REFERENCE")
 
             ||
 
             (humidityEvaluated &&
-             humidity.passed === false)
+             humidity.currentAssessment === "ABOVE_REFERENCE" ||
+             humidity.currentAssessment === "BELOW_REFERENCE")
 
         );
 

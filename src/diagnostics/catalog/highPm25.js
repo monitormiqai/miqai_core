@@ -33,10 +33,10 @@ export default Object.freeze({
 
     id: "highPm25",
 
-    title: "Concentração elevada de PM2.5",
+    title: "Leitura atual de PM2.5 acima da referência aplicável",
 
     description:
-        "Foi observada concentração elevada de material particulado fino (PM2.5) no ambiente.",
+        "A leitura atual de PM2.5 está acima da referência aplicável. Quando a referência possuir requisito temporal, esta condição não constitui, isoladamente, uma avaliação de conformidade para o período exigido.",
 
     priority: 80,
 
@@ -48,7 +48,7 @@ export default Object.freeze({
     when(ctx) {
 
         return (
-            ctx.validation?.pm25?.state === "HIGH"
+            ctx.validation?.pm25?.currentAssessment === "ABOVE_REFERENCE"
         );
 
     }

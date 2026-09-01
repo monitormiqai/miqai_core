@@ -5,13 +5,17 @@
  * ----------------------------------------------------------------------
  * Arquivo   : validationEngine.js
  * Módulo    : Validation
- * Versão    : 1.0.0
- * Status    : RC1 - CONGELADO
+ * Versão    : 1.1.0
+ * Status    : RC2 - REVISÃO CO2
  *
  * Objetivo
  * ----------------------------------------------------------------------
- * Validar as leituras utilizando as regras resolvidas pela
- * Regulatory Library.
+ * Validar as leituras recebidas pelo CORE QAI utilizando os critérios
+ * de validação previamente resolvidos pela Regulatory Library.
+ *
+ * A Validation Engine é responsável por determinar se os valores
+ * recebidos podem ser utilizados com segurança pelas etapas analíticas
+ * subsequentes do CORE QAI.
  *
  * Entrada:
  *      ctx.raw
@@ -22,12 +26,52 @@
  *
  * A Validation Engine:
  *
- *  - Não conhece Domains
- *  - Não conhece normas
- *  - Não calcula métricas
- *  - Não gera diagnósticos
+ *  - Não conhece Domains;
+ *  - Não contém normas ou referências regulatórias próprias;
+ *  - Utiliza os critérios de validação disponibilizados por Regulatory;
+ *  - Não calcula métricas;
+ *  - Não gera diagnósticos;
+ *  - Não estabelece relações ambientais;
+ *  - Não gera impactos;
+ *  - Não gera hipóteses;
+ *  - Não gera recomendações;
+ *  - Não interpreta causalidade;
+ *  - Apenas classifica a condição de validade das leituras para uso
+ *    pelas etapas posteriores do pipeline.
+ *
+ * Princípio:
+ * ----------------------------------------------------------------------
+ * A Validation Engine determina se uma leitura é válida, inválida ou
+ * possui condição que limite seu uso analítico, conforme os critérios
+ * aplicáveis resolvidos pelo Regulatory.
+ *
+ * A Validation não cria conhecimento normativo.
+ * A Validation aplica critérios previamente resolvidos.
+ *
+ * OBSERVATION:
+ * ----------------------------------------------------------------------
+ * O tipo OBSERVATION permite que uma leitura seja disponibilizada para
+ * análise complementar sem que a Validation a classifique como aprovada
+ * ou reprovada por um limite regulatório.
+ *
+ * OBSERVATION:
+ *
+ *  - preserva o valor observado;
+ *  - não produz PASS/FAIL temporal por si só;
+ *  - utiliza passed = null;
+ *  - utiliza state = "OBSERVATION";
+ *  - utiliza severity = "INFO";
+ *  - pode produzir currentAssessment quando o Regulatory fornecer
+ *    uma referência técnica comparável à leitura atual;
+ *  - preserva evaluationPeriod, historicalAssessmentRequired,
+ *    referenceIds e scoreEligible para as etapas posteriores.
+ *
+ * OBSERVATION não significa "descartar da esteira". Significa que a
+ * leitura não deve ser convertida automaticamente em conformidade
+ * regulatória ou PASS/FAIL.
  * ======================================================================
  */
+
 
 /* ======================================================================
  * RANGE
@@ -65,6 +109,7 @@ function validateRange(value, rule) {
 
 }
 
+
 /* ======================================================================
  * MAX
  * ====================================================================== */
@@ -95,6 +140,7 @@ function validateMax(value, rule) {
     };
 
 }
+
 
 /* ======================================================================
  * MAX DYNAMIC
@@ -137,6 +183,129 @@ function validateMaxDynamic(value, rule) {
 
 }
 
+
+/* ======================================================================
+ * OBSERVATION
+ * ====================================================================== */
+
+/**
+ * Registra uma leitura para utilização analítica complementar sem
+ * aplicar critério de aprovação/reprovação por limite regulatório.
+ *
+ * Não produz threshold.
+ * Não produz PASS/FAIL.
+ * Não interpreta a condição ambiental.
+ */
+
+function validateObservation(value) {
+
+    return {
+
+        value,
+
+        state: "OBSERVATION",
+
+        severity: "INFO",
+
+        passed: null
+
+    };
+
+}
+
+
+
+
+/* ======================================================================
+ * CURRENT ASSESSMENT
+ * ====================================================================== */
+
+function assessCurrentCondition(value, rule) {
+
+    if (rule.type === "RANGE") {
+
+        if (value < rule.min) return "BELOW_REFERENCE";
+        if (value > rule.max) return "ABOVE_REFERENCE";
+        return "WITHIN_REFERENCE";
+
+    }
+
+    const threshold =
+        rule.threshold ?? rule.referenceThreshold;
+
+    if (threshold !== undefined && threshold !== null) {
+
+        if (value > threshold) return "ABOVE_REFERENCE";
+        return "WITHIN_REFERENCE";
+
+    }
+
+    if (rule.type === "MAX_DYNAMIC") {
+
+        const dynamicThreshold =
+            rule.baseline + rule.delta;
+
+        if (value > dynamicThreshold) return "ABOVE_REFERENCE";
+        return "WITHIN_REFERENCE";
+
+    }
+
+    return "NOT_ASSESSED";
+}
+
+function buildAssessmentMetadata(value, rule) {
+
+    const currentAssessment =
+        assessCurrentCondition(value, rule);
+
+    const historicalAssessmentRequired =
+        rule.historicalAssessmentRequired === true;
+
+    /*
+     * Score eligibility belongs to Regulatory. Validation only carries
+     * the decision forward and prevents temporal criteria from being
+     * treated as score-ready when no history is available in CORE.
+     */
+    const scoreEligible =
+        rule.scoreEligible === true;
+
+    return {
+
+        currentAssessment,
+
+        evaluationPeriod:
+            rule.evaluationPeriod ?? null,
+
+        historicalAssessmentRequired,
+
+        scoreEligible,
+
+        criterionKind:
+            rule.criterionKind ?? null,
+
+        applicability:
+            rule.applicability ?? null,
+
+        currentObservation:
+            rule.currentObservation ?? null,
+
+        temporalGuidance:
+            rule.temporalGuidance ?? null,
+
+        criterionNote:
+            rule.criterionNote ?? null,
+
+        referenceThreshold:
+            rule.referenceThreshold ?? null,
+
+        referenceIds:
+            Array.isArray(rule.referenceIds)
+                ? [...rule.referenceIds]
+                : []
+
+    };
+}
+
 /* ======================================================================
  * VALIDATORS
  * ====================================================================== */
@@ -147,9 +316,12 @@ const VALIDATORS = Object.freeze({
 
     MAX: validateMax,
 
-    MAX_DYNAMIC: validateMaxDynamic
+    MAX_DYNAMIC: validateMaxDynamic,
+
+    OBSERVATION: validateObservation
 
 });
+
 
 /* ======================================================================
  * VALIDATION ENGINE
@@ -243,6 +415,8 @@ export function validate(ctx) {
 
             regulatoryId:
                 rule.regulatoryId,
+
+            ...buildAssessmentMetadata(value, rule),
 
             ...result
 

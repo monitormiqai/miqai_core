@@ -4,10 +4,8 @@
     "version": "1.0.0",
     "apiVersion": "1.0.0",
     "status": "OK",
-    "environment": {
-      "type": "corporate"
-    },
-    "timestamp": "2026-08-26T11:36:04.915Z",
+    "environment": "corporate",
+    "timestamp": "2026-08-29T11:53:02.744Z",
     "processingTime": 2
   },
   "domain": {
@@ -32,12 +30,12 @@
       "unit": "°C",
       "regulated": true,
       "regulatoryId": "ASHRAE-55",
-      "value": 26.9,
+      "value": 24,
       "min": 20,
       "max": 26,
-      "state": "HIGH",
-      "severity": "WARNING",
-      "passed": false
+      "state": "NORMAL",
+      "severity": "NORMAL",
+      "passed": true
     },
     "humidity": {
       "parameter": "humidity",
@@ -47,26 +45,25 @@
       "unit": "%",
       "regulated": true,
       "regulatoryId": "ASHRAE-55",
-      "value": 72.7,
+      "value": 65,
       "min": 40,
       "max": 65,
-      "state": "HIGH",
-      "severity": "WARNING",
-      "passed": false
+      "state": "NORMAL",
+      "severity": "NORMAL",
+      "passed": true
     },
     "co2": {
       "parameter": "co2",
       "validationKey": "co2",
       "displayName": "Carbon Dioxide",
-      "description": "Indoor carbon dioxide concentration.",
+      "description": "Indoor carbon dioxide concentration used as a complementary indicator for ventilation and indoor air analysis.",
       "unit": "ppm",
-      "regulated": true,
-      "regulatoryId": "ASHRAE-62.1",
-      "value": 1189,
-      "threshold": 1000,
-      "state": "HIGH",
-      "severity": "WARNING",
-      "passed": false
+      "regulated": false,
+      "regulatoryId": "ASHRAE-62.1-2025",
+      "value": 1200,
+      "state": "OBSERVATION",
+      "severity": "INFO",
+      "passed": null
     },
     "pm25": {
       "parameter": "pm25",
@@ -76,11 +73,11 @@
       "unit": "µg/m³",
       "regulated": true,
       "regulatoryId": "WHO-AQG-2021",
-      "value": 1.71,
+      "value": 18,
       "threshold": 15,
-      "state": "NORMAL",
-      "severity": "NORMAL",
-      "passed": true
+      "state": "HIGH",
+      "severity": "WARNING",
+      "passed": false
     },
     "pm10": {
       "parameter": "pm10",
@@ -90,7 +87,7 @@
       "unit": "µg/m³",
       "regulated": true,
       "regulatoryId": "WHO-AQG-2021",
-      "value": 1.85,
+      "value": 30,
       "threshold": 45,
       "state": "NORMAL",
       "severity": "NORMAL",
@@ -98,535 +95,383 @@
     },
     "vocIndex": {
       "parameter": "vocIndex",
-      "value": null,
-      "state": "MISSING",
-      "severity": "UNKNOWN",
-      "passed": false,
+      "validationKey": "vocIndex",
+      "displayName": "VOC Index",
+      "description": "Volatile Organic Compounds Index.",
+      "unit": "index",
       "regulated": true,
-      "regulatoryId": "SENSIRION-VOC-INDEX"
+      "regulatoryId": "SENSIRION-VOC-INDEX",
+      "value": 150,
+      "threshold": 150,
+      "state": "NORMAL",
+      "severity": "NORMAL",
+      "passed": true
     },
     "noxIndex": {
       "parameter": "noxIndex",
-      "value": null,
-      "state": "MISSING",
-      "severity": "UNKNOWN",
-      "passed": false,
+      "validationKey": "noxIndex",
+      "displayName": "NOx Index",
+      "description": "Nitrogen Oxides Index.",
+      "unit": "index",
       "regulated": true,
-      "regulatoryId": "SENSIRION-NOX-INDEX"
+      "regulatoryId": "SENSIRION-NOX-INDEX",
+      "value": 2,
+      "threshold": 150,
+      "state": "NORMAL",
+      "severity": "NORMAL",
+      "passed": true
     }
   },
   "metrics": {
     "thermalComfort": {
-      "score": 50,
-      "level": "MODERATE",
-      "dominantFactor": "temperature"
+      "score": null,
+      "level": "UNKNOWN",
+      "dominantFactor": null
     },
     "airQuality": {
-      "score": 60,
-      "level": "MODERATE",
-      "dominantFactor": "co2"
+      "score": null,
+      "level": "UNKNOWN",
+      "dominantFactor": null
     },
     "particulateLoad": {
-      "score": 100,
-      "level": "EXCELLENT",
+      "score": null,
+      "level": "UNKNOWN",
       "dominantFactor": null
     },
     "occupancy": {
-      "score": 40,
-      "level": "HIGH",
-      "dominantFactor": "co2"
+      "score": null,
+      "level": "UNKNOWN",
+      "dominantFactor": null
     },
     "dewPoint": {
-      "value": 21.6,
+      "value": 17,
       "unit": "°C",
-      "level": "MODERATE",
-      "airToDewPointDifference": 5.3
+      "airToDewPointDifference": 7
+    },
+    "co2Analysis": {
+      "available": true,
+      "indoor": 1200,
+      "outdoor": null,
+      "differential": null,
+      "basis": "INDOOR_CONTEXTUAL_OBSERVATION",
+      "level": "HIGH_CONTEXT",
+      "elevated": true,
+      "elevatedThreshold": null,
+      "referenceIds": [
+        "abnt_nbr_17037",
+        "ashrae62_1"
+      ],
+      "referenceType": "TECHNICAL_CONTEXT",
+      "referenceValue": null,
+      "referenceUnit": "ppm",
+      "persistence": {
+        "required": true,
+        "evaluated": false,
+        "basis": "HISTORICAL_DATA_REQUIRED",
+        "instruction": "A persistência da condição deve ser avaliada no histórico de medições de CO₂."
+      }
     },
     "qaiScore": {
-      "score": 67,
-      "level": "MODERATE",
-      "dominantFactor": "occupancy"
-    },
-    "healthRisk": {
-      "score": 70,
-      "level": "MODERATE",
-      "dominantFactor": "co2"
+      "score": null,
+      "level": "UNKNOWN",
+      "dominantFactor": null
     }
   },
   "diagnosis": {
     "primary": {
-      "id": "insufficient_ventilation",
-      "name": "Possível renovação insuficiente do ar",
-      "priority": 100
-    },
-    "secondary": [
-      {
-        "id": "high_health_risk",
-        "name": "High Health Risk",
-        "priority": 95
-      },
-      {
-        "id": "thermal_discomfort",
-        "name": "Desconforto Térmico",
-        "priority": 90
-      },
-      {
-        "id": "poor_air_quality",
-        "name": "Qualidade do Ar Comprometida",
-        "priority": 85
-      },
-      {
-        "id": "dew_point_condensation",
-        "name": "Possível condição de condensação superficial",
-        "priority": 85
-      },
-      {
-        "id": "highCo2",
-        "title": "Concentração elevada de CO₂",
-        "description": "Foi observada concentração elevada de dióxido de carbono no ambiente.",
-        "priority": 80
-      },
-      {
-        "id": "highTemperature",
-        "title": "Temperatura elevada",
-        "description": "Foi observada temperatura acima da faixa recomendada para o ambiente.",
-        "priority": 70
-      },
-      {
-        "id": "highHumidity",
-        "title": "Umidade relativa elevada",
-        "description": "Foi observada umidade relativa acima da faixa recomendada para o ambiente.",
-        "priority": 70
-      },
-      {
-        "id": "highOccupancy",
-        "title": "Possível influência de ocupação elevada",
-        "description": "O comportamento observado do CO₂ é compatível com possível influência da ocupação sobre a qualidade do ar. A ocupação efetiva deve ser confirmada por observação ou informação operacional do ambiente.",
-        "priority": 65
-      }
-    ],
-    "matches": [
-      {
-        "id": "insufficient_ventilation",
-        "name": "Possível renovação insuficiente do ar",
-        "priority": 100
-      },
-      {
-        "id": "high_health_risk",
-        "name": "High Health Risk",
-        "priority": 95
-      },
-      {
-        "id": "thermal_discomfort",
-        "name": "Desconforto Térmico",
-        "priority": 90
-      },
-      {
-        "id": "poor_air_quality",
-        "name": "Qualidade do Ar Comprometida",
-        "priority": 85
-      },
-      {
-        "id": "dew_point_condensation",
-        "name": "Possível condição de condensação superficial",
-        "priority": 85
-      },
-      {
-        "id": "highCo2",
-        "title": "Concentração elevada de CO₂",
-        "description": "Foi observada concentração elevada de dióxido de carbono no ambiente.",
-        "priority": 80
-      },
-      {
-        "id": "highTemperature",
-        "title": "Temperatura elevada",
-        "description": "Foi observada temperatura acima da faixa recomendada para o ambiente.",
-        "priority": 70
-      },
-      {
-        "id": "highHumidity",
-        "title": "Umidade relativa elevada",
-        "description": "Foi observada umidade relativa acima da faixa recomendada para o ambiente.",
-        "priority": 70
-      },
-      {
-        "id": "highOccupancy",
-        "title": "Possível influência de ocupação elevada",
-        "description": "O comportamento observado do CO₂ é compatível com possível influência da ocupação sobre a qualidade do ar. A ocupação efetiva deve ser confirmada por observação ou informação operacional do ambiente.",
-        "priority": 65
-      }
-    ]
-  },
-  "evidence": {
-    "primary": {
-      "id": "elevated_co2",
-      "parameter": "co2",
-      "title": "Concentração elevada de CO₂",
-      "description": "Foi identificada concentração de dióxido de carbono acima do limite regulatório aplicável ao ambiente analisado.",
-      "referenceIds": [
-        "ashrae62_1",
-        "abnt_nbr_16401"
-      ],
-      "priority": 100
-    },
-    "secondary": [
-      {
-        "id": "dew_point_condensation",
-        "parameters": [
-          "temperature",
-          "humidity",
-          "dewPoint"
-        ],
-        "title": "Condição favorável à condensação superficial",
-        "description": "Com umidade relativa elevada, superfícies com temperatura igual ou inferior ao ponto de orvalho calculado podem atingir condição de condensação.",
-        "priority": 85
-      },
-      {
-        "id": "thermal_deviation",
-        "parameters": [
-          "temperature",
-          "humidity"
-        ],
-        "title": "Desvio das condições térmicas",
-        "description": "Foi identificado desvio nos parâmetros de temperatura e/ou umidade em relação aos critérios regulatórios aplicáveis ao ambiente analisado.",
-        "referenceIds": [
-          "ashrae55",
-          "iso_7730",
-          "nr17"
-        ],
-        "priority": 80
-      }
-    ],
-    "records": [
-      {
-        "id": "elevated_co2",
-        "parameter": "co2",
-        "title": "Concentração elevada de CO₂",
-        "description": "Foi identificada concentração de dióxido de carbono acima do limite regulatório aplicável ao ambiente analisado.",
-        "referenceIds": [
-          "ashrae62_1",
-          "abnt_nbr_16401"
-        ],
-        "priority": 100
-      },
-      {
-        "id": "dew_point_condensation",
-        "parameters": [
-          "temperature",
-          "humidity",
-          "dewPoint"
-        ],
-        "title": "Condição favorável à condensação superficial",
-        "description": "Com umidade relativa elevada, superfícies com temperatura igual ou inferior ao ponto de orvalho calculado podem atingir condição de condensação.",
-        "priority": 85
-      },
-      {
-        "id": "thermal_deviation",
-        "parameters": [
-          "temperature",
-          "humidity"
-        ],
-        "title": "Desvio das condições térmicas",
-        "description": "Foi identificado desvio nos parâmetros de temperatura e/ou umidade em relação aos critérios regulatórios aplicáveis ao ambiente analisado.",
-        "referenceIds": [
-          "ashrae55",
-          "iso_7730",
-          "nr17"
-        ],
-        "priority": 80
-      }
-    ]
-  },
-  "hypotheses": {
-    "primary": {
-      "id": "insufficient_air_renewal",
-      "name": "Insufficient Air Renewal",
-      "title": "Indícios de renovação insuficiente do ar",
-      "description": "O conjunto de evidências observado é compatível com uma taxa de renovação de ar inferior à recomendada para o ambiente analisado, podendo resultar em acúmulo de contaminantes e elevação da concentração de CO₂.",
-      "referenceIds": [
-        "ashrae62_1",
-        "abnt_nbr_16401"
-      ],
-      "priority": 100
-    },
-    "secondary": [
-      {
-        "id": "dew_point_condensation",
-        "name": "Potential Surface Condensation",
-        "title": "Possibilidade de condensação em superfícies mais frias",
-        "description": "A combinação de umidade relativa elevada e ponto de orvalho elevado é compatível com possibilidade de condensação em superfícies cuja temperatura atinja ou fique abaixo do ponto de orvalho. Condensação recorrente pode manter superfícies úmidas e favorecer condições ambientais inadequadas.",
-        "priority": 85
-      }
-    ],
-    "matches": [
-      {
-        "id": "insufficient_air_renewal",
-        "name": "Insufficient Air Renewal",
-        "title": "Indícios de renovação insuficiente do ar",
-        "description": "O conjunto de evidências observado é compatível com uma taxa de renovação de ar inferior à recomendada para o ambiente analisado, podendo resultar em acúmulo de contaminantes e elevação da concentração de CO₂.",
-        "referenceIds": [
-          "ashrae62_1",
-          "abnt_nbr_16401"
-        ],
-        "priority": 100
-      },
-      {
-        "id": "dew_point_condensation",
-        "name": "Potential Surface Condensation",
-        "title": "Possibilidade de condensação em superfícies mais frias",
-        "description": "A combinação de umidade relativa elevada e ponto de orvalho elevado é compatível com possibilidade de condensação em superfícies cuja temperatura atinja ou fique abaixo do ponto de orvalho. Condensação recorrente pode manter superfícies úmidas e favorecer condições ambientais inadequadas.",
-        "priority": 85
-      }
-    ]
-  },
-  "mitigation": {
-    "primary": {
-      "id": "increase_ventilation",
-      "name": "Increase Ventilation",
-      "title": "Aumentar a renovação de ar",
-      "description": "Recomenda-se aumentar a taxa de renovação de ar por meio da ventilação natural ou mecânica, assegurando vazão compatível com a ocupação do ambiente e reduzindo a concentração de contaminantes internos.",
-      "referenceIds": [
-        "ashrae62_1",
-        "abnt_nbr_16401"
-      ],
-      "priority": 100
-    },
-    "secondary": [
-      {
-        "id": "control_humidity",
-        "name": "Control Humidity",
-        "title": "Controlar fontes de umidade",
-        "description": "Recomenda-se controlar fontes de umidade e manter a umidade relativa em condições mais adequadas, reduzindo a possibilidade de condensação em superfícies mais frias.",
-        "priority": 85
-      }
-    ],
-    "actions": [
-      {
-        "id": "increase_ventilation",
-        "name": "Increase Ventilation",
-        "title": "Aumentar a renovação de ar",
-        "description": "Recomenda-se aumentar a taxa de renovação de ar por meio da ventilação natural ou mecânica, assegurando vazão compatível com a ocupação do ambiente e reduzindo a concentração de contaminantes internos.",
-        "referenceIds": [
-          "ashrae62_1",
-          "abnt_nbr_16401"
-        ],
-        "priority": 100
-      },
-      {
-        "id": "control_humidity",
-        "name": "Control Humidity",
-        "title": "Controlar fontes de umidade",
-        "description": "Recomenda-se controlar fontes de umidade e manter a umidade relativa em condições mais adequadas, reduzindo a possibilidade de condensação em superfícies mais frias.",
-        "priority": 85
-      }
-    ]
-  },
-  "environmentalScenario": {
-    "primary": {
-      "id": "warm_humid",
-      "name": "Ambiente quente e úmido",
+      "id": "highPm25",
+      "title": "Concentração elevada de PM2.5",
+      "description": "Foi observada concentração elevada de material particulado fino (PM2.5) no ambiente.",
       "priority": 80
     },
     "secondary": [],
     "matches": [
       {
-        "id": "warm_humid",
-        "name": "Ambiente quente e úmido",
+        "id": "highPm25",
+        "title": "Concentração elevada de PM2.5",
+        "description": "Foi observada concentração elevada de material particulado fino (PM2.5) no ambiente.",
         "priority": 80
       }
     ]
   },
-  "relationships": {
+  "evidence": {
     "primary": {
-      "id": "warm_humid_high_co2",
-      "title": "Temperatura, umidade e CO₂ elevados",
-      "description": "A combinação de temperatura elevada, umidade elevada e concentração elevada de CO₂ constitui uma condição ambiental compatível com possível renovação insuficiente do ar.",
-      "priority": 100,
+      "id": "elevated_particulate",
       "parameters": [
-        "temperature",
-        "humidity",
-        "co2"
+        "pm25",
+        "pm10"
       ],
-      "diagnosisIds": [
-        "insufficient_ventilation"
+      "title": "Concentração elevada de material particulado",
+      "description": "Foi identificada concentração elevada de material particulado fino (PM2.5) e/ou particulado inalável (PM10) acima dos limites regulatórios aplicáveis.",
+      "referenceIds": [
+        "who_aqg_2021",
+        "abnt_nbr_16401"
       ],
-      "scenarioIds": [
-        "warm_humid"
-      ]
+      "priority": 90
+    },
+    "secondary": [],
+    "records": [
+      {
+        "id": "elevated_particulate",
+        "parameters": [
+          "pm25",
+          "pm10"
+        ],
+        "title": "Concentração elevada de material particulado",
+        "description": "Foi identificada concentração elevada de material particulado fino (PM2.5) e/ou particulado inalável (PM10) acima dos limites regulatórios aplicáveis.",
+        "referenceIds": [
+          "who_aqg_2021",
+          "abnt_nbr_16401"
+        ],
+        "priority": 90
+      }
+    ]
+  },
+  "hypotheses": {
+    "primary": {
+      "id": "outdoor_pollution",
+      "name": "Outdoor Pollution",
+      "title": "Possível influência da poluição atmosférica externa",
+      "description": "O conjunto de evidências observado é compatível com a entrada de material particulado proveniente do ambiente externo, embora outras fontes internas também possam explicar os resultados obtidos.",
+      "referenceIds": [
+        "who_aqg_2021",
+        "ashrae62_1",
+        "abnt_nbr_16401"
+      ],
+      "priority": 80
     },
     "secondary": [],
     "matches": [
       {
-        "id": "warm_humid_high_co2",
-        "title": "Temperatura, umidade e CO₂ elevados",
-        "description": "A combinação de temperatura elevada, umidade elevada e concentração elevada de CO₂ constitui uma condição ambiental compatível com possível renovação insuficiente do ar.",
-        "priority": 100,
-        "parameters": [
-          "temperature",
-          "humidity",
-          "co2"
+        "id": "outdoor_pollution",
+        "name": "Outdoor Pollution",
+        "title": "Possível influência da poluição atmosférica externa",
+        "description": "O conjunto de evidências observado é compatível com a entrada de material particulado proveniente do ambiente externo, embora outras fontes internas também possam explicar os resultados obtidos.",
+        "referenceIds": [
+          "who_aqg_2021",
+          "ashrae62_1",
+          "abnt_nbr_16401"
         ],
-        "diagnosisIds": [
-          "insufficient_ventilation"
-        ],
-        "scenarioIds": [
-          "warm_humid"
-        ]
+        "priority": 80
       }
     ]
+  },
+  "mitigation": {
+    "primary": {
+      "id": "eliminate_pollution_source",
+      "name": "Eliminate Pollution Source",
+      "title": "Eliminar ou controlar a fonte de poluição",
+      "description": "Recomenda-se identificar, remover, isolar ou controlar a fonte responsável pela emissão de contaminantes no ambiente, reduzindo a exposição dos ocupantes e restabelecendo a qualidade do ar.",
+      "referenceIds": [
+        "ashrae62_1",
+        "abnt_nbr_16401"
+      ],
+      "priority": 70
+    },
+    "secondary": [
+      {
+        "id": "use_air_purification",
+        "name": "Use Air Purification",
+        "title": "Utilizar sistema de purificação do ar",
+        "description": "Recomenda-se utilizar sistemas de purificação do ar equipados com filtros adequados, como HEPA e/ou carvão ativado, para reduzir a concentração de material particulado e compostos orgânicos voláteis presentes no ambiente.",
+        "referenceIds": [
+          "ashrae62_1",
+          "abnt_nbr_16401"
+        ],
+        "priority": 60
+      }
+    ],
+    "actions": [
+      {
+        "id": "eliminate_pollution_source",
+        "name": "Eliminate Pollution Source",
+        "title": "Eliminar ou controlar a fonte de poluição",
+        "description": "Recomenda-se identificar, remover, isolar ou controlar a fonte responsável pela emissão de contaminantes no ambiente, reduzindo a exposição dos ocupantes e restabelecendo a qualidade do ar.",
+        "referenceIds": [
+          "ashrae62_1",
+          "abnt_nbr_16401"
+        ],
+        "priority": 70
+      },
+      {
+        "id": "use_air_purification",
+        "name": "Use Air Purification",
+        "title": "Utilizar sistema de purificação do ar",
+        "description": "Recomenda-se utilizar sistemas de purificação do ar equipados com filtros adequados, como HEPA e/ou carvão ativado, para reduzir a concentração de material particulado e compostos orgânicos voláteis presentes no ambiente.",
+        "referenceIds": [
+          "ashrae62_1",
+          "abnt_nbr_16401"
+        ],
+        "priority": 60
+      }
+    ]
+  },
+  "environmentalScenario": {
+    "primary": null,
+    "secondary": [],
+    "matches": []
+  },
+  "relationships": {
+    "primary": null,
+    "secondary": [],
+    "matches": []
+  },
+  "impacts": {
+    "primary": null,
+    "secondary": [],
+    "matches": []
   },
   "references": {
     "primary": {
       "reference": {
-        "id": "nr17",
-        "code": "NR-17",
-        "name": "Ergonomia",
-        "title": "Ergonomia",
-        "organization": "MTE",
-        "publisher": "Ministério do Trabalho e Emprego",
+        "id": "abnt_nbr_16401",
+        "code": "ABNT NBR 16401",
+        "name": "Instalações de ar-condicionado — Sistemas centrais e unitários",
+        "title": "Instalações de Ar-Condicionado — Sistemas Centrais e Unitários",
+        "organization": "ABNT",
+        "publisher": "Associação Brasileira de Normas Técnicas",
         "country": "Brasil",
-        "type": "Norma Regulamentadora",
-        "category": "Ergonomia",
+        "type": "Norma Técnica",
+        "category": "Climatização",
         "scope": [
-          "Ergonomics",
-          "Workplace Conditions",
-          "Thermal Comfort",
-          "Work Organization",
-          "Workstation"
+          "HVAC",
+          "Indoor Air Quality",
+          "Ventilation",
+          "Thermal Comfort"
         ],
-        "version": "2022",
-        "year": 2022,
+        "version": "2021",
+        "year": 2021,
         "status": "CURRENT",
         "applicability": [
           "Corporate",
           "Healthcare",
-          "Education"
-        ],
-        "relatedReferences": [
-          "nr01"
+          "Education",
+          "Residential"
         ],
         "sections": {
-          "workAssessment": {
-            "id": "work_assessment",
-            "key": "work_assessment",
-            "code": "17.3",
-            "title": "Avaliação das Situações de Trabalho",
+          "part1": {
+            "id": "part1",
+            "key": "hvac_design",
+            "code": "Parte 1",
+            "title": "Projetos das Instalações",
             "topics": [
-              "ergonomic_assessment",
-              "work_assessment",
-              "aep",
-              "aet",
-              "work_conditions"
+              "hvac",
+              "system_design",
+              "installation",
+              "project",
+              "air_conditioning"
             ],
             "applicability": [
               "Corporate",
               "Healthcare",
-              "Education"
+              "Education",
+              "Residential"
             ]
           },
-          "workOrganization": {
-            "id": "work_organization",
-            "key": "work_organization",
-            "code": "17.4",
-            "title": "Organização do Trabalho",
-            "topics": [
-              "work_organization",
-              "workload",
-              "work_duration",
-              "work_pace",
-              "breaks"
-            ],
-            "applicability": [
-              "Corporate",
-              "Healthcare",
-              "Education"
-            ]
-          },
-          "workstation": {
-            "id": "workstation",
-            "key": "workstation",
-            "code": "17.6",
-            "title": "Mobiliário dos Postos de Trabalho",
-            "topics": [
-              "workstation",
-              "furniture",
-              "posture",
-              "work_position"
-            ],
-            "applicability": [
-              "Corporate",
-              "Healthcare",
-              "Education"
-            ]
-          },
-          "environmentalComfort": {
-            "id": "environmental_comfort",
-            "key": "environmental_comfort",
-            "code": "17.8",
-            "title": "Condições de Conforto no Ambiente de Trabalho",
+          "part2": {
+            "id": "part2",
+            "key": "thermal_comfort",
+            "code": "Parte 2",
+            "title": "Parâmetros de Conforto Térmico",
             "topics": [
               "thermalComfort",
               "temperature",
               "humidity",
               "air_velocity",
-              "environmental_comfort",
-              "workplace_comfort"
+              "radiant_temperature"
             ],
             "applicability": [
               "Corporate",
               "Healthcare",
-              "Education"
+              "Education",
+              "Residential"
+            ]
+          },
+          "part3": {
+            "id": "part3",
+            "key": "indoor_air_quality",
+            "code": "Parte 3",
+            "title": "Qualidade do Ar Interior",
+            "topics": [
+              "iaq",
+              "indoor_air",
+              "co2",
+              "ventilation",
+              "fresh_air",
+              "outdoor_air",
+              "pm25",
+              "PM2.5",
+              "pm10",
+              "PM10",
+              "particulate",
+              "particulate_matter"
+            ],
+            "applicability": [
+              "Corporate",
+              "Healthcare",
+              "Education",
+              "Residential"
             ]
           }
         },
-        "description": "Estabelece diretrizes para adaptação das condições de trabalho às características psicofisiológicas dos trabalhadores, abrangendo avaliação das situações de trabalho, organização do trabalho, postos de trabalho e condições de conforto no ambiente laboral.",
-        "citation": "NR-17 — Ergonomia.",
-        "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-17-nr-17"
+        "description": "Estabelece requisitos para projeto, instalação, operação e manutenção de sistemas de climatização, incluindo critérios de conforto térmico, ventilação e qualidade do ar interior.",
+        "citation": "ABNT NBR 16401:2021 — Instalações de ar-condicionado — Sistemas centrais e unitários.",
+        "url": "https://www.abntcatalogo.com.br/"
       },
       "section": {
-        "id": "environmental_comfort",
-        "key": "environmental_comfort",
-        "code": "17.8",
-        "title": "Condições de Conforto no Ambiente de Trabalho",
+        "id": "part3",
+        "key": "indoor_air_quality",
+        "code": "Parte 3",
+        "title": "Qualidade do Ar Interior",
         "topics": [
-          "thermalComfort",
-          "temperature",
-          "humidity",
-          "air_velocity",
-          "environmental_comfort",
-          "workplace_comfort"
+          "iaq",
+          "indoor_air",
+          "co2",
+          "ventilation",
+          "fresh_air",
+          "outdoor_air",
+          "pm25",
+          "PM2.5",
+          "pm10",
+          "PM10",
+          "particulate",
+          "particulate_matter"
         ],
         "applicability": [
           "Corporate",
           "Healthcare",
-          "Education"
+          "Education",
+          "Residential"
         ]
       },
       "match": {
-        "source": "validation",
-        "topic": "thermalComfort",
+        "source": "evidence",
+        "topic": "iaq",
         "applicability": "corporate",
         "jurisdiction": "BR",
-        "message": "A referência NR-17 está relacionada ao parâmetro avaliado na seção \"Condições de Conforto no Ambiente de Trabalho\"."
+        "message": "A referência ABNT NBR 16401 está relacionada à evidência ambiental identificada na seção \"Qualidade do Ar Interior\"."
       }
     },
     "secondary": [
       {
         "reference": {
-          "id": "abnt_nbr_16401",
-          "code": "ABNT NBR 16401",
-          "name": "Instalações de ar-condicionado — Sistemas centrais e unitários",
-          "title": "Instalações de Ar-Condicionado — Sistemas Centrais e Unitários",
-          "organization": "ABNT",
-          "publisher": "Associação Brasileira de Normas Técnicas",
-          "country": "Brasil",
-          "type": "Norma Técnica",
-          "category": "Climatização",
+          "id": "who_aqg_2021",
+          "code": "WHO AQG 2021",
+          "name": "WHO Global Air Quality Guidelines",
+          "title": "Diretrizes Globais de Qualidade do Ar da OMS",
+          "organization": "WHO",
+          "publisher": "World Health Organization",
+          "country": "Internacional",
+          "type": "Diretriz Internacional",
+          "category": "Qualidade do Ar",
           "scope": [
-            "HVAC",
-            "Indoor Air Quality",
-            "Ventilation",
-            "Thermal Comfort"
+            "PM2.5",
+            "PM10",
+            "NO₂",
+            "SO₂",
+            "O₃",
+            "CO",
+            "Air Quality"
           ],
           "version": "2021",
           "year": 2021,
@@ -638,652 +483,135 @@
             "Residential"
           ],
           "sections": {
-            "part1": {
-              "id": "part1",
-              "key": "hvac_design",
-              "code": "Parte 1",
-              "title": "Projetos das Instalações",
-              "topics": [
-                "hvac",
-                "system_design",
-                "installation",
-                "project",
-                "air_conditioning"
-              ],
+            "particulateMatter": {
+              "id": "particulate_matter",
+              "key": "particulate_matter",
+              "code": "PM",
+              "title": "Material Particulado",
               "applicability": [
                 "Corporate",
                 "Healthcare",
                 "Education",
                 "Residential"
-              ]
-            },
-            "part2": {
-              "id": "part2",
-              "key": "thermal_comfort",
-              "code": "Parte 2",
-              "title": "Parâmetros de Conforto Térmico",
-              "topics": [
-                "thermalComfort",
-                "temperature",
-                "humidity",
-                "air_velocity",
-                "radiant_temperature"
               ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "part3": {
-              "id": "part3",
-              "key": "indoor_air_quality",
-              "code": "Parte 3",
-              "title": "Qualidade do Ar Interior",
               "topics": [
-                "iaq",
-                "indoor_air",
-                "co2",
-                "ventilation",
-                "fresh_air",
-                "outdoor_air",
                 "pm25",
                 "PM2.5",
                 "pm10",
                 "PM10",
                 "particulate",
-                "particulate_matter"
-              ],
+                "particulate_matter",
+                "particles"
+              ]
+            },
+            "nitrogenDioxide": {
+              "id": "nitrogen_dioxide",
+              "key": "nitrogen_dioxide",
+              "code": "NO2",
+              "title": "Dióxido de Nitrogênio",
               "applicability": [
                 "Corporate",
                 "Healthcare",
                 "Education",
                 "Residential"
+              ],
+              "topics": [
+                "no2",
+                "NO₂",
+                "nitrogen_dioxide",
+                "nox",
+                "noxIndex"
+              ]
+            },
+            "sulfurDioxide": {
+              "id": "sulfur_dioxide",
+              "key": "sulfur_dioxide",
+              "code": "SO2",
+              "title": "Dióxido de Enxofre",
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ],
+              "topics": [
+                "so2",
+                "SO₂",
+                "sulfur_dioxide"
+              ]
+            },
+            "ozone": {
+              "id": "ozone",
+              "key": "ozone",
+              "code": "O3",
+              "title": "Ozônio",
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ],
+              "topics": [
+                "o3",
+                "O₃",
+                "ozone"
+              ]
+            },
+            "carbonMonoxide": {
+              "id": "carbon_monoxide",
+              "key": "carbon_monoxide",
+              "code": "CO",
+              "title": "Monóxido de Carbono",
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ],
+              "topics": [
+                "co",
+                "CO",
+                "carbon_monoxide"
               ]
             }
           },
-          "description": "Estabelece requisitos para projeto, instalação, operação e manutenção de sistemas de climatização, incluindo critérios de conforto térmico, ventilação e qualidade do ar interior.",
-          "citation": "ABNT NBR 16401:2021 — Instalações de ar-condicionado — Sistemas centrais e unitários.",
-          "url": "https://www.abntcatalogo.com.br/"
+          "description": "Estabelece diretrizes internacionais para limites de exposição aos principais poluentes atmosféricos, incluindo material particulado fino (PM2.5), material particulado inalável (PM10), dióxido de nitrogênio (NO₂), dióxido de enxofre (SO₂), ozônio (O₃) e monóxido de carbono (CO), visando reduzir riscos à saúde humana.",
+          "citation": "World Health Organization. WHO Global Air Quality Guidelines. Geneva: WHO, 2021.",
+          "url": "https://www.who.int/publications/i/item/9789240034228"
         },
         "section": {
-          "id": "part3",
-          "key": "indoor_air_quality",
-          "code": "Parte 3",
-          "title": "Qualidade do Ar Interior",
+          "id": "particulate_matter",
+          "key": "particulate_matter",
+          "code": "PM",
+          "title": "Material Particulado",
+          "applicability": [
+            "Corporate",
+            "Healthcare",
+            "Education",
+            "Residential"
+          ],
           "topics": [
-            "iaq",
-            "indoor_air",
-            "co2",
-            "ventilation",
-            "fresh_air",
-            "outdoor_air",
             "pm25",
             "PM2.5",
             "pm10",
             "PM10",
             "particulate",
-            "particulate_matter"
-          ],
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education",
-            "Residential"
+            "particulate_matter",
+            "particles"
           ]
         },
         "match": {
           "source": "evidence",
-          "topic": "iaq",
+          "topic": "pm25",
           "applicability": "corporate",
           "jurisdiction": "BR",
-          "message": "A referência ABNT NBR 16401 está relacionada à evidência ambiental identificada na seção \"Qualidade do Ar Interior\"."
-        }
-      },
-      {
-        "reference": {
-          "id": "iso_7730",
-          "code": "ISO 7730",
-          "name": "Ergonomics of the thermal environment — Analytical determination and interpretation of thermal comfort using calculation of the PMV and PPD indices and local thermal comfort criteria",
-          "title": "Ergonomia do Ambiente Térmico — Determinação e Interpretação do Conforto Térmico",
-          "organization": "ISO",
-          "publisher": "International Organization for Standardization",
-          "country": "Internacional",
-          "type": "Norma Internacional",
-          "category": "Conforto Térmico",
-          "scope": [
-            "Thermal Comfort",
-            "PMV",
-            "PPD",
-            "Temperature",
-            "Humidity",
-            "Air Velocity",
-            "Mean Radiant Temperature"
-          ],
-          "version": "2005",
-          "year": 2005,
-          "status": "CURRENT",
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education",
-            "Residential"
-          ],
-          "sections": {
-            "thermalComfort": {
-              "id": "thermal_comfort",
-              "key": "thermal_comfort",
-              "code": "Section",
-              "title": "Conforto Térmico",
-              "topics": [
-                "thermalComfort",
-                "comfort",
-                "thermal"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "pmv": {
-              "id": "pmv",
-              "key": "pmv",
-              "code": "PMV",
-              "title": "Voto Médio Predito",
-              "topics": [
-                "pmv",
-                "predicted_mean_vote",
-                "thermal_sensation"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "ppd": {
-              "id": "ppd",
-              "key": "ppd",
-              "code": "PPD",
-              "title": "Percentual de Pessoas Insatisfeitas",
-              "topics": [
-                "ppd",
-                "predicted_percentage_dissatisfied",
-                "thermal_comfort"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "environmentalParameters": {
-              "id": "environmental_parameters",
-              "key": "environmental_parameters",
-              "code": "Section",
-              "title": "Parâmetros Ambientais",
-              "topics": [
-                "temperature",
-                "air_temperature",
-                "mean_radiant_temperature",
-                "humidity",
-                "relative_humidity",
-                "air_velocity"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "personalParameters": {
-              "id": "personal_parameters",
-              "key": "personal_parameters",
-              "code": "Section",
-              "title": "Parâmetros Pessoais",
-              "topics": [
-                "clothing",
-                "clothing_insulation",
-                "metabolic_rate",
-                "activity"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "localThermalComfort": {
-              "id": "local_thermal_comfort",
-              "key": "local_thermal_comfort",
-              "code": "Section",
-              "title": "Conforto Térmico Local",
-              "topics": [
-                "local_comfort",
-                "draft",
-                "radiant_asymmetry",
-                "vertical_temperature_difference",
-                "floor_temperature"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            }
-          },
-          "description": "Estabelece métodos para determinação e interpretação do conforto térmico por meio dos índices PMV e PPD e apresenta critérios para avaliação do conforto térmico local, considerando parâmetros ambientais e pessoais.",
-          "citation": "ISO 7730:2005 — Ergonomia do ambiente térmico — Determinação e interpretação do conforto térmico pelos índices PMV e PPD e critérios de conforto térmico local.",
-          "url": "https://www.iso.org/standard/39155.html"
-        },
-        "section": {
-          "id": "environmental_parameters",
-          "key": "environmental_parameters",
-          "code": "Section",
-          "title": "Parâmetros Ambientais",
-          "topics": [
-            "temperature",
-            "air_temperature",
-            "mean_radiant_temperature",
-            "humidity",
-            "relative_humidity",
-            "air_velocity"
-          ],
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education",
-            "Residential"
-          ]
-        },
-        "match": {
-          "source": "validation",
-          "topic": "temperature",
-          "applicability": "corporate",
-          "jurisdiction": "BR",
-          "message": "A referência ISO 7730 está relacionada ao parâmetro avaliado na seção \"Parâmetros Ambientais\"."
-        }
-      },
-      {
-        "reference": {
-          "id": "ashrae62_1",
-          "code": "ASHRAE 62.1",
-          "name": "Ventilation for Acceptable Indoor Air Quality",
-          "title": "Ventilação para Qualidade do Ar Interior Aceitável",
-          "organization": "ASHRAE",
-          "publisher": "American Society of Heating, Refrigerating and Air-Conditioning Engineers",
-          "country": "Estados Unidos",
-          "type": "Norma Técnica",
-          "category": "Ventilação",
-          "scope": [
-            "Ventilation Systems",
-            "Indoor Air Quality"
-          ],
-          "version": "2022",
-          "year": 2022,
-          "status": "CURRENT",
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education",
-            "Residential"
-          ],
-          "sections": {
-            "ventilation": {
-              "id": "ventilation",
-              "key": "ventilation",
-              "code": "Section",
-              "title": "Ventilation Requirements",
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ],
-              "topics": [
-                "co2",
-                "ventilation",
-                "outdoor_air",
-                "air_changes",
-                "fresh_air"
-              ]
-            },
-            "indoorAirQuality": {
-              "id": "indoor_air_quality",
-              "key": "indoor_air_quality",
-              "code": "Section",
-              "title": "Indoor Air Quality",
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ],
-              "topics": [
-                "iaq",
-                "indoor_air",
-                "occupants",
-                "air_quality",
-                "contaminants"
-              ]
-            }
-          },
-          "description": "Estabelece requisitos mínimos de ventilação e renovação do ar para proporcionar qualidade do ar interior aceitável em ambientes ocupados.",
-          "citation": "ASHRAE Standard 62.1:2022 — Ventilation for Acceptable Indoor Air Quality.",
-          "url": "https://www.ashrae.org/technical-resources/bookstore/standards-62-1-62-2"
-        },
-        "section": {
-          "id": "ventilation",
-          "key": "ventilation",
-          "code": "Section",
-          "title": "Ventilation Requirements",
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education",
-            "Residential"
-          ],
-          "topics": [
-            "co2",
-            "ventilation",
-            "outdoor_air",
-            "air_changes",
-            "fresh_air"
-          ]
-        },
-        "match": {
-          "source": "evidence",
-          "topic": "co2",
-          "applicability": "corporate",
-          "jurisdiction": "BR",
-          "message": "A referência ASHRAE 62.1 está relacionada à evidência ambiental identificada na seção \"Ventilation Requirements\"."
-        }
-      },
-      {
-        "reference": {
-          "id": "ashrae55",
-          "code": "ASHRAE 55",
-          "name": "Thermal Environmental Conditions for Human Occupancy",
-          "title": "Condições Térmicas Ambientais para Ocupação Humana",
-          "organization": "ASHRAE",
-          "publisher": "American Society of Heating, Refrigerating and Air-Conditioning Engineers",
-          "country": "Estados Unidos",
-          "type": "Norma Técnica",
-          "category": "Conforto Térmico",
-          "scope": [
-            "Thermal Comfort",
-            "Temperature",
-            "Humidity",
-            "Air Velocity",
-            "Radiant Temperature"
-          ],
-          "version": "2023",
-          "year": 2023,
-          "status": "CURRENT",
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education",
-            "Residential"
-          ],
-          "sections": {
-            "thermalComfort": {
-              "id": "thermal_comfort",
-              "key": "thermal_comfort",
-              "code": "Section",
-              "title": "Thermal Comfort",
-              "topics": [
-                "thermalComfort",
-                "comfort",
-                "thermal"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "airTemperature": {
-              "id": "air_temperature",
-              "key": "air_temperature",
-              "code": "Section",
-              "title": "Air Temperature",
-              "topics": [
-                "temperature",
-                "air_temperature"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "relativeHumidity": {
-              "id": "relative_humidity",
-              "key": "relative_humidity",
-              "code": "Section",
-              "title": "Relative Humidity",
-              "topics": [
-                "humidity",
-                "relative_humidity"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "airMovement": {
-              "id": "air_movement",
-              "key": "air_movement",
-              "code": "Section",
-              "title": "Air Movement",
-              "topics": [
-                "air_velocity",
-                "air_movement",
-                "draft"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "radiantEnvironment": {
-              "id": "radiant_environment",
-              "key": "radiant_environment",
-              "code": "Section",
-              "title": "Radiant Temperature",
-              "topics": [
-                "radiant_temperature",
-                "mean_radiant_temperature"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            }
-          },
-          "description": "Define critérios para avaliação do conforto térmico em ambientes ocupados, considerando temperatura do ar, temperatura radiante, umidade relativa, velocidade do ar, isolamento das vestimentas e atividade metabólica.",
-          "citation": "ASHRAE Standard 55:2023 — Thermal Environmental Conditions for Human Occupancy.",
-          "url": "https://www.ashrae.org/technical-resources/bookstore/standard-55"
-        },
-        "section": {
-          "id": "air_temperature",
-          "key": "air_temperature",
-          "code": "Section",
-          "title": "Air Temperature",
-          "topics": [
-            "temperature",
-            "air_temperature"
-          ],
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education",
-            "Residential"
-          ]
-        },
-        "match": {
-          "source": "validation",
-          "topic": "temperature",
-          "applicability": "corporate",
-          "jurisdiction": "BR",
-          "message": "A referência ASHRAE 55 está relacionada ao parâmetro avaliado na seção \"Air Temperature\"."
+          "message": "A referência WHO AQG 2021 está relacionada à evidência ambiental identificada na seção \"Material Particulado\"."
         }
       }
     ],
     "matches": [
       {
         "reference": {
-          "id": "nr17",
-          "code": "NR-17",
-          "name": "Ergonomia",
-          "title": "Ergonomia",
-          "organization": "MTE",
-          "publisher": "Ministério do Trabalho e Emprego",
-          "country": "Brasil",
-          "type": "Norma Regulamentadora",
-          "category": "Ergonomia",
-          "scope": [
-            "Ergonomics",
-            "Workplace Conditions",
-            "Thermal Comfort",
-            "Work Organization",
-            "Workstation"
-          ],
-          "version": "2022",
-          "year": 2022,
-          "status": "CURRENT",
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education"
-          ],
-          "relatedReferences": [
-            "nr01"
-          ],
-          "sections": {
-            "workAssessment": {
-              "id": "work_assessment",
-              "key": "work_assessment",
-              "code": "17.3",
-              "title": "Avaliação das Situações de Trabalho",
-              "topics": [
-                "ergonomic_assessment",
-                "work_assessment",
-                "aep",
-                "aet",
-                "work_conditions"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education"
-              ]
-            },
-            "workOrganization": {
-              "id": "work_organization",
-              "key": "work_organization",
-              "code": "17.4",
-              "title": "Organização do Trabalho",
-              "topics": [
-                "work_organization",
-                "workload",
-                "work_duration",
-                "work_pace",
-                "breaks"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education"
-              ]
-            },
-            "workstation": {
-              "id": "workstation",
-              "key": "workstation",
-              "code": "17.6",
-              "title": "Mobiliário dos Postos de Trabalho",
-              "topics": [
-                "workstation",
-                "furniture",
-                "posture",
-                "work_position"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education"
-              ]
-            },
-            "environmentalComfort": {
-              "id": "environmental_comfort",
-              "key": "environmental_comfort",
-              "code": "17.8",
-              "title": "Condições de Conforto no Ambiente de Trabalho",
-              "topics": [
-                "thermalComfort",
-                "temperature",
-                "humidity",
-                "air_velocity",
-                "environmental_comfort",
-                "workplace_comfort"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education"
-              ]
-            }
-          },
-          "description": "Estabelece diretrizes para adaptação das condições de trabalho às características psicofisiológicas dos trabalhadores, abrangendo avaliação das situações de trabalho, organização do trabalho, postos de trabalho e condições de conforto no ambiente laboral.",
-          "citation": "NR-17 — Ergonomia.",
-          "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-17-nr-17"
-        },
-        "section": {
-          "id": "environmental_comfort",
-          "key": "environmental_comfort",
-          "code": "17.8",
-          "title": "Condições de Conforto no Ambiente de Trabalho",
-          "topics": [
-            "thermalComfort",
-            "temperature",
-            "humidity",
-            "air_velocity",
-            "environmental_comfort",
-            "workplace_comfort"
-          ],
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education"
-          ]
-        },
-        "match": {
-          "source": "validation",
-          "topic": "thermalComfort",
-          "applicability": "corporate",
-          "jurisdiction": "BR",
-          "message": "A referência NR-17 está relacionada ao parâmetro avaliado na seção \"Condições de Conforto no Ambiente de Trabalho\"."
-        }
-      },
-      {
-        "reference": {
           "id": "abnt_nbr_16401",
           "code": "ABNT NBR 16401",
           "name": "Instalações de ar-condicionado — Sistemas centrais e unitários",
@@ -1414,26 +742,26 @@
       },
       {
         "reference": {
-          "id": "iso_7730",
-          "code": "ISO 7730",
-          "name": "Ergonomics of the thermal environment — Analytical determination and interpretation of thermal comfort using calculation of the PMV and PPD indices and local thermal comfort criteria",
-          "title": "Ergonomia do Ambiente Térmico — Determinação e Interpretação do Conforto Térmico",
-          "organization": "ISO",
-          "publisher": "International Organization for Standardization",
+          "id": "who_aqg_2021",
+          "code": "WHO AQG 2021",
+          "name": "WHO Global Air Quality Guidelines",
+          "title": "Diretrizes Globais de Qualidade do Ar da OMS",
+          "organization": "WHO",
+          "publisher": "World Health Organization",
           "country": "Internacional",
-          "type": "Norma Internacional",
-          "category": "Conforto Térmico",
+          "type": "Diretriz Internacional",
+          "category": "Qualidade do Ar",
           "scope": [
-            "Thermal Comfort",
-            "PMV",
-            "PPD",
-            "Temperature",
-            "Humidity",
-            "Air Velocity",
-            "Mean Radiant Temperature"
+            "PM2.5",
+            "PM10",
+            "NO₂",
+            "SO₂",
+            "O₃",
+            "CO",
+            "Air Quality"
           ],
-          "version": "2005",
-          "year": 2005,
+          "version": "2021",
+          "year": 2021,
           "status": "CURRENT",
           "applicability": [
             "Corporate",
@@ -1442,220 +770,107 @@
             "Residential"
           ],
           "sections": {
-            "thermalComfort": {
-              "id": "thermal_comfort",
-              "key": "thermal_comfort",
-              "code": "Section",
-              "title": "Conforto Térmico",
-              "topics": [
-                "thermalComfort",
-                "comfort",
-                "thermal"
-              ],
+            "particulateMatter": {
+              "id": "particulate_matter",
+              "key": "particulate_matter",
+              "code": "PM",
+              "title": "Material Particulado",
               "applicability": [
                 "Corporate",
                 "Healthcare",
                 "Education",
                 "Residential"
+              ],
+              "topics": [
+                "pm25",
+                "PM2.5",
+                "pm10",
+                "PM10",
+                "particulate",
+                "particulate_matter",
+                "particles"
               ]
             },
-            "pmv": {
-              "id": "pmv",
-              "key": "pmv",
-              "code": "PMV",
-              "title": "Voto Médio Predito",
-              "topics": [
-                "pmv",
-                "predicted_mean_vote",
-                "thermal_sensation"
-              ],
+            "nitrogenDioxide": {
+              "id": "nitrogen_dioxide",
+              "key": "nitrogen_dioxide",
+              "code": "NO2",
+              "title": "Dióxido de Nitrogênio",
               "applicability": [
                 "Corporate",
                 "Healthcare",
                 "Education",
                 "Residential"
+              ],
+              "topics": [
+                "no2",
+                "NO₂",
+                "nitrogen_dioxide",
+                "nox",
+                "noxIndex"
               ]
             },
-            "ppd": {
-              "id": "ppd",
-              "key": "ppd",
-              "code": "PPD",
-              "title": "Percentual de Pessoas Insatisfeitas",
-              "topics": [
-                "ppd",
-                "predicted_percentage_dissatisfied",
-                "thermal_comfort"
-              ],
+            "sulfurDioxide": {
+              "id": "sulfur_dioxide",
+              "key": "sulfur_dioxide",
+              "code": "SO2",
+              "title": "Dióxido de Enxofre",
               "applicability": [
                 "Corporate",
                 "Healthcare",
                 "Education",
                 "Residential"
+              ],
+              "topics": [
+                "so2",
+                "SO₂",
+                "sulfur_dioxide"
               ]
             },
-            "environmentalParameters": {
-              "id": "environmental_parameters",
-              "key": "environmental_parameters",
-              "code": "Section",
-              "title": "Parâmetros Ambientais",
-              "topics": [
-                "temperature",
-                "air_temperature",
-                "mean_radiant_temperature",
-                "humidity",
-                "relative_humidity",
-                "air_velocity"
-              ],
+            "ozone": {
+              "id": "ozone",
+              "key": "ozone",
+              "code": "O3",
+              "title": "Ozônio",
               "applicability": [
                 "Corporate",
                 "Healthcare",
                 "Education",
                 "Residential"
+              ],
+              "topics": [
+                "o3",
+                "O₃",
+                "ozone"
               ]
             },
-            "personalParameters": {
-              "id": "personal_parameters",
-              "key": "personal_parameters",
-              "code": "Section",
-              "title": "Parâmetros Pessoais",
-              "topics": [
-                "clothing",
-                "clothing_insulation",
-                "metabolic_rate",
-                "activity"
-              ],
+            "carbonMonoxide": {
+              "id": "carbon_monoxide",
+              "key": "carbon_monoxide",
+              "code": "CO",
+              "title": "Monóxido de Carbono",
               "applicability": [
                 "Corporate",
                 "Healthcare",
                 "Education",
                 "Residential"
-              ]
-            },
-            "localThermalComfort": {
-              "id": "local_thermal_comfort",
-              "key": "local_thermal_comfort",
-              "code": "Section",
-              "title": "Conforto Térmico Local",
-              "topics": [
-                "local_comfort",
-                "draft",
-                "radiant_asymmetry",
-                "vertical_temperature_difference",
-                "floor_temperature"
               ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
+              "topics": [
+                "co",
+                "CO",
+                "carbon_monoxide"
               ]
             }
           },
-          "description": "Estabelece métodos para determinação e interpretação do conforto térmico por meio dos índices PMV e PPD e apresenta critérios para avaliação do conforto térmico local, considerando parâmetros ambientais e pessoais.",
-          "citation": "ISO 7730:2005 — Ergonomia do ambiente térmico — Determinação e interpretação do conforto térmico pelos índices PMV e PPD e critérios de conforto térmico local.",
-          "url": "https://www.iso.org/standard/39155.html"
+          "description": "Estabelece diretrizes internacionais para limites de exposição aos principais poluentes atmosféricos, incluindo material particulado fino (PM2.5), material particulado inalável (PM10), dióxido de nitrogênio (NO₂), dióxido de enxofre (SO₂), ozônio (O₃) e monóxido de carbono (CO), visando reduzir riscos à saúde humana.",
+          "citation": "World Health Organization. WHO Global Air Quality Guidelines. Geneva: WHO, 2021.",
+          "url": "https://www.who.int/publications/i/item/9789240034228"
         },
         "section": {
-          "id": "environmental_parameters",
-          "key": "environmental_parameters",
-          "code": "Section",
-          "title": "Parâmetros Ambientais",
-          "topics": [
-            "temperature",
-            "air_temperature",
-            "mean_radiant_temperature",
-            "humidity",
-            "relative_humidity",
-            "air_velocity"
-          ],
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education",
-            "Residential"
-          ]
-        },
-        "match": {
-          "source": "validation",
-          "topic": "temperature",
-          "applicability": "corporate",
-          "jurisdiction": "BR",
-          "message": "A referência ISO 7730 está relacionada ao parâmetro avaliado na seção \"Parâmetros Ambientais\"."
-        }
-      },
-      {
-        "reference": {
-          "id": "ashrae62_1",
-          "code": "ASHRAE 62.1",
-          "name": "Ventilation for Acceptable Indoor Air Quality",
-          "title": "Ventilação para Qualidade do Ar Interior Aceitável",
-          "organization": "ASHRAE",
-          "publisher": "American Society of Heating, Refrigerating and Air-Conditioning Engineers",
-          "country": "Estados Unidos",
-          "type": "Norma Técnica",
-          "category": "Ventilação",
-          "scope": [
-            "Ventilation Systems",
-            "Indoor Air Quality"
-          ],
-          "version": "2022",
-          "year": 2022,
-          "status": "CURRENT",
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education",
-            "Residential"
-          ],
-          "sections": {
-            "ventilation": {
-              "id": "ventilation",
-              "key": "ventilation",
-              "code": "Section",
-              "title": "Ventilation Requirements",
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ],
-              "topics": [
-                "co2",
-                "ventilation",
-                "outdoor_air",
-                "air_changes",
-                "fresh_air"
-              ]
-            },
-            "indoorAirQuality": {
-              "id": "indoor_air_quality",
-              "key": "indoor_air_quality",
-              "code": "Section",
-              "title": "Indoor Air Quality",
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ],
-              "topics": [
-                "iaq",
-                "indoor_air",
-                "occupants",
-                "air_quality",
-                "contaminants"
-              ]
-            }
-          },
-          "description": "Estabelece requisitos mínimos de ventilação e renovação do ar para proporcionar qualidade do ar interior aceitável em ambientes ocupados.",
-          "citation": "ASHRAE Standard 62.1:2022 — Ventilation for Acceptable Indoor Air Quality.",
-          "url": "https://www.ashrae.org/technical-resources/bookstore/standards-62-1-62-2"
-        },
-        "section": {
-          "id": "ventilation",
-          "key": "ventilation",
-          "code": "Section",
-          "title": "Ventilation Requirements",
+          "id": "particulate_matter",
+          "key": "particulate_matter",
+          "code": "PM",
+          "title": "Material Particulado",
           "applicability": [
             "Corporate",
             "Healthcare",
@@ -1663,158 +878,21 @@
             "Residential"
           ],
           "topics": [
-            "co2",
-            "ventilation",
-            "outdoor_air",
-            "air_changes",
-            "fresh_air"
+            "pm25",
+            "PM2.5",
+            "pm10",
+            "PM10",
+            "particulate",
+            "particulate_matter",
+            "particles"
           ]
         },
         "match": {
           "source": "evidence",
-          "topic": "co2",
+          "topic": "pm25",
           "applicability": "corporate",
           "jurisdiction": "BR",
-          "message": "A referência ASHRAE 62.1 está relacionada à evidência ambiental identificada na seção \"Ventilation Requirements\"."
-        }
-      },
-      {
-        "reference": {
-          "id": "ashrae55",
-          "code": "ASHRAE 55",
-          "name": "Thermal Environmental Conditions for Human Occupancy",
-          "title": "Condições Térmicas Ambientais para Ocupação Humana",
-          "organization": "ASHRAE",
-          "publisher": "American Society of Heating, Refrigerating and Air-Conditioning Engineers",
-          "country": "Estados Unidos",
-          "type": "Norma Técnica",
-          "category": "Conforto Térmico",
-          "scope": [
-            "Thermal Comfort",
-            "Temperature",
-            "Humidity",
-            "Air Velocity",
-            "Radiant Temperature"
-          ],
-          "version": "2023",
-          "year": 2023,
-          "status": "CURRENT",
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education",
-            "Residential"
-          ],
-          "sections": {
-            "thermalComfort": {
-              "id": "thermal_comfort",
-              "key": "thermal_comfort",
-              "code": "Section",
-              "title": "Thermal Comfort",
-              "topics": [
-                "thermalComfort",
-                "comfort",
-                "thermal"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "airTemperature": {
-              "id": "air_temperature",
-              "key": "air_temperature",
-              "code": "Section",
-              "title": "Air Temperature",
-              "topics": [
-                "temperature",
-                "air_temperature"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "relativeHumidity": {
-              "id": "relative_humidity",
-              "key": "relative_humidity",
-              "code": "Section",
-              "title": "Relative Humidity",
-              "topics": [
-                "humidity",
-                "relative_humidity"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "airMovement": {
-              "id": "air_movement",
-              "key": "air_movement",
-              "code": "Section",
-              "title": "Air Movement",
-              "topics": [
-                "air_velocity",
-                "air_movement",
-                "draft"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            },
-            "radiantEnvironment": {
-              "id": "radiant_environment",
-              "key": "radiant_environment",
-              "code": "Section",
-              "title": "Radiant Temperature",
-              "topics": [
-                "radiant_temperature",
-                "mean_radiant_temperature"
-              ],
-              "applicability": [
-                "Corporate",
-                "Healthcare",
-                "Education",
-                "Residential"
-              ]
-            }
-          },
-          "description": "Define critérios para avaliação do conforto térmico em ambientes ocupados, considerando temperatura do ar, temperatura radiante, umidade relativa, velocidade do ar, isolamento das vestimentas e atividade metabólica.",
-          "citation": "ASHRAE Standard 55:2023 — Thermal Environmental Conditions for Human Occupancy.",
-          "url": "https://www.ashrae.org/technical-resources/bookstore/standard-55"
-        },
-        "section": {
-          "id": "air_temperature",
-          "key": "air_temperature",
-          "code": "Section",
-          "title": "Air Temperature",
-          "topics": [
-            "temperature",
-            "air_temperature"
-          ],
-          "applicability": [
-            "Corporate",
-            "Healthcare",
-            "Education",
-            "Residential"
-          ]
-        },
-        "match": {
-          "source": "validation",
-          "topic": "temperature",
-          "applicability": "corporate",
-          "jurisdiction": "BR",
-          "message": "A referência ASHRAE 55 está relacionada ao parâmetro avaliado na seção \"Air Temperature\"."
+          "message": "A referência WHO AQG 2021 está relacionada à evidência ambiental identificada na seção \"Material Particulado\"."
         }
       }
     ]

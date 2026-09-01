@@ -75,17 +75,19 @@ const USE_AIR_PURIFICATION = Object.freeze({
 
     when(ctx) {
 
-        return (
+    return (
 
-            ctx.evidence?.records?.some(
+        ctx.evidence?.records?.some(
 
-                evidence =>
+            evidence =>
 
-                    evidence.id === "elevated_particulate" ||
+                evidence.id === "elevated_particulate" ||
 
-                    evidence.id === "elevated_voc"
+                evidence.id === "elevated_voc" ||
 
-            )
+                evidence.id === "elevated_nox"
+
+          )
 
         );
 

@@ -1,0 +1,1166 @@
+{
+  "metadata": {
+    "engine": "CORE QAI",
+    "version": "1.0.0",
+    "apiVersion": "1.0.0",
+    "status": "OK",
+    "environment": "corporate",
+    "timestamp": "2026-09-01T11:50:02.113Z",
+    "processingTime": 6
+  },
+  "domain": {
+    "id": "corporate",
+    "name": "Corporate",
+    "description": "Corporate office environments.",
+    "profiles": {
+      "regulatory": "corporate",
+      "metrics": "corporate",
+      "diagnostics": "corporate",
+      "evidences": "corporate",
+      "hypotheses": "corporate",
+      "mitigations": "corporate"
+    }
+  },
+  "validation": {
+    "temperature": {
+      "parameter": "temperature",
+      "validationKey": "temperature",
+      "displayName": "Temperature",
+      "description": "Indoor dry-bulb air temperature.",
+      "unit": "°C",
+      "regulated": false,
+      "regulatoryId": "abnt_nbr_17037",
+      "currentAssessment": "WITHIN_REFERENCE",
+      "evaluationPeriod": "instantaneous_reading",
+      "historicalAssessmentRequired": false,
+      "scoreEligible": false,
+      "criterionKind": "TECHNICAL_REFERENCE",
+      "applicability": "non_residential_artificially_conditioned",
+      "currentObservation": null,
+      "temporalGuidance": null,
+      "criterionNote": "ABNT NBR 17037:2023 specifies 21 °C to 26 °C for indoor dry-bulb air temperature. This is a technical reference for indoor air quality, not a universal legal limit.",
+      "referenceThreshold": null,
+      "referenceIds": [
+        "abnt_nbr_17037"
+      ],
+      "value": 23,
+      "min": 21,
+      "max": 26,
+      "state": "NORMAL",
+      "severity": "NORMAL",
+      "passed": true
+    },
+    "humidity": {
+      "parameter": "humidity",
+      "validationKey": "humidity",
+      "displayName": "Relative Humidity",
+      "description": "Indoor relative humidity.",
+      "unit": "%",
+      "regulated": false,
+      "regulatoryId": "abnt_nbr_17037",
+      "currentAssessment": "WITHIN_REFERENCE",
+      "evaluationPeriod": "instantaneous_reading",
+      "historicalAssessmentRequired": false,
+      "scoreEligible": false,
+      "criterionKind": "TECHNICAL_REFERENCE",
+      "applicability": "non_residential_artificially_conditioned",
+      "currentObservation": null,
+      "temporalGuidance": null,
+      "criterionNote": "ABNT NBR 17037:2023 gives 35 % to 65 % as a recommended range for indoor relative humidity.",
+      "referenceThreshold": null,
+      "referenceIds": [
+        "abnt_nbr_17037"
+      ],
+      "value": 50,
+      "min": 35,
+      "max": 65,
+      "state": "NORMAL",
+      "severity": "NORMAL",
+      "passed": true
+    },
+    "co2": {
+      "parameter": "co2",
+      "validationKey": "co2",
+      "displayName": "Carbon Dioxide",
+      "description": "Indoor carbon dioxide concentration used as a complementary indicator for indoor-air and ventilation analysis.",
+      "unit": "ppm",
+      "regulated": false,
+      "regulatoryId": "abnt_nbr_17037",
+      "currentAssessment": "NOT_ASSESSED",
+      "evaluationPeriod": "current_reading",
+      "historicalAssessmentRequired": false,
+      "scoreEligible": false,
+      "criterionKind": "TECHNICAL_REFERENCE",
+      "applicability": "non_residential_artificially_conditioned",
+      "currentObservation": null,
+      "temporalGuidance": null,
+      "criterionNote": "CO₂ is treated as a contextual technical observation; this catalog does not introduce a universal indoor maximum for the current CORE.",
+      "referenceThreshold": null,
+      "referenceIds": [
+        "abnt_nbr_17037"
+      ],
+      "value": 650,
+      "state": "OBSERVATION",
+      "severity": "INFO",
+      "passed": null
+    },
+    "pm25": {
+      "parameter": "pm25",
+      "validationKey": "pm25",
+      "displayName": "PM2.5",
+      "description": "Fine particulate matter concentration.",
+      "unit": "µg/m³",
+      "regulated": false,
+      "regulatoryId": "abnt_nbr_17037",
+      "currentAssessment": "WITHIN_REFERENCE",
+      "evaluationPeriod": "24h_mean",
+      "historicalAssessmentRequired": true,
+      "scoreEligible": false,
+      "criterionKind": "TECHNICAL_REFERENCE",
+      "applicability": "indoor_air",
+      "currentObservation": "ABOVE_REFERENCE_MAY_BE_FLAGGED",
+      "temporalGuidance": "A current reading may be flagged as above the reference value, but the 24-hour reference must not be represented as a 24-hour compliance result without the required observation period.",
+      "criterionNote": "ABNT NBR 17037:2023 gives 25 µg/m³ as a 24-hour mean reference value. An instantaneous reading above this value indicates the need for additional measurements or source diagnosis; it is not by itself a 24-hour compliance failure.",
+      "referenceThreshold": 25,
+      "referenceIds": [
+        "abnt_nbr_17037",
+        "who_aqg_2021"
+      ],
+      "value": 6,
+      "state": "OBSERVATION",
+      "severity": "INFO",
+      "passed": null
+    },
+    "pm10": {
+      "parameter": "pm10",
+      "validationKey": "pm10",
+      "displayName": "PM10",
+      "description": "Inhalable particulate matter concentration.",
+      "unit": "µg/m³",
+      "regulated": false,
+      "regulatoryId": "abnt_nbr_17037",
+      "currentAssessment": "WITHIN_REFERENCE",
+      "evaluationPeriod": "24h_mean",
+      "historicalAssessmentRequired": true,
+      "scoreEligible": false,
+      "criterionKind": "TECHNICAL_REFERENCE",
+      "applicability": "indoor_air",
+      "currentObservation": "ABOVE_REFERENCE_MAY_BE_FLAGGED",
+      "temporalGuidance": "A current reading may be flagged as above the reference value, but the 24-hour reference must not be represented as a 24-hour compliance result without the required observation period.",
+      "criterionNote": "ABNT NBR 17037:2023 gives 50 µg/m³ as a 24-hour mean reference value. An instantaneous value above it calls for further measurement/source diagnosis, not automatic 24-hour non-compliance.",
+      "referenceThreshold": 50,
+      "referenceIds": [
+        "abnt_nbr_17037",
+        "who_aqg_2021"
+      ],
+      "value": 12,
+      "state": "OBSERVATION",
+      "severity": "INFO",
+      "passed": null
+    },
+    "pm1": {
+      "parameter": "pm1",
+      "value": null,
+      "state": "MISSING",
+      "severity": "UNKNOWN",
+      "passed": false,
+      "regulated": false,
+      "regulatoryId": null
+    },
+    "pm4": {
+      "parameter": "pm4",
+      "value": null,
+      "state": "MISSING",
+      "severity": "UNKNOWN",
+      "passed": false,
+      "regulated": false,
+      "regulatoryId": null
+    },
+    "nc05": {
+      "parameter": "nc05",
+      "value": null,
+      "state": "MISSING",
+      "severity": "UNKNOWN",
+      "passed": false,
+      "regulated": false,
+      "regulatoryId": null
+    },
+    "nc1": {
+      "parameter": "nc1",
+      "value": null,
+      "state": "MISSING",
+      "severity": "UNKNOWN",
+      "passed": false,
+      "regulated": false,
+      "regulatoryId": null
+    },
+    "nc25": {
+      "parameter": "nc25",
+      "value": null,
+      "state": "MISSING",
+      "severity": "UNKNOWN",
+      "passed": false,
+      "regulated": false,
+      "regulatoryId": null
+    },
+    "nc4": {
+      "parameter": "nc4",
+      "value": null,
+      "state": "MISSING",
+      "severity": "UNKNOWN",
+      "passed": false,
+      "regulated": false,
+      "regulatoryId": null
+    },
+    "nc10": {
+      "parameter": "nc10",
+      "value": null,
+      "state": "MISSING",
+      "severity": "UNKNOWN",
+      "passed": false,
+      "regulated": false,
+      "regulatoryId": null
+    },
+    "typicalParticleSize": {
+      "parameter": "typicalParticleSize",
+      "value": null,
+      "state": "MISSING",
+      "severity": "UNKNOWN",
+      "passed": false,
+      "regulated": false,
+      "regulatoryId": null
+    },
+    "vocIndex": {
+      "parameter": "vocIndex",
+      "validationKey": "vocIndex",
+      "displayName": "VOC Index",
+      "description": "Relative VOC index used as an operational indicator; it is not a direct VOC concentration.",
+      "unit": "index",
+      "regulated": false,
+      "regulatoryId": "sensirion_voc",
+      "currentAssessment": "WITHIN_REFERENCE",
+      "evaluationPeriod": "current_reading",
+      "historicalAssessmentRequired": false,
+      "scoreEligible": false,
+      "criterionKind": "TECHNICAL_REFERENCE",
+      "applicability": "indoor_air",
+      "currentObservation": null,
+      "temporalGuidance": null,
+      "criterionNote": "Sensirion VOC Index is an operational relative index. Values above the documented baseline of 100 indicate a relative deterioration from the recent environmental baseline; this is not a regulatory concentration limit.",
+      "referenceThreshold": 100,
+      "referenceIds": [
+        "sensirion_voc"
+      ],
+      "value": 90,
+      "state": "OBSERVATION",
+      "severity": "INFO",
+      "passed": null
+    },
+    "noxIndex": {
+      "parameter": "noxIndex",
+      "validationKey": "noxIndex",
+      "displayName": "NOx Index",
+      "description": "Relative NOx index used as an operational indicator; it is not a direct NOx concentration.",
+      "unit": "index",
+      "regulated": false,
+      "regulatoryId": "sensirion_nox",
+      "currentAssessment": "NOT_ASSESSED",
+      "evaluationPeriod": "current_reading",
+      "historicalAssessmentRequired": false,
+      "scoreEligible": false,
+      "criterionKind": "TECHNICAL_REFERENCE",
+      "applicability": "indoor_air",
+      "currentObservation": null,
+      "temporalGuidance": null,
+      "criterionNote": "Sensirion NOx Index is an operational relative index. No regulatory concentration limit is inferred from the index.",
+      "referenceThreshold": null,
+      "referenceIds": [
+        "sensirion_nox"
+      ],
+      "value": 1,
+      "state": "OBSERVATION",
+      "severity": "INFO",
+      "passed": null
+    }
+  },
+  "metrics": {
+    "thermalComfort": {
+      "score": null,
+      "level": "UNKNOWN",
+      "dominantFactor": null
+    },
+    "airQuality": {
+      "score": null,
+      "level": "UNKNOWN",
+      "dominantFactor": null
+    },
+    "particulateLoad": {
+      "score": null,
+      "level": "UNKNOWN",
+      "dominantFactor": null
+    },
+    "occupancy": {
+      "score": null,
+      "level": "UNKNOWN",
+      "dominantFactor": null
+    },
+    "dewPoint": {
+      "value": 12,
+      "unit": "°C",
+      "airToDewPointDifference": 11
+    },
+    "co2Analysis": {
+      "available": true,
+      "indoor": 650,
+      "basis": "INDOOR_CONTEXTUAL_OBSERVATION",
+      "level": "LOWER_RANGE",
+      "elevated": false,
+      "elevatedThreshold": null,
+      "referenceIds": [
+        "abnt_nbr_17037",
+        "ashrae62_1"
+      ],
+      "referenceType": "TECHNICAL_CONTEXT",
+      "referenceValue": null,
+      "referenceUnit": "ppm",
+      "persistence": {
+        "required": true,
+        "evaluated": false,
+        "basis": "HISTORICAL_DATA_REQUIRED",
+        "instruction": "A persistência da condição deve ser avaliada no histórico de medições de CO₂."
+      }
+    },
+    "qaiScore": {
+      "score": null,
+      "level": "UNKNOWN",
+      "dominantFactor": null
+    }
+  },
+  "diagnosis": {
+    "primary": null,
+    "secondary": [],
+    "matches": []
+  },
+  "evidence": {
+    "primary": {
+      "id": "normal_environment",
+      "parameters": "all",
+      "title": "Ambiente em conformidade",
+      "description": "Nenhuma condição de desvio foi identificada entre os parâmetros avaliados no cenário atual. Parâmetros não avaliáveis ou observacionais não são interpretados como conformidade regulatória.",
+      "referenceIds": [
+        "ashrae55",
+        "ashrae62_1",
+        "abnt_nbr_16401"
+      ],
+      "priority": 0
+    },
+    "secondary": [],
+    "records": [
+      {
+        "id": "normal_environment",
+        "parameters": "all",
+        "title": "Ambiente em conformidade",
+        "description": "Nenhuma condição de desvio foi identificada entre os parâmetros avaliados no cenário atual. Parâmetros não avaliáveis ou observacionais não são interpretados como conformidade regulatória.",
+        "referenceIds": [
+          "ashrae55",
+          "ashrae62_1",
+          "abnt_nbr_16401"
+        ],
+        "priority": 0
+      }
+    ]
+  },
+  "hypotheses": {
+    "primary": {
+      "id": "normal_operation",
+      "name": "Normal Operation",
+      "title": "Operação ambiental compatível com condições normais",
+      "description": "As evidências observadas são compatíveis com condições normais de operação do ambiente, sem indicação de desvios relevantes em relação aos critérios regulatórios avaliados.",
+      "referenceIds": [
+        "ashrae55",
+        "ashrae62_1",
+        "abnt_nbr_16401"
+      ],
+      "priority": 0
+    },
+    "secondary": [],
+    "matches": [
+      {
+        "id": "normal_operation",
+        "name": "Normal Operation",
+        "title": "Operação ambiental compatível com condições normais",
+        "description": "As evidências observadas são compatíveis com condições normais de operação do ambiente, sem indicação de desvios relevantes em relação aos critérios regulatórios avaliados.",
+        "referenceIds": [
+          "ashrae55",
+          "ashrae62_1",
+          "abnt_nbr_16401"
+        ],
+        "priority": 0
+      }
+    ]
+  },
+  "mitigation": {
+    "primary": {
+      "id": "maintain_current_operation",
+      "name": "Maintain Current Operation",
+      "title": "Manter as condições atuais de operação",
+      "description": "Os parâmetros avaliados encontram-se em conformidade com os critérios aplicáveis. Recomenda-se manter as condições atuais de operação e continuar o monitoramento periódico da qualidade do ar.",
+      "referenceIds": [
+        "ashrae55",
+        "ashrae62_1",
+        "abnt_nbr_16401"
+      ],
+      "priority": 0
+    },
+    "secondary": [],
+    "actions": [
+      {
+        "id": "maintain_current_operation",
+        "name": "Maintain Current Operation",
+        "title": "Manter as condições atuais de operação",
+        "description": "Os parâmetros avaliados encontram-se em conformidade com os critérios aplicáveis. Recomenda-se manter as condições atuais de operação e continuar o monitoramento periódico da qualidade do ar.",
+        "referenceIds": [
+          "ashrae55",
+          "ashrae62_1",
+          "abnt_nbr_16401"
+        ],
+        "priority": 0
+      }
+    ]
+  },
+  "environmentalScenario": {
+    "primary": null,
+    "secondary": [],
+    "matches": []
+  },
+  "relationships": {
+    "primary": null,
+    "secondary": [],
+    "matches": []
+  },
+  "impacts": {
+    "primary": null,
+    "secondary": [],
+    "matches": []
+  },
+  "references": {
+    "primary": {
+      "reference": {
+        "id": "abnt_nbr_16401",
+        "code": "ABNT NBR 16401",
+        "name": "Instalações de ar-condicionado — Sistemas centrais e unitários",
+        "title": "Instalações de Ar-Condicionado — Sistemas Centrais e Unitários",
+        "organization": "ABNT",
+        "publisher": "Associação Brasileira de Normas Técnicas",
+        "country": "Brasil",
+        "type": "Norma Técnica",
+        "category": "Climatização",
+        "scope": [
+          "HVAC",
+          "Indoor Air Quality",
+          "Ventilation",
+          "Thermal Comfort"
+        ],
+        "version": "2021",
+        "year": 2021,
+        "status": "CURRENT",
+        "applicability": [
+          "Corporate",
+          "Healthcare",
+          "Education",
+          "Residential"
+        ],
+        "sections": {
+          "part1": {
+            "id": "part1",
+            "key": "hvac_design",
+            "code": "Parte 1",
+            "title": "Projetos das Instalações",
+            "topics": [
+              "hvac",
+              "system_design",
+              "installation",
+              "project",
+              "air_conditioning"
+            ],
+            "applicability": [
+              "Corporate",
+              "Healthcare",
+              "Education",
+              "Residential"
+            ]
+          },
+          "part2": {
+            "id": "part2",
+            "key": "thermal_comfort",
+            "code": "Parte 2",
+            "title": "Parâmetros de Conforto Térmico",
+            "topics": [
+              "thermalComfort",
+              "temperature",
+              "humidity",
+              "air_velocity",
+              "radiant_temperature"
+            ],
+            "applicability": [
+              "Corporate",
+              "Healthcare",
+              "Education",
+              "Residential"
+            ]
+          },
+          "part3": {
+            "id": "part3",
+            "key": "indoor_air_quality",
+            "code": "Parte 3",
+            "title": "Qualidade do Ar Interior",
+            "topics": [
+              "iaq",
+              "indoor_air",
+              "co2",
+              "ventilation",
+              "fresh_air",
+              "outdoor_air",
+              "pm25",
+              "PM2.5",
+              "pm10",
+              "PM10",
+              "particulate",
+              "particulate_matter"
+            ],
+            "applicability": [
+              "Corporate",
+              "Healthcare",
+              "Education",
+              "Residential"
+            ]
+          }
+        },
+        "description": "Estabelece requisitos para projeto, instalação, operação e manutenção de sistemas de climatização, incluindo critérios de conforto térmico, ventilação e qualidade do ar interior.",
+        "citation": "ABNT NBR 16401:2021 — Instalações de ar-condicionado — Sistemas centrais e unitários.",
+        "url": "https://www.abntcatalogo.com.br/"
+      },
+      "section": {
+        "id": "part2",
+        "key": "thermal_comfort",
+        "code": "Parte 2",
+        "title": "Parâmetros de Conforto Térmico",
+        "topics": [
+          "thermalComfort",
+          "temperature",
+          "humidity",
+          "air_velocity",
+          "radiant_temperature"
+        ],
+        "applicability": [
+          "Corporate",
+          "Healthcare",
+          "Education",
+          "Residential"
+        ]
+      },
+      "match": {
+        "source": "validation",
+        "topic": "thermalComfort",
+        "applicability": "corporate",
+        "jurisdiction": "BR",
+        "message": "A referência ABNT NBR 16401 está relacionada ao parâmetro avaliado na seção \"Parâmetros de Conforto Térmico\"."
+      }
+    },
+    "secondary": [
+      {
+        "reference": {
+          "id": "ashrae55",
+          "code": "ASHRAE 55",
+          "name": "Thermal Environmental Conditions for Human Occupancy",
+          "title": "Condições Térmicas Ambientais para Ocupação Humana",
+          "organization": "ASHRAE",
+          "publisher": "American Society of Heating, Refrigerating and Air-Conditioning Engineers",
+          "country": "Estados Unidos",
+          "type": "Norma Técnica",
+          "category": "Conforto Térmico",
+          "scope": [
+            "Thermal Comfort",
+            "Temperature",
+            "Humidity",
+            "Air Velocity",
+            "Radiant Temperature"
+          ],
+          "version": "2023",
+          "year": 2023,
+          "status": "CURRENT",
+          "applicability": [
+            "Corporate",
+            "Healthcare",
+            "Education",
+            "Residential"
+          ],
+          "sections": {
+            "thermalComfort": {
+              "id": "thermal_comfort",
+              "key": "thermal_comfort",
+              "code": "Section",
+              "title": "Thermal Comfort",
+              "topics": [
+                "thermalComfort",
+                "comfort",
+                "thermal"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            },
+            "airTemperature": {
+              "id": "air_temperature",
+              "key": "air_temperature",
+              "code": "Section",
+              "title": "Air Temperature",
+              "topics": [
+                "temperature",
+                "air_temperature"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            },
+            "relativeHumidity": {
+              "id": "relative_humidity",
+              "key": "relative_humidity",
+              "code": "Section",
+              "title": "Relative Humidity",
+              "topics": [
+                "humidity",
+                "relative_humidity"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            },
+            "airMovement": {
+              "id": "air_movement",
+              "key": "air_movement",
+              "code": "Section",
+              "title": "Air Movement",
+              "topics": [
+                "air_velocity",
+                "air_movement",
+                "draft"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            },
+            "radiantEnvironment": {
+              "id": "radiant_environment",
+              "key": "radiant_environment",
+              "code": "Section",
+              "title": "Radiant Temperature",
+              "topics": [
+                "radiant_temperature",
+                "mean_radiant_temperature"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            }
+          },
+          "description": "Define critérios para avaliação do conforto térmico em ambientes ocupados, considerando temperatura do ar, temperatura radiante, umidade relativa, velocidade do ar, isolamento das vestimentas e atividade metabólica.",
+          "citation": "ASHRAE Standard 55:2023 — Thermal Environmental Conditions for Human Occupancy.",
+          "url": "https://www.ashrae.org/technical-resources/bookstore/standard-55"
+        },
+        "section": {
+          "id": "air_temperature",
+          "key": "air_temperature",
+          "code": "Section",
+          "title": "Air Temperature",
+          "topics": [
+            "temperature",
+            "air_temperature"
+          ],
+          "applicability": [
+            "Corporate",
+            "Healthcare",
+            "Education",
+            "Residential"
+          ]
+        },
+        "match": {
+          "source": "validation",
+          "topic": "temperature",
+          "applicability": "corporate",
+          "jurisdiction": "BR",
+          "message": "A referência ASHRAE 55 está relacionada ao parâmetro avaliado na seção \"Air Temperature\"."
+        }
+      },
+      {
+        "reference": {
+          "id": "ashrae62_1",
+          "code": "ASHRAE 62.1",
+          "name": "Ventilation for Acceptable Indoor Air Quality",
+          "title": "Ventilação para Qualidade do Ar Interior Aceitável",
+          "organization": "ASHRAE",
+          "publisher": "American Society of Heating, Refrigerating and Air-Conditioning Engineers",
+          "country": "Estados Unidos",
+          "type": "Norma Técnica",
+          "category": "Ventilação",
+          "scope": [
+            "Ventilation Systems",
+            "Indoor Air Quality"
+          ],
+          "version": "2022",
+          "year": 2022,
+          "status": "CURRENT",
+          "applicability": [
+            "Corporate",
+            "Healthcare",
+            "Education",
+            "Residential"
+          ],
+          "sections": {
+            "ventilation": {
+              "id": "ventilation",
+              "key": "ventilation",
+              "code": "Section",
+              "title": "Ventilation Requirements",
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ],
+              "topics": [
+                "co2",
+                "ventilation",
+                "outdoor_air",
+                "air_changes",
+                "fresh_air"
+              ]
+            },
+            "indoorAirQuality": {
+              "id": "indoor_air_quality",
+              "key": "indoor_air_quality",
+              "code": "Section",
+              "title": "Indoor Air Quality",
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ],
+              "topics": [
+                "iaq",
+                "indoor_air",
+                "occupants",
+                "air_quality",
+                "contaminants"
+              ]
+            }
+          },
+          "description": "Estabelece requisitos mínimos de ventilação e renovação do ar para proporcionar qualidade do ar interior aceitável em ambientes ocupados.",
+          "citation": "ASHRAE Standard 62.1:2022 — Ventilation for Acceptable Indoor Air Quality.",
+          "url": "https://www.ashrae.org/technical-resources/bookstore/standards-62-1-62-2"
+        },
+        "section": {
+          "id": "ventilation",
+          "key": "ventilation",
+          "code": "Section",
+          "title": "Ventilation Requirements",
+          "applicability": [
+            "Corporate",
+            "Healthcare",
+            "Education",
+            "Residential"
+          ],
+          "topics": [
+            "co2",
+            "ventilation",
+            "outdoor_air",
+            "air_changes",
+            "fresh_air"
+          ]
+        },
+        "match": {
+          "source": "validation",
+          "topic": "co2",
+          "applicability": "corporate",
+          "jurisdiction": "BR",
+          "message": "A referência ASHRAE 62.1 está relacionada ao parâmetro avaliado na seção \"Ventilation Requirements\"."
+        }
+      }
+    ],
+    "matches": [
+      {
+        "reference": {
+          "id": "abnt_nbr_16401",
+          "code": "ABNT NBR 16401",
+          "name": "Instalações de ar-condicionado — Sistemas centrais e unitários",
+          "title": "Instalações de Ar-Condicionado — Sistemas Centrais e Unitários",
+          "organization": "ABNT",
+          "publisher": "Associação Brasileira de Normas Técnicas",
+          "country": "Brasil",
+          "type": "Norma Técnica",
+          "category": "Climatização",
+          "scope": [
+            "HVAC",
+            "Indoor Air Quality",
+            "Ventilation",
+            "Thermal Comfort"
+          ],
+          "version": "2021",
+          "year": 2021,
+          "status": "CURRENT",
+          "applicability": [
+            "Corporate",
+            "Healthcare",
+            "Education",
+            "Residential"
+          ],
+          "sections": {
+            "part1": {
+              "id": "part1",
+              "key": "hvac_design",
+              "code": "Parte 1",
+              "title": "Projetos das Instalações",
+              "topics": [
+                "hvac",
+                "system_design",
+                "installation",
+                "project",
+                "air_conditioning"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            },
+            "part2": {
+              "id": "part2",
+              "key": "thermal_comfort",
+              "code": "Parte 2",
+              "title": "Parâmetros de Conforto Térmico",
+              "topics": [
+                "thermalComfort",
+                "temperature",
+                "humidity",
+                "air_velocity",
+                "radiant_temperature"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            },
+            "part3": {
+              "id": "part3",
+              "key": "indoor_air_quality",
+              "code": "Parte 3",
+              "title": "Qualidade do Ar Interior",
+              "topics": [
+                "iaq",
+                "indoor_air",
+                "co2",
+                "ventilation",
+                "fresh_air",
+                "outdoor_air",
+                "pm25",
+                "PM2.5",
+                "pm10",
+                "PM10",
+                "particulate",
+                "particulate_matter"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            }
+          },
+          "description": "Estabelece requisitos para projeto, instalação, operação e manutenção de sistemas de climatização, incluindo critérios de conforto térmico, ventilação e qualidade do ar interior.",
+          "citation": "ABNT NBR 16401:2021 — Instalações de ar-condicionado — Sistemas centrais e unitários.",
+          "url": "https://www.abntcatalogo.com.br/"
+        },
+        "section": {
+          "id": "part2",
+          "key": "thermal_comfort",
+          "code": "Parte 2",
+          "title": "Parâmetros de Conforto Térmico",
+          "topics": [
+            "thermalComfort",
+            "temperature",
+            "humidity",
+            "air_velocity",
+            "radiant_temperature"
+          ],
+          "applicability": [
+            "Corporate",
+            "Healthcare",
+            "Education",
+            "Residential"
+          ]
+        },
+        "match": {
+          "source": "validation",
+          "topic": "thermalComfort",
+          "applicability": "corporate",
+          "jurisdiction": "BR",
+          "message": "A referência ABNT NBR 16401 está relacionada ao parâmetro avaliado na seção \"Parâmetros de Conforto Térmico\"."
+        }
+      },
+      {
+        "reference": {
+          "id": "ashrae55",
+          "code": "ASHRAE 55",
+          "name": "Thermal Environmental Conditions for Human Occupancy",
+          "title": "Condições Térmicas Ambientais para Ocupação Humana",
+          "organization": "ASHRAE",
+          "publisher": "American Society of Heating, Refrigerating and Air-Conditioning Engineers",
+          "country": "Estados Unidos",
+          "type": "Norma Técnica",
+          "category": "Conforto Térmico",
+          "scope": [
+            "Thermal Comfort",
+            "Temperature",
+            "Humidity",
+            "Air Velocity",
+            "Radiant Temperature"
+          ],
+          "version": "2023",
+          "year": 2023,
+          "status": "CURRENT",
+          "applicability": [
+            "Corporate",
+            "Healthcare",
+            "Education",
+            "Residential"
+          ],
+          "sections": {
+            "thermalComfort": {
+              "id": "thermal_comfort",
+              "key": "thermal_comfort",
+              "code": "Section",
+              "title": "Thermal Comfort",
+              "topics": [
+                "thermalComfort",
+                "comfort",
+                "thermal"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            },
+            "airTemperature": {
+              "id": "air_temperature",
+              "key": "air_temperature",
+              "code": "Section",
+              "title": "Air Temperature",
+              "topics": [
+                "temperature",
+                "air_temperature"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            },
+            "relativeHumidity": {
+              "id": "relative_humidity",
+              "key": "relative_humidity",
+              "code": "Section",
+              "title": "Relative Humidity",
+              "topics": [
+                "humidity",
+                "relative_humidity"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            },
+            "airMovement": {
+              "id": "air_movement",
+              "key": "air_movement",
+              "code": "Section",
+              "title": "Air Movement",
+              "topics": [
+                "air_velocity",
+                "air_movement",
+                "draft"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            },
+            "radiantEnvironment": {
+              "id": "radiant_environment",
+              "key": "radiant_environment",
+              "code": "Section",
+              "title": "Radiant Temperature",
+              "topics": [
+                "radiant_temperature",
+                "mean_radiant_temperature"
+              ],
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ]
+            }
+          },
+          "description": "Define critérios para avaliação do conforto térmico em ambientes ocupados, considerando temperatura do ar, temperatura radiante, umidade relativa, velocidade do ar, isolamento das vestimentas e atividade metabólica.",
+          "citation": "ASHRAE Standard 55:2023 — Thermal Environmental Conditions for Human Occupancy.",
+          "url": "https://www.ashrae.org/technical-resources/bookstore/standard-55"
+        },
+        "section": {
+          "id": "air_temperature",
+          "key": "air_temperature",
+          "code": "Section",
+          "title": "Air Temperature",
+          "topics": [
+            "temperature",
+            "air_temperature"
+          ],
+          "applicability": [
+            "Corporate",
+            "Healthcare",
+            "Education",
+            "Residential"
+          ]
+        },
+        "match": {
+          "source": "validation",
+          "topic": "temperature",
+          "applicability": "corporate",
+          "jurisdiction": "BR",
+          "message": "A referência ASHRAE 55 está relacionada ao parâmetro avaliado na seção \"Air Temperature\"."
+        }
+      },
+      {
+        "reference": {
+          "id": "ashrae62_1",
+          "code": "ASHRAE 62.1",
+          "name": "Ventilation for Acceptable Indoor Air Quality",
+          "title": "Ventilação para Qualidade do Ar Interior Aceitável",
+          "organization": "ASHRAE",
+          "publisher": "American Society of Heating, Refrigerating and Air-Conditioning Engineers",
+          "country": "Estados Unidos",
+          "type": "Norma Técnica",
+          "category": "Ventilação",
+          "scope": [
+            "Ventilation Systems",
+            "Indoor Air Quality"
+          ],
+          "version": "2022",
+          "year": 2022,
+          "status": "CURRENT",
+          "applicability": [
+            "Corporate",
+            "Healthcare",
+            "Education",
+            "Residential"
+          ],
+          "sections": {
+            "ventilation": {
+              "id": "ventilation",
+              "key": "ventilation",
+              "code": "Section",
+              "title": "Ventilation Requirements",
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ],
+              "topics": [
+                "co2",
+                "ventilation",
+                "outdoor_air",
+                "air_changes",
+                "fresh_air"
+              ]
+            },
+            "indoorAirQuality": {
+              "id": "indoor_air_quality",
+              "key": "indoor_air_quality",
+              "code": "Section",
+              "title": "Indoor Air Quality",
+              "applicability": [
+                "Corporate",
+                "Healthcare",
+                "Education",
+                "Residential"
+              ],
+              "topics": [
+                "iaq",
+                "indoor_air",
+                "occupants",
+                "air_quality",
+                "contaminants"
+              ]
+            }
+          },
+          "description": "Estabelece requisitos mínimos de ventilação e renovação do ar para proporcionar qualidade do ar interior aceitável em ambientes ocupados.",
+          "citation": "ASHRAE Standard 62.1:2022 — Ventilation for Acceptable Indoor Air Quality.",
+          "url": "https://www.ashrae.org/technical-resources/bookstore/standards-62-1-62-2"
+        },
+        "section": {
+          "id": "ventilation",
+          "key": "ventilation",
+          "code": "Section",
+          "title": "Ventilation Requirements",
+          "applicability": [
+            "Corporate",
+            "Healthcare",
+            "Education",
+            "Residential"
+          ],
+          "topics": [
+            "co2",
+            "ventilation",
+            "outdoor_air",
+            "air_changes",
+            "fresh_air"
+          ]
+        },
+        "match": {
+          "source": "validation",
+          "topic": "co2",
+          "applicability": "corporate",
+          "jurisdiction": "BR",
+          "message": "A referência ASHRAE 62.1 está relacionada ao parâmetro avaliado na seção \"Ventilation Requirements\"."
+        }
+      }
+    ]
+  }
+}

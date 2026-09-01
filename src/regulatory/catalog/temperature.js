@@ -1,120 +1,86 @@
 /**
- * ======================================================================
- * CORE QAI
- * Temperature Regulatory Catalog
- * ----------------------------------------------------------------------
- * Arquivo   : temperature.js
- * Módulo    : Regulatory Library
- * Versão    : 1.0.0
- * Status    : RC1 - CONGELADO
+ * CORE QAI — Temperature Regulatory Catalog
+ * Regulatory RC1 — rebuilt for traceability.
  *
- * Objetivo
- * ----------------------------------------------------------------------
- * Catálogo regulatório para Temperatura.
- *
- * Este catálogo descreve exclusivamente os critérios regulatórios
- * utilizados pela Validation Engine.
- *
- * Não executa validações.
- * Não interpreta resultados.
- * Não calcula métricas.
- * ======================================================================
+ * Regulatory only declares the knowledge applicable to each Domain.
+ * It does not calculate, diagnose, infer causes or recommend actions.
  */
-
 const TEMPERATURE_REGULATORY = Object.freeze({
-
-/* ==========================================================
- * IDENTIFICAÇÃO
- * ========================================================== */
-
-parameter: "temperature",
-
-validationKey: "temperature",
-
-displayName: "Temperature",
-
-description: "Indoor air temperature.",
-
-unit: "°C",
-
-    /* ==========================================================
-     * PERFIS REGULATÓRIOS
-     * ========================================================== */
+    parameter: "temperature",
+    validationKey: "temperature",
+    displayName: "Temperature",
+    description: "Indoor dry-bulb air temperature.",
+    unit: "°C",
 
     profiles: Object.freeze({
 
         corporate: Object.freeze({
-
-            regulated: true,
-
+            regulated: false,
             type: "RANGE",
-
-            min: 20,
-
+            min: 21,
             max: 26,
-
-            regulatoryId: "ASHRAE-55"
-
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "instantaneous_reading",
+            applicability: "non_residential_artificially_conditioned",
+            referenceIds: ["abnt_nbr_17037"],
+            regulatoryId: "abnt_nbr_17037",
+            criterionNote:
+                "ABNT NBR 17037:2023 specifies 21 °C to 26 °C for indoor dry-bulb air temperature. This is a technical reference for indoor air quality, not a universal legal limit."
         }),
 
         healthcare: Object.freeze({
-
-            regulated: true,
-
+            regulated: false,
             type: "RANGE",
-
-            min: 20,
-
-            max: 24,
-
-            regulatoryId: "ANVISA-RDC-50"
-
+            min: 21,
+            max: 26,
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "instantaneous_reading",
+            applicability: "non_residential_artificially_conditioned",
+            referenceIds: ["abnt_nbr_17037"],
+            regulatoryId: "abnt_nbr_17037",
+            criterionNote:
+                "ABNT NBR 17037:2023 specifies 21 °C to 26 °C for indoor dry-bulb air temperature. Specific healthcare requirements may require additional assessment."
         }),
 
         education: Object.freeze({
-
-            regulated: true,
-
+            regulated: false,
             type: "RANGE",
-
-            min: 20,
-
+            min: 21,
             max: 26,
-
-            regulatoryId: "ASHRAE-55"
-
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "instantaneous_reading",
+            applicability: "non_residential_artificially_conditioned",
+            referenceIds: ["abnt_nbr_17037"],
+            regulatoryId: "abnt_nbr_17037",
+            criterionNote:
+                "ABNT NBR 17037:2023 specifies 21 °C to 26 °C for indoor dry-bulb air temperature."
         }),
 
         residential: Object.freeze({
-
-            regulated: true,
-
-            type: "RANGE",
-
-            min: 18,
-
-            max: 26,
-
-            regulatoryId: "ASHRAE-55"
-
+            regulated: false,
+            type: "OBSERVATION",
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "instantaneous_reading",
+            applicability: "residential",
+            referenceIds: ["ashrae55"],
+            regulatoryId: "ashrae55",
+            criterionNote:
+                "ASHRAE Standard 55 evaluates thermal comfort from multiple environmental and personal factors. No single universal temperature range is used here as a regulatory pass/fail limit."
         }),
 
         datacenter: Object.freeze({
-
-            regulated: true,
-
-            type: "RANGE",
-
-            min: 18,
-
-            max: 27,
-
-            regulatoryId: "ASHRAE-TC9.9"
-
+            regulated: false,
+            type: "OBSERVATION",
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "instantaneous_reading",
+            applicability: "data_center",
+            referenceIds: ["abnt_nbr_17037"],
+            regulatoryId: "abnt_nbr_17037",
+            criterionNote:
+                "The generic indoor-air criterion is retained only as contextual information. Data-center equipment envelopes require dedicated technical assessment."
         })
 
     })
-
 });
 
 export default TEMPERATURE_REGULATORY;

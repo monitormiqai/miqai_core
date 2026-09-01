@@ -1,110 +1,78 @@
 /**
- * ======================================================================
- * CORE QAI
- * NOx Index Regulatory Catalog
- * ----------------------------------------------------------------------
- * Arquivo   : noxIndex.js
- * Módulo    : Regulatory Library
- * Versão    : 1.0.0
- * Status    : RC1 - CONGELADO
- *
- * Objetivo
- * ----------------------------------------------------------------------
- * Catálogo regulatório para NOx Index.
- *
- * Este catálogo descreve exclusivamente os critérios operacionais
- * utilizados pela Validation Engine.
- *
- * Não executa validações.
- * Não interpreta resultados.
- * Não calcula métricas.
- * ======================================================================
+ * CORE QAI — NOx Index Regulatory Catalog
+ * Regulatory RC1 — no artificial threshold.
  */
-
 const NOX_INDEX_REGULATORY = Object.freeze({
-
-    /* ==========================================================
-     * IDENTIFICAÇÃO
-     * ========================================================== */
-
     parameter: "noxIndex",
-
     validationKey: "noxIndex",
-
     displayName: "NOx Index",
-
-    description: "Nitrogen Oxides Index.",
-
+    description:
+        "Relative NOx index used as an operational indicator; it is not a direct NOx concentration.",
     unit: "index",
-
-    /* ==========================================================
-     * PERFIS REGULATÓRIOS
-     * ========================================================== */
 
     profiles: Object.freeze({
 
         corporate: Object.freeze({
-
-            regulated: true,
-
-            type: "MAX",
-
-            threshold: 150,
-
-            regulatoryId: "SENSIRION-NOX-INDEX"
-
+            regulated: false,
+            type: "OBSERVATION",
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "current_reading",
+            applicability: "indoor_air",
+            referenceIds: ["sensirion_nox"],
+            regulatoryId: "sensirion_nox",
+            criterionNote:
+                "Sensirion NOx Index is an operational relative index. No regulatory concentration limit is inferred from the index."
         }),
 
         healthcare: Object.freeze({
-
-            regulated: true,
-
-            type: "MAX",
-
-            threshold: 150,
-
-            regulatoryId: "SENSIRION-NOX-INDEX"
-
+            regulated: false,
+            type: "OBSERVATION",
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "current_reading",
+            applicability: "indoor_air",
+            referenceIds: ["sensirion_nox"],
+            regulatoryId: "sensirion_nox",
+            criterionNote:
+                "Operational indicator only; no regulatory concentration limit is inferred."
         }),
 
         education: Object.freeze({
-
-            regulated: true,
-
-            type: "MAX",
-
-            threshold: 150,
-
-            regulatoryId: "SENSIRION-NOX-INDEX"
-
+            regulated: false,
+            type: "OBSERVATION",
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "current_reading",
+            applicability: "indoor_air",
+            referenceIds: ["sensirion_nox"],
+            regulatoryId: "sensirion_nox",
+            criterionNote:
+                "Operational indicator only; no regulatory concentration limit is inferred."
         }),
 
         residential: Object.freeze({
-
-            regulated: true,
-
-            type: "MAX",
-
-            threshold: 150,
-
-            regulatoryId: "SENSIRION-NOX-INDEX"
-
+            regulated: false,
+            type: "OBSERVATION",
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "current_reading",
+            applicability: "indoor_air",
+            referenceIds: ["sensirion_nox"],
+            regulatoryId: "sensirion_nox",
+            criterionNote:
+                "Operational indicator only; no regulatory concentration limit is inferred."
         }),
 
         datacenter: Object.freeze({
-
-            regulated: true,
-
-            type: "MAX",
-
-            threshold: 150,
-
-            regulatoryId: "SENSIRION-NOX-INDEX"
-
+            regulated: false,
+            type: "OBSERVATION",
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "current_reading",
+            applicability: "indoor_air",
+            referenceIds: ["sensirion_nox"],
+            regulatoryId: "sensirion_nox",
+            criterionNote:
+                "Operational indicator only; no regulatory concentration limit is inferred."
         })
 
     })
-
 });
 
 export default NOX_INDEX_REGULATORY;

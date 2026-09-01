@@ -66,7 +66,7 @@ export function normalize(ctx) {
 
         created_at:
             r.created_at ??
-            new Date().toISOString(),
+            null,
 
         /* ==========================================================
          * CONFORTO TÉRMICO

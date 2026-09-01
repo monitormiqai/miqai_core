@@ -5,17 +5,27 @@
  * ----------------------------------------------------------------------
  * Arquivo   : occupancy.js
  * Módulo    : Metrics
- * Versão    : 1.0.0
- * Status    : RC1 - CONGELADO
+ * Versão    : 2.0.0
+ * Status    : RC2 - CO2 REVISÃO
  *
  * Objetivo
  * ----------------------------------------------------------------------
- * Calcular um indicador operacional de ocupação utilizando
- * principalmente o comportamento do CO₂.
+ * Reservar a estrutura de indicador de ocupação para futura utilização
+ * somente quando houver conhecimento técnico suficiente para produzir
+ * uma estimativa formalmente fundamentada.
  *
- * Este indicador NÃO representa a quantidade real de pessoas.
- * Representa apenas a probabilidade de ocupação influenciar
- * a qualidade do ar.
+ * O CORE QAI NÃO estima ocupação a partir de CO2 isoladamente.
+ *
+ * CO2 pode apresentar associação com presença humana e renovação de ar,
+ * porém uma concentração medida de CO2, isoladamente, não determina:
+ *
+ * - número de ocupantes;
+ * - taxa de ocupação;
+ * - probabilidade de ocupação;
+ * - ocupação efetiva do ambiente.
+ *
+ * Portanto, enquanto não existir método formalmente definido na
+ * Biblioteca de Ouro, este calculator permanece não determinante.
  *
  * Entrada:
  *      ctx.validation
@@ -26,120 +36,39 @@
  *          level,
  *          dominantFactor
  *      }
+ *
+ * ======================================================================
+ *
+ * PRINCÍPIO
+ * ----------------------------------------------------------------------
+ *
+ * CO2 observado NÃO é convertido automaticamente em ocupação.
+ *
+ * O indicador de ocupação não participa do QAI Score.
+ *
  * ======================================================================
  */
 
-// ======================================================================
-// Validação de disponibilidade
-// ======================================================================
-
-function isEvaluated(validation) {
-
-    return (
-        validation &&
-        validation.state !== "MISSING" &&
-        validation.value !== null &&
-        validation.value !== undefined
-    );
-
-}
-
-
 export function calculateOccupancy(ctx) {
 
-    const validation = ctx.validation;
-
-    const co2 = validation.co2;
-
     /*
-     * Sem CO₂ disponível não é possível estimar ocupação.
+     * ================================================================
+     * ESTADO ATUAL
+     * ================================================================
+     *
+     * Não existe, nesta versão do CORE, método formalmente definido
+     * para estimar ocupação a partir exclusivamente de CO2.
+     *
+     * Portanto, não produzir score, nível ou fator dominante.
      */
-
-    if (!isEvaluated(co2)) {
-
-        return {
-
-            score: null,
-
-            level: "UNKNOWN",
-
-            dominantFactor: null
-
-        };
-
-    }
-
-    /*
-     * Pontuação inicial.
-     */
-
-    let score = 100;
-
-    /*
-     * Penalização por CO₂ acima do limite.
-     */
-
-    if (!co2.passed) {
-
-        score -= 60;
-
-    }
-
-    /*
-     * Limites.
-     */
-
-    score = Math.max(
-        0,
-        Math.min(100, score)
-    );
-
-    /*
-     * Classificação operacional.
-     */
-
-    let level;
-
-    if (score >= 90) {
-
-        level = "LOW";
-
-    }
-
-    else if (score >= 70) {
-
-        level = "MODERATE";
-
-    }
-
-    else if (score >= 40) {
-
-        level = "HIGH";
-
-    }
-
-    else {
-
-        level = "VERY_HIGH";
-
-    }
-
-    /*
-     * Principal fator.
-     */
-
-    const dominantFactor =
-        !co2.passed
-            ? "co2"
-            : null;
 
     return {
 
-        score,
+        score: null,
 
-        level,
+        level: "UNKNOWN",
 
-        dominantFactor
+        dominantFactor: null
 
     };
 

@@ -5,8 +5,8 @@
  * ----------------------------------------------------------------------
  * Arquivo   : qaiScore.js
  * Módulo    : Metrics
- * Versão    : 1.0.0
- * Status    : RC1 - CONGELADO
+ * Versão    : 1.1.0
+ * Status    : RC2 - REVISÃO CO2
  *
  * Objetivo
  * ----------------------------------------------------------------------
@@ -14,16 +14,14 @@
  * produzidos pela Metrics Engine e os pesos definidos para o
  * Domain ativo.
  *
- * Entrada:
- *      ctx.domain
- *      ctx.metrics
+ * O QAI Score representa exclusivamente a composição dos indicadores
+ * quantitativos definidos para a métrica global.
  *
- * Saída:
- *      {
- *          score,
- *          level,
- *          dominantFactor
- *      }
+ * O indicador operacional de ocupação NÃO participa do QAI Score.
+ *
+ * CO2 permanece disponível para Validation, Evidence, Diagnostics,
+ * Hypotheses, Relationships e Mitigations, mas não influencia
+ * diretamente ou indiretamente o QAI Score por meio de occupancy.
  * ======================================================================
  */
 
@@ -61,6 +59,21 @@ export function calculateQaiScore(ctx) {
 
     let totalWeight = 0;
 
+    /*
+     * ================================================================
+     * COMPONENTES OFICIAIS DO QAI SCORE
+     * ================================================================
+     *
+     * Occupancy foi deliberadamente removido da composição.
+     *
+     * O indicador occupancy permanece disponível no CORE como
+     * indicador operacional auxiliar, mas não participa do cálculo
+     * do QAI Score enquanto sua estimativa depender exclusivamente
+     * do comportamento do CO2.
+     *
+     * CO2 também não é componente direto do Score.
+     */
+
     const components = [
 
         {
@@ -79,12 +92,6 @@ export function calculateQaiScore(ctx) {
             name: "particulateLoad",
             score: metrics.particulateLoad?.score,
             weight: weights.particulateLoad
-        },
-
-        {
-            name: "occupancy",
-            score: metrics.occupancy?.score,
-            weight: weights.occupancy
         }
 
     ];
@@ -98,6 +105,16 @@ export function calculateQaiScore(ctx) {
         if (
             component.score === null ||
             component.score === undefined
+        ) {
+
+            continue;
+
+        }
+
+        if (
+            component.weight === null ||
+            component.weight === undefined ||
+            component.weight <= 0
         ) {
 
             continue;
@@ -122,6 +139,10 @@ export function calculateQaiScore(ctx) {
 
     }
 
+    /*
+     * Nenhum componente disponível.
+     */
+
     if (totalWeight === 0) {
 
         return {
@@ -137,8 +158,12 @@ export function calculateQaiScore(ctx) {
     }
 
     /*
-     * Determina o fator dominante somente
-     * quando existir um único pior indicador.
+     * ================================================================
+     * FATOR DOMINANTE
+     * ================================================================
+     *
+     * Determina o pior indicador somente quando existir um único
+     * componente com a menor pontuação.
      */
 
     const worstComponents =
@@ -153,6 +178,15 @@ export function calculateQaiScore(ctx) {
         worstComponents.length === 1
             ? worstComponents[0].name
             : null;
+
+    /*
+     * ================================================================
+     * SCORE FINAL
+     * ================================================================
+     *
+     * A divisão pelo totalWeight permite a normalização dos pesos
+     * efetivamente disponíveis.
+     */
 
     const score = Math.round(
 

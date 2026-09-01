@@ -38,6 +38,10 @@ import resolveReferences from "../references/resolver.js";
 
 import EnvironmentalScenarioLibrary from "../environmentalScenarios/index.js";
 import RelationshipsLibrary from "../relationships/index.js";
+import ImpactsLibrary from "../impacts/index.js";
+
+
+
 
 
 /* ======================================================================
@@ -113,6 +117,14 @@ export function executePipeline(ctx) {
         RelationshipsLibrary.execute(ctx);
 
     });
+
+        executeStep(ctx, "impacts", () => {
+
+        ImpactsLibrary.execute(ctx);
+
+    });
+
+
 
 
     /*

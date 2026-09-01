@@ -278,16 +278,22 @@ function sectionMatchesTopics(section, topics) {
 
 function calculateSectionMatchScore({
 
+    reference,
     section,
 
     evidence,
     validation,
     diagnosis,
-    hypothesis
+    hypothesis,
+    regulatoryReferenceIds
 
 }) {
 
     let score = 0;
+
+    const isRegulatoryReference =
+        Array.isArray(regulatoryReferenceIds) &&
+        regulatoryReferenceIds.includes(reference?.id);
 
     const evidenceTopics =
         getEvidenceTopics(evidence);
@@ -296,7 +302,23 @@ function calculateSectionMatchScore({
         getValidationTopics(validation);
 
     /*
-     * Evidência é o sinal mais específico.
+     * Regulatory é a fonte primária da qualificação da leitura.
+     * Quando a referência candidata pertence ao Regulatory e a seção
+     * corresponde aos parâmetros validados, sua fundamentação recebe
+     * precedência sobre sinais analíticos posteriores.
+     */
+
+    if (
+        isRegulatoryReference &&
+        sectionMatchesTopics(section, validationTopics)
+    ) {
+
+        score += 150;
+
+    }
+
+    /*
+     * Evidência é o sinal mais específico para conhecimento complementar.
      */
 
     if (
@@ -385,7 +407,8 @@ function resolveSection({
     validation,
     diagnosis,
     hypothesis,
-    environment
+    environment,
+    regulatoryReferenceIds
 
 }) {
 
@@ -428,6 +451,8 @@ function resolveSection({
                 score:
                     calculateSectionMatchScore({
 
+                        reference,
+
                         section,
 
                         evidence,
@@ -436,7 +461,9 @@ function resolveSection({
 
                         diagnosis,
 
-                        hypothesis
+                        hypothesis,
+
+                        regulatoryReferenceIds
 
                     })
 
@@ -458,22 +485,64 @@ function resolveSection({
 
     }
 
+    const selectedSection =
+        rankedSections[0].section;
+
+    const selectedIsRegulatory =
+        Array.isArray(regulatoryReferenceIds) &&
+        regulatoryReferenceIds.includes(reference?.id) &&
+        sectionMatchesTopics(
+            selectedSection,
+            getValidationTopics(validation)
+        );
+
+    const selectedHasEvidenceMatch =
+        sectionMatchesTopics(
+            selectedSection,
+            getEvidenceTopics(evidence)
+        );
+
+    const selectedHasValidationMatch =
+        sectionMatchesTopics(
+            selectedSection,
+            getValidationTopics(validation)
+        );
+
+    const selectedHasDiagnosisMatch =
+        Boolean(diagnosis?.id || diagnosis?.primary?.id) &&
+        sectionMatchesTopics(
+            selectedSection,
+            [normalize(diagnosis?.id || diagnosis?.primary?.id)]
+        );
+
+    const selectedHasHypothesisMatch =
+        Boolean(hypothesis?.id || hypothesis?.primary?.id) &&
+        sectionMatchesTopics(
+            selectedSection,
+            [normalize(hypothesis?.id || hypothesis?.primary?.id)]
+        );
+
+    let source = "validation";
+
+    if (selectedIsRegulatory) {
+        source = "regulatory";
+    } else if (selectedHasEvidenceMatch) {
+        source = "evidence";
+    } else if (selectedHasValidationMatch) {
+        source = "validation";
+    } else if (selectedHasDiagnosisMatch) {
+        source = "diagnosis";
+    } else if (selectedHasHypothesisMatch) {
+        source = "hypothesis";
+    }
+
     return {
 
-        section:
-            rankedSections[0].section,
+        section: selectedSection,
 
-        score:
-            rankedSections[0].score,
+        score: rankedSections[0].score,
 
-        source:
-            rankedSections[0].score >= 100
-                ? "evidence"
-                : rankedSections[0].score >= 50
-                    ? "validation"
-                    : rankedSections[0].score >= 25
-                        ? "diagnosis"
-                        : "hypothesis"
+        source
 
     };
 
@@ -767,6 +836,44 @@ function resolveReferences(ctx = {}) {
 
         );
 
+    const relevantRegulatoryReferenceIds = [];
+
+    for (const [parameter, validation] of Object.entries(ctx.validation || {})) {
+
+        const currentAssessment =
+            validation?.currentAssessment;
+
+        const isRelevantCurrentCondition =
+            currentAssessment === "ABOVE_REFERENCE" ||
+            currentAssessment === "BELOW_REFERENCE";
+
+        if (!isRelevantCurrentCondition) {
+
+            continue;
+
+        }
+
+        const regulatory =
+            ctx.regulatory?.[parameter];
+
+        if (!Array.isArray(regulatory?.referenceIds)) {
+
+            continue;
+
+        }
+
+        regulatory.referenceIds.forEach(id => {
+
+            if (!relevantRegulatoryReferenceIds.includes(id)) {
+
+                relevantRegulatoryReferenceIds.push(id);
+
+            }
+
+        });
+
+    }
+
     const evidencePrimary =
         ctx.evidence?.primary ||
         null;
@@ -799,7 +906,11 @@ function resolveReferences(ctx = {}) {
 
     const referenceIds = [];
 
-    function addReferenceId(id) {
+    const regulatoryReferenceIds = [];
+
+    const evidenceReferenceIds = [];
+
+    function addReferenceId(id, target = referenceIds) {
 
         if (
             typeof id !== "string" ||
@@ -807,6 +918,12 @@ function resolveReferences(ctx = {}) {
         ) {
 
             return;
+
+        }
+
+        if (!target.includes(id)) {
+
+            target.push(id);
 
         }
 
@@ -818,11 +935,17 @@ function resolveReferences(ctx = {}) {
 
     }
 
+    for (const id of relevantRegulatoryReferenceIds) {
+
+        addReferenceId(id, regulatoryReferenceIds);
+
+    }
+
     if (Array.isArray(evidencePrimary?.referenceIds)) {
 
-        evidencePrimary.referenceIds.forEach(
+        evidencePrimary.referenceIds.forEach(id =>
 
-            addReferenceId
+            addReferenceId(id, evidenceReferenceIds)
 
         );
 
@@ -836,9 +959,9 @@ function resolveReferences(ctx = {}) {
 
         }
 
-        evidence.referenceIds.forEach(
+        evidence.referenceIds.forEach(id =>
 
-            addReferenceId
+            addReferenceId(id, evidenceReferenceIds)
 
         );
 
@@ -900,42 +1023,7 @@ function resolveReferences(ctx = {}) {
 
     }
 
-    /*
-     * ---------------------------------------------------------------
-     * CATALOG FALLBACK
-     * ---------------------------------------------------------------
-     *
-     * Se a Evidence não declarou referências,
-     * utilizamos o catálogo aplicável ao ambiente.
-     */
-
-    else {
-
-        candidates =
-            REFERENCE_CATALOG.filter(
-
-                reference => {
-
-                    if (!environment) {
-
-                        return true;
-
-                    }
-
-                    return isReferenceApplicable(
-
-                        reference,
-
-                        environment
-
-                    );
-
-                }
-
-            );
-
-    }
-
+  
     /*
      * ================================================================
      * RESOLVE MATCHES
@@ -962,7 +1050,9 @@ function resolveReferences(ctx = {}) {
             hypothesis:
                 hypothesisPrimary,
 
-            environment
+            environment,
+
+            regulatoryReferenceIds: relevantRegulatoryReferenceIds
 
         });
 
@@ -1033,8 +1123,24 @@ function resolveReferences(ctx = {}) {
                 sectionScore:
                     resolved.score,
 
+                sourceRank:
+                    resolved.source === "regulatory"
+                        ? 0
+                        : resolved.source === "evidence"
+                            ? 1
+                            : resolved.source === "validation"
+                                ? 2
+                                : resolved.source === "diagnosis"
+                                    ? 3
+                                    : 4,
+
+                regulatoryOrder:
+                    regulatoryReferenceIds.indexOf(
+                        reference.id
+                    ),
+
                 evidenceOrder:
-                    referenceIds.indexOf(
+                    evidenceReferenceIds.indexOf(
                         reference.id
                     )
 
@@ -1051,10 +1157,11 @@ function resolveReferences(ctx = {}) {
      *
      * Ordem de decisão:
      *
-     * 1. Jurisdição
-     * 2. Tipo da referência
-     * 3. Correspondência da seção
-     * 4. Ordem declarada pela Evidence
+     * 1. Origem da fundamentação: Regulatory antes de camadas analíticas
+     * 2. Jurisdição
+     * 3. Tipo da referência
+     * 4. Correspondência da seção
+     * 5. Ordem declarada pela Evidence
      *
      * Portanto, no Brasil:
      *
@@ -1072,15 +1179,25 @@ function resolveReferences(ctx = {}) {
         (a, b) => {
 
             if (
+                a._ranking.sourceRank !==
+                b._ranking.sourceRank
+            ) {
+
+                return (
+                    a._ranking.sourceRank -
+                    b._ranking.sourceRank
+                );
+
+            }
+
+            if (
                 a._ranking.jurisdiction !==
                 b._ranking.jurisdiction
             ) {
 
                 return (
-
                     a._ranking.jurisdiction -
                     b._ranking.jurisdiction
-
                 );
 
             }
@@ -1091,10 +1208,8 @@ function resolveReferences(ctx = {}) {
             ) {
 
                 return (
-
                     a._ranking.type -
                     b._ranking.type
-
                 );
 
             }
@@ -1113,12 +1228,33 @@ function resolveReferences(ctx = {}) {
 
             }
 
-            return (
+            const aRegulatoryOrder =
+                a._ranking.regulatoryOrder === -1
+                    ? Number.MAX_SAFE_INTEGER
+                    : a._ranking.regulatoryOrder;
 
-                a._ranking.evidenceOrder -
-                b._ranking.evidenceOrder
+            const bRegulatoryOrder =
+                b._ranking.regulatoryOrder === -1
+                    ? Number.MAX_SAFE_INTEGER
+                    : b._ranking.regulatoryOrder;
 
-            );
+            if (aRegulatoryOrder !== bRegulatoryOrder) {
+
+                return aRegulatoryOrder - bRegulatoryOrder;
+
+            }
+
+            const aEvidenceOrder =
+                a._ranking.evidenceOrder === -1
+                    ? Number.MAX_SAFE_INTEGER
+                    : a._ranking.evidenceOrder;
+
+            const bEvidenceOrder =
+                b._ranking.evidenceOrder === -1
+                    ? Number.MAX_SAFE_INTEGER
+                    : b._ranking.evidenceOrder;
+
+            return aEvidenceOrder - bEvidenceOrder;
 
         }
 

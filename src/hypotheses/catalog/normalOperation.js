@@ -40,7 +40,8 @@ const NORMAL_OPERATION = Object.freeze({
      * Título para apresentação.
      */
 
-    title: "Operação ambiental compatível com condições normais",
+    title:
+        "Operação ambiental compatível com condições normais",
 
     /*
      * Descrição técnica.
@@ -59,7 +60,7 @@ const NORMAL_OPERATION = Object.freeze({
 
         "ashrae62_1",
 
-        "abnt_nbr_16401",
+        "abnt_nbr_16401"
 
     ],
 
@@ -71,13 +72,23 @@ const NORMAL_OPERATION = Object.freeze({
 
     /*
      * Critério de ativação.
+     *
+     * A hipótese não recalcula condições ambientais.
+     *
+     * Ela apenas consome o resultado produzido pelas
+     * camadas anteriores do CORE.
+     *
+     * A condição de operação normal é representada pela
+     * Evidence Library através da evidência:
+     *
+     * normal_environment
      */
 
     when(ctx) {
 
         return (
 
-            ctx.diagnosis?.primary?.id ===
+            ctx.evidence?.primary?.id ===
             "normal_environment"
 
         );

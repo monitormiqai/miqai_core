@@ -24,7 +24,7 @@ export default Object.freeze({
     when(ctx) {
 
         return (
-            ctx.validation?.humidity?.state === "HIGH"
+            ctx.validation?.humidity?.currentAssessment === "ABOVE_REFERENCE"
         );
 
     }

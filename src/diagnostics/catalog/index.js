@@ -35,7 +35,6 @@ import insufficientVentilation from "./insufficientVentilation.js";
 import thermalDiscomfort from "./thermalDiscomfort.js";
 import particulatePollution from "./particulatePollution.js";
 import poorAirQuality from "./poorAirQuality.js";
-import highHealthRisk from "./highHealthRisk.js";
 import dewPointCondensation from "./dewPointCondensation.js";
 
 /* ======================================================================
@@ -89,8 +88,6 @@ const DIAGNOSTICS = Object.freeze([
     particulatePollution,
 
     poorAirQuality,
-
-    highHealthRisk,
 
     dewPointCondensation
 

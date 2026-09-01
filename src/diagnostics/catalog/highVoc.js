@@ -24,7 +24,7 @@ export default Object.freeze({
     when(ctx) {
 
         return (
-            ctx.validation?.vocIndex?.state === "HIGH"
+            ctx.validation?.vocIndex?.currentAssessment === "ABOVE_REFERENCE"
         );
 
     }

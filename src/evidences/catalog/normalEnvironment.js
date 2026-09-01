@@ -5,14 +5,17 @@
  * ----------------------------------------------------------------------
  * Arquivo   : normalEnvironment.js
  * Módulo    : Evidences
- * Versão    : 1.0.0
- * Status    : RC2
+ * Versão    : 1.1.0
+ * Status    : RC2 - CORREÇÃO CO2 OBSERVATION
  *
  * Objetivo
  * ----------------------------------------------------------------------
  * Registrar evidência de conformidade ambiental quando todos os
- * parâmetros avaliados estiverem em conformidade com os critérios
- * regulatórios aplicáveis.
+ * parâmetros regulados e avaliáveis estiverem em conformidade com
+ * os critérios aplicáveis ao ambiente analisado.
+ *
+ * Parâmetros observacionais não impedem esta evidência, pois não
+ * representam critérios de conformidade.
  *
  * Esta evidência representa exclusivamente um fato observado durante
  * a análise.
@@ -49,7 +52,7 @@ const NORMAL_ENVIRONMENT = Object.freeze({
      */
 
     description:
-        "Todos os parâmetros avaliados atenderam aos critérios regulatórios aplicáveis ao ambiente analisado.",
+        "Nenhuma condição de desvio foi identificada entre os parâmetros avaliados no cenário atual. Parâmetros não avaliáveis ou observacionais não são interpretados como conformidade regulatória.",
 
     /*
      * Referências técnicas relacionadas.
@@ -61,8 +64,7 @@ const NORMAL_ENVIRONMENT = Object.freeze({
 
         "ashrae62_1",
 
-        "abnt_nbr_16401",
-
+        "abnt_nbr_16401"
 
     ],
 
@@ -74,19 +76,56 @@ const NORMAL_ENVIRONMENT = Object.freeze({
 
     /*
      * Critério de ativação.
+     *
+     * Parâmetros observacionais, como CO2 no contrato atual,
+     * não participam da determinação de conformidade.
+     *
+     * Somente parâmetros regulados são considerados.
      */
 
     when(ctx) {
 
-        return Object.values(
+        const validation =
+            ctx.validation ?? {};
 
-            ctx.validation
+        const parameters =
+            Object.values(validation);
 
-        ).every(
+        /*
+         * Sem parâmetros de validação, não é possível afirmar
+         * conformidade.
+         */
 
-            parameter => parameter.passed
+        if (parameters.length === 0) {
 
-        );
+            return false;
+
+        }
+
+        /*
+         * Todos os parâmetros regulados devem estar aprovados.
+         */
+
+        const regulatedParameters =
+            parameters.filter(
+                parameter =>
+                    parameter?.regulated === true
+            );
+
+        const regulatedAreCompliant =
+            regulatedParameters.every(
+                parameter =>
+                    parameter.passed === true
+            );
+
+        const noObservedDeviation =
+            parameters.every(
+                parameter =>
+                    parameter?.currentAssessment !== "ABOVE_REFERENCE" &&
+                    parameter?.currentAssessment !== "BELOW_REFERENCE"
+            );
+
+        return regulatedAreCompliant && noObservedDeviation;
 
     }
 

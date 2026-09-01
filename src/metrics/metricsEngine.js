@@ -5,26 +5,64 @@
  * ----------------------------------------------------------------------
  * Arquivo   : metricsEngine.js
  * Módulo    : Metrics
- * Versão    : 1.0.0
- * Status    : RC1 - CONGELADO
+ * Versão    : 1.2.0
+ * Status    : RC1.2 - REVISÃO ESTRUTURAL
  *
  * Objetivo
  * ----------------------------------------------------------------------
- * Calcular os indicadores derivados do CORE QAI.
+ * Transformar os resultados de validação em indicadores quantitativos
+ * e classificações padronizadas utilizadas pelas etapas posteriores
+ * do CORE QAI.
+ *
+ * A Metrics Engine é responsável por executar os calculators oficiais
+ * de métricas e organizar seus resultados em ctx.metrics.
  *
  * Entrada:
- *      ctx.raw
  *      ctx.validation
+ *      ctx.domain
+ *      ctx.raw
  *
  * Saída:
  *      ctx.metrics
  *
  * A Metrics Engine:
  *
- *  - Orquestra os calculators de métricas
- *  - Não executa validações
- *  - Não interpreta normas regulatórias
- *  - Não gera diagnósticos
+ *  - Utiliza os resultados produzidos pela Validation Engine;
+ *  - Utiliza o Domain ativo quando necessário para parâmetros específicos
+ *    de cálculo;
+ *  - Executa exclusivamente os calculators registrados na Metrics Library;
+ *  - Pode produzir indicadores derivados das leituras validadas;
+ *  - Pode combinar métricas previamente calculadas para produzir
+ *    indicadores derivados, como o QAI Score;
+ *  - Não executa validações;
+ *  - Não resolve critérios regulatórios;
+ *  - Não interpreta normas;
+ *  - Não gera diagnósticos;
+ *  - Não gera evidências;
+ *  - Não formula hipóteses;
+ *  - Não estabelece relationships;
+ *  - Não gera impactos ambientais;
+ *  - Não gera impactos humanos;
+ *  - Não gera recomendações ou mitigações;
+ *  - Não estabelece causalidade;
+ *  - Não calcula risco à saúde.
+ *
+ * Princípio:
+ * ----------------------------------------------------------------------
+ * Metrics transforma dados validados em indicadores calculados.
+ *
+ * A Metrics não decide o significado ambiental ou humano dos
+ * indicadores. A interpretação pertence às etapas analíticas
+ * posteriores.
+ *
+ * Dependência de conhecimento:
+ * ----------------------------------------------------------------------
+ * O conhecimento utilizado pela Metrics deve ser restrito aos critérios,
+ * parâmetros, pesos, fórmulas e classificações necessários para produzir
+ * os indicadores definidos pelo CORE QAI.
+ *
+ * Esse conhecimento não deve ser utilizado para criar diagnósticos,
+ * hipóteses, relationships, impactos ou recomendações.
  * ======================================================================
  */
 
@@ -33,8 +71,9 @@ import { calculateAirQuality } from "./calculators/airQuality.js";
 import { calculateParticulateLoad } from "./calculators/particulateLoad.js";
 import { calculateOccupancy } from "./calculators/occupancy.js";
 import { calculateQaiScore } from "./calculators/qaiScore.js";
-import { calculateHealthRisk } from "./calculators/healthRisk.js";
 import { calculateDewPoint } from "./calculators/dewPoint.js";
+import { calculateCo2Analysis } from "./calculators/co2Analysis.js";
+
 
 /* ======================================================================
  * METRICS ENGINE
@@ -62,9 +101,13 @@ export function calculateMetrics(ctx) {
             calculateOccupancy(ctx),
 
         dewPoint:
-            calculateDewPoint(ctx),   
+            calculateDewPoint(ctx),
+
+        co2Analysis:
+            calculateCo2Analysis(ctx),    
 
     };
+
 
     /*
      * Disponibiliza as métricas básicas para os
@@ -72,6 +115,7 @@ export function calculateMetrics(ctx) {
      */
 
     ctx.metrics = metrics;
+
 
     /*
      * Segunda etapa:
@@ -81,8 +125,6 @@ export function calculateMetrics(ctx) {
     metrics.qaiScore =
         calculateQaiScore(ctx);
 
-    metrics.healthRisk =
-        calculateHealthRisk(ctx);
 
     /*
      * Congela o resultado final.
@@ -94,4 +136,3 @@ export function calculateMetrics(ctx) {
     return ctx;
 
 }
-

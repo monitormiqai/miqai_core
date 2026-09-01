@@ -1,120 +1,83 @@
 /**
- * ======================================================================
- * CORE QAI
- * Humidity Regulatory Catalog
- * ----------------------------------------------------------------------
- * Arquivo   : humidity.js
- * Módulo    : Regulatory Library
- * Versão    : 1.0.0
- * Status    : RC1 - CONGELADO
- *
- * Objetivo
- * ----------------------------------------------------------------------
- * Catálogo regulatório para Umidade Relativa do Ar.
- *
- * Este catálogo descreve exclusivamente os critérios regulatórios
- * utilizados pela Validation Engine.
- *
- * Não executa validações.
- * Não interpreta resultados.
- * Não calcula métricas.
- * ======================================================================
+ * CORE QAI — Humidity Regulatory Catalog
+ * Regulatory RC1 — rebuilt for traceability.
  */
-
 const HUMIDITY_REGULATORY = Object.freeze({
-
-    /* ==========================================================
-     * IDENTIFICAÇÃO
-     * ========================================================== */
-
     parameter: "humidity",
-
     validationKey: "humidity",
-
     displayName: "Relative Humidity",
-
     description: "Indoor relative humidity.",
-
     unit: "%",
-
-    /* ==========================================================
-     * PERFIS REGULATÓRIOS
-     * ========================================================== */
 
     profiles: Object.freeze({
 
         corporate: Object.freeze({
-
-            regulated: true,
-
+            regulated: false,
             type: "RANGE",
-
-            min: 40,
-
+            min: 35,
             max: 65,
-
-            regulatoryId: "ASHRAE-55"
-
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "instantaneous_reading",
+            applicability: "non_residential_artificially_conditioned",
+            referenceIds: ["abnt_nbr_17037"],
+            regulatoryId: "abnt_nbr_17037",
+            criterionNote:
+                "ABNT NBR 17037:2023 gives 35 % to 65 % as a recommended range for indoor relative humidity."
         }),
 
         healthcare: Object.freeze({
-
-            regulated: true,
-
+            regulated: false,
             type: "RANGE",
-
-            min: 40,
-
-            max: 60,
-
-            regulatoryId: "ANVISA-RDC-50"
-
+            min: 35,
+            max: 65,
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "instantaneous_reading",
+            applicability: "non_residential_artificially_conditioned",
+            referenceIds: ["abnt_nbr_17037"],
+            regulatoryId: "abnt_nbr_17037",
+            criterionNote:
+                "ABNT NBR 17037:2023 gives 35 % to 65 % as a recommended range. Specific healthcare requirements may require additional assessment."
         }),
 
         education: Object.freeze({
-
-            regulated: true,
-
+            regulated: false,
             type: "RANGE",
-
-            min: 40,
-
+            min: 35,
             max: 65,
-
-            regulatoryId: "ASHRAE-55"
-
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "instantaneous_reading",
+            applicability: "non_residential_artificially_conditioned",
+            referenceIds: ["abnt_nbr_17037"],
+            regulatoryId: "abnt_nbr_17037",
+            criterionNote:
+                "ABNT NBR 17037:2023 gives 35 % to 65 % as a recommended range."
         }),
 
         residential: Object.freeze({
-
-            regulated: true,
-
-            type: "RANGE",
-
-            min: 40,
-
-            max: 65,
-
-            regulatoryId: "ASHRAE-55"
-
+            regulated: false,
+            type: "OBSERVATION",
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "instantaneous_reading",
+            applicability: "residential",
+            referenceIds: ["ashrae55"],
+            regulatoryId: "ashrae55",
+            criterionNote:
+                "ASHRAE Standard 55 does not establish a single universal minimum or maximum relative-humidity limit for thermal comfort."
         }),
 
         datacenter: Object.freeze({
-
-            regulated: true,
-
-            type: "RANGE",
-
-            min: 20,
-
-            max: 80,
-
-            regulatoryId: "ASHRAE-TC9.9"
-
+            regulated: false,
+            type: "OBSERVATION",
+            criterionKind: "TECHNICAL_REFERENCE",
+            evaluationPeriod: "instantaneous_reading",
+            applicability: "data_center",
+            referenceIds: ["ashrae55"],
+            regulatoryId: "ashrae55",
+            criterionNote:
+                "The current reference catalog does not contain a dedicated ASHRAE data-center environmental-envelope reference. No artificial pass/fail limit is introduced."
         })
 
     })
-
 });
 
 export default HUMIDITY_REGULATORY;

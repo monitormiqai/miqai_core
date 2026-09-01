@@ -5,12 +5,25 @@
  * ----------------------------------------------------------------------
  * Arquivo   : particulateLoad.js
  * Módulo    : Metrics
- * Versão    : RC1 - CONGELADO
+ * Versão    : 1.1.0
+ * Status    : RC1.1 - EM REVISÃO CONTROLADA
  *
  * Objetivo
  * ----------------------------------------------------------------------
- * Calcular o indicador de carga de material particulado utilizando
- * os resultados produzidos pela Validation Engine.
+ * Calcular o indicador de carga de material particulado a partir dos
+ * parâmetros PM2.5 e PM10 disponibilizados pela Validation Engine.
+ *
+ * Cadeia funcional:
+ *
+ *      leitura
+ *         ↓
+ *      Validation
+ *         ↓
+ *      dados validados
+ *         ↓
+ *   Particulate Load
+ *         ↓
+ *   indicador métrico
  *
  * Entrada:
  *      ctx.validation
@@ -21,12 +34,95 @@
  *          level,
  *          dominantFactor
  *      }
+ *
+ * RESPONSABILIDADE
+ * ----------------------------------------------------------------------
+ * Este calculator:
+ *
+ * - utiliza os valores disponibilizados pela Validation;
+ * - avalia os parâmetros PM2.5 e PM10 contemplados pela métrica;
+ * - aplica exclusivamente critérios próprios da Metrics;
+ * - calcula o indicador de carga de material particulado;
+ * - classifica o resultado segundo as faixas definidas para a métrica;
+ * - identifica o fator dominante quando essa determinação estiver
+ *   formalmente definida pelo conhecimento da métrica;
+ * - retorna UNKNOWN quando os dados necessários ou os critérios
+ *   necessários ao cálculo não estiverem disponíveis.
+ *
+ * PARÂMETROS CONTEMPLADOS
+ * ----------------------------------------------------------------------
+ *
+ * - PM2.5
+ * - PM10
+ *
+ * SEPARAÇÃO DE RESPONSABILIDADES
+ * ----------------------------------------------------------------------
+ *
+ * Validation:
+ *      determina a classificação da leitura segundo os critérios
+ *      de validação aplicáveis.
+ *
+ * Metrics:
+ *      transforma os dados validados em indicador quantitativo
+ *      segundo os critérios próprios da métrica.
+ *
+ * Portanto:
+ *
+ *      validation.passed
+ *
+ * não deve ser interpretado automaticamente como:
+ *
+ *      carga de partículas adequada/inadequada.
+ *
+ * O campo "passed" somente poderá participar do cálculo quando essa
+ * utilização estiver explicitamente definida pelo conhecimento
+ * específico da métrica.
+ *
+ * CONHECIMENTO
+ * ----------------------------------------------------------------------
+ *
+ * Os critérios específicos da métrica, incluindo quando aplicável:
+ *
+ * - faixas de concentração;
+ * - pesos relativos entre PM2.5 e PM10;
+ * - método de pontuação;
+ * - níveis de classificação;
+ * - determinação do fator dominante;
+ *
+ * constituem conhecimento específico da Metrics e deverão ser
+ * formalmente definidos e fundamentados na Biblioteca de Ouro.
+ *
+ * Este arquivo não deve inventar ou assumir esses critérios.
+ *
+ * LIMITES
+ * ----------------------------------------------------------------------
+ *
+ * A Particulate Load Calculator:
+ *
+ * - não executa Validation;
+ * - não resolve Regulatory;
+ * - não interpreta normas;
+ * - não gera diagnósticos;
+ * - não gera evidências;
+ * - não formula hipóteses;
+ * - não estabelece relationships;
+ * - não gera impactos;
+ * - não gera recomendações;
+ * - não estabelece causalidade.
+ *
+ * Princípio:
+ *
+ *      Metrics calcula indicadores.
+ *
+ * O resultado deste calculator não constitui, isoladamente,
+ * diagnóstico ambiental, clínico ou regulatório.
  * ======================================================================
  */
 
-// ======================================================================
-// Validação de disponibilidade
-// ======================================================================
+
+/* ======================================================================
+ * VALIDAÇÃO DE DISPONIBILIDADE
+ * ====================================================================== */
 
 function isEvaluated(validation) {
 
@@ -40,14 +136,14 @@ function isEvaluated(validation) {
 }
 
 
-// ======================================================================
-// CALCULATOR
-// ======================================================================
+/* ======================================================================
+ * PARTICULATE LOAD
+ * ====================================================================== */
 
 export function calculateParticulateLoad(ctx) {
 
     const validation =
-        ctx.validation;
+        ctx.validation ?? {};
 
     const pm25 =
         validation.pm25;
@@ -55,10 +151,11 @@ export function calculateParticulateLoad(ctx) {
     const pm10 =
         validation.pm10;
 
+
     /*
-     * Nenhum parâmetro efetivamente disponível.
-     *
-     * MISSING não representa falha ambiental.
+     * ================================================================
+     * DISPONIBILIDADE
+     * ================================================================
      */
 
     if (
@@ -78,108 +175,27 @@ export function calculateParticulateLoad(ctx) {
 
     }
 
-    /*
-     * Pontuação inicial
-     */
-
-    let score = 100;
 
     /*
-     * PM2.5
+     * ================================================================
+     * CONHECIMENTO DA MÉTRICA
+     * ================================================================
+     *
+     * Os critérios científicos do indicador ainda serão definidos
+     * na Biblioteca de Ouro da Metrics.
+     *
+     * Não utilizar validation.passed como substituto desses critérios.
+     *
+     * Não aplicar pesos ou faixas provisórias.
      */
-
-    if (
-        isEvaluated(pm25) &&
-        !pm25.passed
-    ) {
-
-        score -= 60;
-
-    }
-
-    /*
-     * PM10
-     */
-
-    if (
-        isEvaluated(pm10) &&
-        !pm10.passed
-    ) {
-
-        score -= 40;
-
-    }
-
-    /*
-     * Limites
-     */
-
-    score = Math.max(
-        0,
-        Math.min(100, score)
-    );
-
-    /*
-     * Classificação
-     */
-
-    let level;
-
-    if (score >= 90) {
-
-        level = "EXCELLENT";
-
-    }
-
-    else if (score >= 75) {
-
-        level = "GOOD";
-
-    }
-
-    else if (score >= 50) {
-
-        level = "MODERATE";
-
-    }
-
-    else {
-
-        level = "POOR";
-
-    }
-
-    /*
-     * Principal fator
-     */
-
-    let dominantFactor = null;
-
-    if (
-        isEvaluated(pm25) &&
-        !pm25.passed
-    ) {
-
-        dominantFactor = "pm25";
-
-    }
-
-    else if (
-        isEvaluated(pm10) &&
-        !pm10.passed
-    ) {
-
-        dominantFactor = "pm10";
-
-    }
 
     return {
 
-        score,
+        score: null,
 
-        level,
+        level: "UNKNOWN",
 
-        dominantFactor
+        dominantFactor: null
 
     };
 

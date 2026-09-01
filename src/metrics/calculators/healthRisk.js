@@ -1,184 +1,81 @@
 /**
  * ======================================================================
  * CORE QAI
- * Health Risk Calculator
+ * Legacy Metric Calculator
  * ----------------------------------------------------------------------
  * Arquivo   : healthRisk.js
  * Módulo    : Metrics
- * Versão    : 1.0.0
- * Status    : RC1 - CONGELADO
+ * Versão    : 1.1.0
+ * Status    : LEGACY - DESABILITADO
  *
- * Objetivo
+ * Objetivo original
  * ----------------------------------------------------------------------
- * Calcular um indicador agregado de risco potencial à saúde
- * utilizando os parâmetros críticos identificados durante a
- * Validation Engine.
+ * Calcular um indicador agregado denominado Health Risk a partir de
+ * penalizações aplicadas a parâmetros ambientais.
  *
- * Entrada:
- *      ctx.validation
+ * STATUS ATUAL
+ * ----------------------------------------------------------------------
+ * Este calculator foi retirado do fluxo oficial da Metrics Library.
  *
- * Saída:
- *      {
- *          score,
- *          level,
- *          dominantFactor
- *      }
+ * O indicador anteriormente calculado por este módulo não possui,
+ * no estado atual da Biblioteca de Ouro do CORE QAI, fundamentação
+ * científica suficiente para representar ou classificar risco à saúde.
+ *
+ * Portanto:
+ *
+ *      healthRisk NÃO é uma métrica científica oficial do CORE QAI.
+ *
+ *      Os pesos e penalizações anteriormente utilizados NÃO devem ser
+ *      tratados como conhecimento científico validado.
+ *
+ *      O resultado NÃO deve alimentar diagnóstico, impacto, hipótese,
+ *      recomendação ou qualquer interpretação relacionada à saúde.
+ *
+ *      O resultado NÃO deve ser entregue pelo JSON oficial do CORE.
+ *
+ * PRINCÍPIO
+ * ----------------------------------------------------------------------
+ * O módulo Metrics deve utilizar somente conhecimento específico,
+ * formalmente definido e suficientemente fundamentado para a finalidade
+ * quantitativa que o indicador pretende representar.
+ *
+ * A ausência de fundamentação suficiente impede que uma pontuação
+ * agregada seja apresentada como risco à saúde.
+ *
+ * RASTREABILIDADE
+ * ----------------------------------------------------------------------
+ * Este arquivo permanece temporariamente como registro histórico da
+ * implementação anterior.
+ *
+ * Não importar.
+ * Não registrar.
+ * Não executar.
+ *
+ * A remoção física definitiva poderá ocorrer após a verificação de
+ * todas as dependências e do contrato de saída do CORE QAI.
  * ======================================================================
  */
 
-import { resolveScoreLevel } from "../utils/scoreLevel.js";
+/*
+ * LEGACY - DESABILITADO
+ *
+ * Nenhuma função de cálculo é exportada.
+ *
+ * Este arquivo existe exclusivamente para preservar rastreabilidade
+ * durante a revisão estrutural do CORE QAI.
+ */
 
-/* ======================================================================
- * VALIDAÇÃO DE DISPONIBILIDADE
- * ====================================================================== */
+const HEALTH_RISK_LEGACY = Object.freeze({
 
-function isEvaluated(validation) {
+    id: "healthRisk",
 
-    return (
-        validation &&
-        validation.state !== "MISSING" &&
-        validation.value !== null &&
-        validation.value !== undefined
-    );
+    status: "LEGACY",
 
-}
+    enabled: false,
 
-/* ======================================================================
- * HEALTH RISK
- * ====================================================================== */
+    reason:
+        "Métrica retirada do fluxo ativo por ausência de fundamentação científica suficiente para classificação de risco à saúde."
 
-export function calculateHealthRisk(ctx) {
+});
 
-    const validation = ctx.validation || {};
-
-    const factors = [
-
-        {
-            name: "co2",
-            result: validation.co2,
-            penalty: 30
-        },
-
-        {
-            name: "pm25",
-            result: validation.pm25,
-            penalty: 30
-        },
-
-        {
-            name: "pm10",
-            result: validation.pm10,
-            penalty: 20
-        },
-
-        {
-            name: "vocIndex",
-            result: validation.vocIndex,
-            penalty: 10
-        },
-
-        {
-            name: "noxIndex",
-            result: validation.noxIndex,
-            penalty: 10
-        }
-
-    ];
-
-    /*
-     * Somente parâmetros efetivamente avaliados
-     * participam do cálculo.
-     */
-
-    const evaluatedFactors =
-        factors.filter(
-            factor =>
-                isEvaluated(factor.result)
-        );
-
-    /*
-     * Nenhum parâmetro disponível.
-     *
-     * Sem dados não é possível classificar
-     * o risco potencial à saúde.
-     */
-
-    if (evaluatedFactors.length === 0) {
-
-        return {
-
-            score: null,
-
-            level: "UNKNOWN",
-
-            dominantFactor: null
-
-        };
-
-    }
-
-    /*
-     * Pontuação inicial.
-     */
-
-    let score = 100;
-
-    let dominantFactor = null;
-
-    let highestPenalty = 0;
-
-    /*
-     * Aplicação das penalizações.
-     */
-
-    for (const factor of evaluatedFactors) {
-
-        if (factor.result.passed === false) {
-
-            score -= factor.penalty;
-
-            if (
-                factor.penalty >
-                highestPenalty
-            ) {
-
-                highestPenalty =
-                    factor.penalty;
-
-                dominantFactor =
-                    factor.name;
-
-            }
-
-        }
-
-    }
-
-    /*
-     * Limites.
-     */
-
-    score = Math.max(
-        0,
-        Math.min(
-            100,
-            score
-        )
-    );
-
-    /*
-     * Resultado.
-     */
-
-    return {
-
-        score,
-
-        level:
-            resolveScoreLevel(score),
-
-        dominantFactor
-
-    };
-
-}
+export default HEALTH_RISK_LEGACY;

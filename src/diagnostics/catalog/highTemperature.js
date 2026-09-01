@@ -24,7 +24,7 @@ export default Object.freeze({
     when(ctx) {
 
         return (
-            ctx.validation?.temperature?.state === "HIGH"
+            ctx.validation?.temperature?.currentAssessment === "ABOVE_REFERENCE"
         );
 
     }

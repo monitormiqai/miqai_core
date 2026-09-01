@@ -7,17 +7,20 @@
   "exports": {
     ".": "./src/engine/analysis.js"
   },
+  "scripts": {
+    "test": "node --test tests/*.test.js tests/**/*.test.js"
+  },
   "files": [
     "src"
   ],
+  "author": "Giovane Lopes",
+  "license": "Proprietary",
+  "private": true,
   "keywords": [
     "air-quality",
     "iaq",
     "knowledge-engine",
-    "climcare",
-    "core-qai"
-  ],
-  "author": "Giovane Lopes",
-  "license": "Proprietary",
-  "private": true
+    "core-qai",
+    "miqai"
+  ]
 }

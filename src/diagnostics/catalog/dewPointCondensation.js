@@ -22,7 +22,7 @@ const DEW_POINT_CONDENSATION = Object.freeze({
         const dewPoint = ctx.metrics?.dewPoint;
 
         return (
-            humidity?.state === "HIGH" &&
+            humidity?.currentAssessment === "ABOVE_REFERENCE" &&
             Number.isFinite(dewPoint?.value)
         );
 
