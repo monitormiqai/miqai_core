@@ -1,0 +1,59 @@
+{
+  "reference": {
+    "id": "abnt_nbr_16401_3_2024",
+    "code": "ABNT NBR 16401-3:2024",
+    "title": "Instalações de ar-condicionado — Sistemas centrais e unitários — Parte 3: Qualidade do ar interior",
+    "organization": "Associacao Brasileira de Normas Tecnicas",
+    "year": 2024,
+    "url": "https://www.abnt.org.br/",
+    "referenceClass": "STANDARD",
+    "note": "ABNT NBR 16401-3:2024 is treated as a contextual standard reference for HVAC-related IAQ and ventilation topics. This record preserves the Dossier limitation: no new universal RH threshold was identified for the Part 3 scope."
+  },
+  "parameterDefinition": {
+    "id": "humidity",
+    "name": "Relative Humidity",
+    "displayName": "Indoor relative humidity",
+    "unit": "%",
+    "description": "Indoor relative humidity as a monitored environmental parameter. The consolidated ABNT NBR 16401-3:2024 record does not identify a new universal threshold for this Part 3 scope.",
+    "measurementMethod": "Relative humidity monitoring as an environmental variable; no new Part 3 threshold was consolidated in this dossier."
+  },
+  "criteria": {
+    "id": "relative_humidity_abnt_16401_3_2024_monitoring",
+    "parameterId": "humidity",
+    "referenceId": "abnt_nbr_16401_3_2024",
+    "threshold": null,
+    "unit": "%",
+    "evaluationPeriod": "current_reading",
+    "methodNote": "ABNT NBR 16401-3:2024 recognizes relative humidity as a parameter of interest and monitoring/visualization variable, but the consolidated dossier did not identify a new universal threshold for the Part 3 scope. Values of other standards must not be copied into this record.",
+    "applicability": ["corporate", "education", "healthcare"],
+    "temporalGuidance": "Relative humidity remains a monitoring variable for contextual interpretation. No automatic compliance threshold is assigned in this record."
+  },
+  "provenance": {
+    "sourceUrl": "https://www.abnt.org.br/",
+    "rawSource": "docs/MIQAI_Biblioteca_de_Conhecimento_Dossie_Consolidado_2026-09-09.md",
+    "sourceHash": null,
+    "ingestDate": "2026-09-09",
+    "ingestOperator": "curation_session"
+  },
+  "curation": {
+    "curatorId": "curator:giovane",
+    "curationDate": "2026-09-09",
+    "curationNotes": "Curated from the consolidated dossier. Relative humidity is retained as a monitoring/visualization parameter only; no new universal threshold from ABNT NBR 16401-3:2024 was identified."
+  },
+  "validation": {
+    "validationStatus": "PENDING",
+    "validatorId": null,
+    "validationDate": "2026-09-09",
+    "validationNotes": "The consolidated dossier identifies humidity as a parameter of interest without a new universal threshold under ABNT NBR 16401-3:2024. Independent primary-source validation remains pending."
+  },
+  "approval": {
+    "approverId": null,
+    "approvalDate": null,
+    "approvalNotes": null,
+    "versionId": null,
+    "manifestEntry": null,
+    "publishedAt": null,
+    "publishedBy": null,
+    "useAsCriteria": null
+  }
+}

@@ -33,20 +33,20 @@ const OUTDOOR_POLLUTION = Object.freeze({
      * Nome interno.
      */
 
-    name: "Outdoor Pollution",
+    name: "Outdoor particulate contribution (investigative)",
 
     /*
      * Título para apresentação.
      */
 
-    title: "Possível influência da poluição atmosférica externa",
+    title: "Investigação de possível contribuição de material particulado externo",
 
     /*
      * Descrição técnica.
      */
 
     description:
-        "O conjunto de evidências observado é compatível com a entrada de material particulado proveniente do ambiente externo, embora outras fontes internas também possam explicar os resultados obtidos.",
+        "Material particulado elevado foi observado, mas a origem não pode ser determinada pela medição disponível. Fontes internas continuam possíveis e a contribuição de particulado externo é apenas uma possibilidade a investigar.",
 
     /*
      * Referências técnicas.
@@ -56,9 +56,7 @@ const OUTDOOR_POLLUTION = Object.freeze({
 
         "who_aqg_2021",
 
-        "ashrae62_1",
-
-        "abnt_nbr_16401"
+        "ashrae62_1"
 
     ],
 

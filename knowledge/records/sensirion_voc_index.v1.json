@@ -1,0 +1,58 @@
+{
+  "reference": {
+    "id": "sensirion_voc",
+    "code": "SENSIRION VOC INDEX",
+    "title": "Indice de VOC da Sensirion",
+    "organization": "Sensirion",
+    "year": 2022,
+    "url": "https://sensirion.com/products/catalog/SGP41",
+    "referenceClass": "MANUFACTURER",
+    "note": "Manufacturer technical reference. VOC Index is a relative index and not a regulatory concentration limit."
+  },
+  "parameterDefinition": {
+    "id": "vocIndex",
+    "name": "VOC Index",
+    "displayName": "Sensirion VOC Index",
+    "unit": "index",
+    "description": "Relative VOC index used as an operational indicator; it is not a direct VOC concentration.",
+    "measurementMethod": "Sensirion Gas Index Algorithm relative index derived from recent environmental baseline."
+  },
+  "criteria": {
+    "id": "voc_index_sensirion_baseline",
+    "parameterId": "vocIndex",
+    "referenceId": "sensirion_voc",
+    "threshold": 100,
+    "unit": "index",
+    "evaluationPeriod": "current_reading",
+    "methodNote": "Sensirion VOC Index is an operational relative index. Values above the documented baseline of 100 indicate a relative deterioration from the recent environmental baseline; this is not a regulatory concentration limit.",
+    "applicability": ["corporate", "healthcare", "education", "residential", "datacenter"]
+  },
+  "provenance": {
+    "sourceUrl": "https://sensirion.com/products/catalog/SGP41",
+    "rawSource": "src/references/catalog/sensirion_voc.js",
+    "sourceHash": null,
+    "ingestDate": "2026-09-08",
+    "ingestOperator": "curation_session"
+  },
+  "curation": {
+    "curatorId": "curator:giovane",
+    "curationDate": "2026-09-08",
+    "curationNotes": "Curated from existing reference catalog and current regulatory semantics. VOC Index remains a relative manufacturer technical indicator and not a concentration or regulatory threshold."
+  },
+  "validation": {
+    "validationStatus": "PENDING",
+    "validatorId": null,
+    "validationDate": "2026-09-08",
+    "validationNotes": "Existing runtime semantics were transcribed into Knowledge, but approval for runtime consumption remains pending."
+  },
+  "approval": {
+    "approverId": null,
+    "approvalDate": null,
+    "approvalNotes": null,
+    "versionId": null,
+    "manifestEntry": null,
+    "publishedAt": null,
+    "publishedBy": null,
+    "useAsCriteria": null
+  }
+}

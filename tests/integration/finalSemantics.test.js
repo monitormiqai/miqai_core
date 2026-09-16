@@ -37,12 +37,12 @@ console.log("========================================\n");
     assert.ok(ctx.evidence.records.some(x => x.id === "elevated_particulate"));
     assert.ok(ctx.hypotheses.matches.some(x => x.id === "outdoor_pollution"));
     assert.ok(ctx.mitigation.actions.length > 0);
-    assert.equal(ctx.metrics.qaiScore.score, null);
+    assert.equal(ctx.metrics.qaiScore.score, 50);
 
     assert.equal(ctx.references.primary.reference.id, "abnt_nbr_17037");
     assert.equal(ctx.references.primary.match.source, "regulatory");
 
-    console.log("✓ PM2.5 atual segue a esteira sem contaminar o Score e mantém a referência regulatória");
+    console.log("✓ PM2.5 mantém semântica regulatória 24h e participa independentemente do Score instantâneo");
 }
 
 {
@@ -71,6 +71,37 @@ console.log("========================================\n");
     assert.ok(ctx.evidence.records.some(x => x.id === "elevated_co2"));
 
     console.log("✓ CO₂ interno permanece contextual");
+}
+
+{
+    const ctx = build({
+        temperature: null,
+        humidity: null,
+        co2: null,
+        pm25: null,
+        pm10: null,
+        vocIndex: null,
+        noxIndex: null
+    });
+
+    executePipeline(ctx);
+
+    assert.equal(
+        ctx.evidence.records.some(x => x.id === "normal_environment"),
+        false
+    );
+    assert.equal(
+        ctx.hypotheses.matches.some(x => x.id === "normal_operation"),
+        false
+    );
+    assert.equal(
+        ctx.mitigation.actions.some(x => x.id === "maintain_current_operation"),
+        false
+    );
+    assert.equal(ctx.metrics.thermalComfort.level, "UNKNOWN");
+    assert.equal(ctx.metrics.thermalComfort.score, null);
+
+    console.log("✓ Dados ausentes não produzem normalidade ou manutenção operacional");
 }
 
 console.log("\n✓ FINAL SEMANTICS — PASSED\n");

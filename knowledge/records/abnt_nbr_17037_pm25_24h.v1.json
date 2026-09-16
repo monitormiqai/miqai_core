@@ -1,0 +1,59 @@
+{
+  "reference": {
+    "id": "abnt_nbr_17037",
+    "code": "ABNT NBR 17037:2023",
+    "title": "Qualidade do ar interior em ambientes nao residenciais climatizados artificialmente - Padroes referenciais",
+    "organization": "Associacao Brasileira de Normas Tecnicas",
+    "year": 2023,
+    "url": "https://www.abnt.org.br/",
+    "referenceClass": "STANDARD",
+    "note": "Technical reference for non-residential indoor air. 24h criteria must not be converted into instantaneous compliance."
+  },
+  "parameterDefinition": {
+    "id": "pm25",
+    "name": "PM2.5",
+    "displayName": "Particulate matter <=2.5 um (PM2.5)",
+    "unit": "ug/m3",
+    "description": "Fine particulate matter mass concentration. 24-hour averages apply for 24h criterion.",
+    "measurementMethod": "ABNT NBR 17037:2023 (Versao Corrigida 2:2024), criterion expressed as 24-hour mean."
+  },
+  "criteria": {
+    "id": "pm25_24h_abnt_17037_2023",
+    "parameterId": "pm25",
+    "referenceId": "abnt_nbr_17037",
+    "threshold": 25,
+    "unit": "ug/m3",
+    "evaluationPeriod": "24h_mean",
+    "methodNote": "ABNT NBR 17037 criterion is a 24-hour mean reference. Instantaneous readings are observational and require historical assessment.",
+    "applicability": ["corporate", "healthcare", "education"],
+    "temporalGuidance": "A current reading may be flagged as above the reference value, but 24-hour compliance requires the corresponding observation period."
+  },
+  "provenance": {
+    "sourceUrl": "https://www.abnt.org.br/",
+    "rawSource": "docs/MIQAI_Biblioteca_de_Conhecimento_Dossie_Consolidado_2026-09-08.md",
+    "sourceHash": null,
+    "ingestDate": "2026-09-08",
+    "ingestOperator": "curation_session"
+  },
+  "curation": {
+    "curatorId": "curator:giovane",
+    "curationDate": "2026-09-08",
+    "curationNotes": "Curated from consolidated dossier. ABNT PM2.5 reference retained as technical 24h criterion without converting to instantaneous compliance."
+  },
+  "validation": {
+    "validationStatus": "PENDING",
+    "validatorId": null,
+    "validationDate": "2026-09-08",
+    "validationNotes": "Consolidated dossier indicates corrected version context and secondary-copy limitation. Independent primary-source validation remains pending."
+  },
+  "approval": {
+    "approverId": null,
+    "approvalDate": null,
+    "approvalNotes": null,
+    "versionId": null,
+    "manifestEntry": null,
+    "publishedAt": null,
+    "publishedBy": null,
+    "useAsCriteria": null
+  }
+}

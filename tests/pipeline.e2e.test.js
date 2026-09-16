@@ -74,17 +74,22 @@ for (const key of [
 
 assert.equal(
     response.metrics.qaiScore.score,
-    null
+    83
 );
 
-assert.equal(
+assert.notEqual(
     response.metrics.qaiScore.level,
     "UNKNOWN"
 );
 
 assert.equal(
     response.metrics.qaiScore.dominantFactor,
-    null
+    "temperature"
+);
+
+assert.equal(
+    response.metrics.qaiScore.components.length,
+    4
 );
 
 
@@ -131,7 +136,7 @@ console.log("✓ Domain");
 console.log("✓ Contrato top-level");
 console.log("✓ HumanImpact removido");
 console.log("✓ Metrics");
-console.log("✓ QAI Score UNKNOWN sem componentes métricos");
+console.log("✓ QAI Score V1 calculado e integrado ao pipeline");
 console.log("✓ CO2 contextual V1");
 console.log("✓ CO2 somente interno");
 console.log("✓ Sem cálculo de diferencial de CO2");

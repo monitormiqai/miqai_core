@@ -75,6 +75,8 @@ const ASHRAE55 = Object.freeze({
 
     type: "Norma Técnica",
 
+    referenceClass: "STANDARD",
+
     /*
      * Categoria principal.
      */

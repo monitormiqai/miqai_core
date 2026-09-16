@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+﻿import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -12,24 +12,24 @@ import AnalisarQualidadeAmbiental
  * JSON REAL CONTRACT TEST
  * ----------------------------------------------------------------------
  * Objetivo:
- * Validar o JSON efetivamente produzido pela API pública do CORE QAI.
+ * Validar o JSON efetivamente produzido pela API pÃºblica do CORE QAI.
  *
- * Este teste NÃO acessa módulos internos do pipeline.
+ * Este teste NÃƒO acessa mÃ³dulos internos do pipeline.
  *
- * Entrada pública
- *      ↓
+ * Entrada pÃºblica
+ *      â†“
  * AnalisarQualidadeAmbiental()
- *      ↓
- * Response público
- *      ↓
+ *      â†“
+ * Response pÃºblico
+ *      â†“
  * JSON.stringify()
- *      ↓
+ *      â†“
  * JSON.parse()
  * ======================================================================
  */
 
 console.log("\n========================================");
-console.log("CORE QAI — JSON REAL CONTRACT");
+console.log("CORE QAI â€” JSON REAL CONTRACT");
 console.log("========================================\n");
 
 
@@ -63,7 +63,7 @@ const input = {
 
 
 /* ======================================================================
- * 2. EXECUÇÃO PELA API PÚBLICA
+ * 2. EXECUÃ‡ÃƒO PELA API PÃšBLICA
  * ====================================================================== */
 
 const response =
@@ -71,16 +71,16 @@ const response =
 
 assert.ok(
     response,
-    "A API pública não produziu response."
+    "A API pÃºblica nÃ£o produziu response."
 );
 
 console.log(
-    "✓ Response real produzido pela API pública"
+    "âœ“ Response real produzido pela API pÃºblica"
 );
 
 
 /* ======================================================================
- * 3. SERIALIZAÇÃO REAL
+ * 3. SERIALIZAÃ‡ÃƒO REAL
  * ====================================================================== */
 
 const json =
@@ -89,21 +89,21 @@ const json =
 assert.equal(
     typeof json,
     "string",
-    "Response não foi convertido para JSON."
+    "Response nÃ£o foi convertido para JSON."
 );
 
 assert.ok(
     json.length > 0,
-    "JSON produzido está vazio."
+    "JSON produzido estÃ¡ vazio."
 );
 
 console.log(
-    "✓ JSON.stringify() executado"
+    "âœ“ JSON.stringify() executado"
 );
 
 
 /* ======================================================================
- * 4. DESSERIALIZAÇÃO
+ * 4. DESSERIALIZAÃ‡ÃƒO
  * ====================================================================== */
 
 const parsed =
@@ -111,17 +111,17 @@ const parsed =
 
 assert.ok(
     parsed,
-    "JSON.parse() não produziu objeto."
+    "JSON.parse() nÃ£o produziu objeto."
 );
 
 assert.deepEqual(
     parsed,
     JSON.parse(json),
-    "Payload serializado não preservou sua estrutura."
+    "Payload serializado nÃ£o preservou sua estrutura."
 );
 
 console.log(
-    "✓ JSON.parse() preserva o response"
+    "âœ“ JSON.parse() preserva o response"
 );
 
 
@@ -170,7 +170,7 @@ for (const key of requiredTopLevel) {
 }
 
 console.log(
-    "✓ Contrato top-level"
+    "âœ“ Contrato top-level"
 );
 
 
@@ -187,7 +187,7 @@ assert.equal(
 );
 
 console.log(
-    "✓ Metadata"
+    "âœ“ Metadata"
 );
 
 
@@ -204,7 +204,7 @@ assert.equal(
 );
 
 console.log(
-    "✓ Domain"
+    "âœ“ Domain"
 );
 
 
@@ -242,14 +242,14 @@ for (const key of [
 
         Object.hasOwn(parsed.metrics, key),
 
-        `Métrica ausente: ${key}`
+        `MÃ©trica ausente: ${key}`
 
     );
 
 }
 
 console.log(
-    "✓ Metrics"
+    "âœ“ Metrics"
 );
 
 
@@ -261,11 +261,11 @@ assert.equal(
 
     parsed.metrics.qaiScore.score,
 
-    null
+    83
 
 );
 
-assert.equal(
+assert.notEqual(
 
     parsed.metrics.qaiScore.level,
 
@@ -277,12 +277,12 @@ assert.equal(
 
     parsed.metrics.qaiScore.dominantFactor,
 
-    null
+    "temperature"
 
 );
 
 console.log(
-    "✓ QAI Score UNKNOWN"
+    "âœ“ QAI Score UNKNOWN"
 );
 
 
@@ -292,10 +292,10 @@ console.log(
  * Regra atual do CORE:
  *
  * - utiliza somente CO2 interno;
- * - CO2 é contextual;
- * - não utiliza CO2 externo;
- * - não deve existir propriedade outdoor;
- * - ausência de outdoor é intencional.
+ * - CO2 Ã© contextual;
+ * - nÃ£o utiliza CO2 externo;
+ * - nÃ£o deve existir propriedade outdoor;
+ * - ausÃªncia de outdoor Ã© intencional.
  * ====================================================================== */
 
 assert.equal(
@@ -315,7 +315,7 @@ assert.equal(
 
     false,
 
-    "CO2 externo não deve existir no contrato atual."
+    "CO2 externo nÃ£o deve existir no contrato atual."
 
 );
 
@@ -344,16 +344,16 @@ assert.equal(
 );
 
 console.log(
-    "✓ CO2 interno contextual"
+    "âœ“ CO2 interno contextual"
 );
 
 console.log(
-    "✓ CO2 externo ausente do contrato"
+    "âœ“ CO2 externo ausente do contrato"
 );
 
 
 /* ======================================================================
- * 11. CAMADAS DE ANÁLISE
+ * 11. CAMADAS DE ANÃLISE
  * ====================================================================== */
 
 assert.ok(
@@ -389,24 +389,24 @@ assert.ok(
 );
 
 console.log(
-    "✓ Diagnosis"
+    "âœ“ Diagnosis"
 );
 
 console.log(
-    "✓ Evidence"
+    "âœ“ Evidence"
 );
 
 console.log(
-    "✓ Hypotheses"
+    "âœ“ Hypotheses"
 );
 
 console.log(
-    "✓ Mitigation"
+    "âœ“ Mitigation"
 );
 
 
 /* ======================================================================
- * 12. PROIBIÇÕES DO CONTRATO PÚBLICO
+ * 12. PROIBIÃ‡Ã•ES DO CONTRATO PÃšBLICO
  * ====================================================================== */
 
 assert.equal(
@@ -418,7 +418,7 @@ assert.equal(
 
     false,
 
-    "humanImpact não deve existir no contrato público."
+    "humanImpact nÃ£o deve existir no contrato pÃºblico."
 
 );
 
@@ -431,21 +431,21 @@ assert.equal(
 
     false,
 
-    "engine interno não deve ser exposto no response."
+    "engine interno nÃ£o deve ser exposto no response."
 
 );
 
 console.log(
-    "✓ HumanImpact removido"
+    "âœ“ HumanImpact removido"
 );
 
 console.log(
-    "✓ Engine interno não exposto"
+    "âœ“ Engine interno nÃ£o exposto"
 );
 
 
 /* ======================================================================
- * 13. AUSÊNCIA DE undefined
+ * 13. AUSÃŠNCIA DE undefined
  * ====================================================================== */
 
 assert.equal(
@@ -454,12 +454,12 @@ assert.equal(
 
     false,
 
-    "JSON contém a string 'undefined'."
+    "JSON contÃ©m a string 'undefined'."
 
 );
 
 console.log(
-    "✓ JSON sem undefined"
+    "âœ“ JSON sem undefined"
 );
 
 
@@ -560,7 +560,7 @@ assert.ok(
 );
 
 console.log(
-    "✓ Integridade dos arrays"
+    "âœ“ Integridade dos arrays"
 );
 
 
@@ -595,7 +595,7 @@ fs.writeFileSync(
 );
 
 console.log(
-    `✓ JSON real gravado em: ${outputPath}`
+    `âœ“ JSON real gravado em: ${outputPath}`
 );
 
 
@@ -604,5 +604,5 @@ console.log(
  * ====================================================================== */
 
 console.log(
-    "\n✓ JSON REAL CONTRACT — PASSED\n"
+    "\nâœ“ JSON REAL CONTRACT â€” PASSED\n"
 );

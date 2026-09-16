@@ -1,0 +1,63 @@
+{
+  "reference": {
+    "id": "who_aqg_2021",
+    "code": "9789240034228",
+    "title": "WHO global air quality guidelines: particulate matter (PM2.5 and PM10), ozone, nitrogen dioxide, sulfur dioxide and carbon monoxide",
+    "organization": "World Health Organization",
+    "year": 2021,
+    "url": "https://iris.who.int/bitstream/handle/10665/345329/9789240034228-eng.pdf",
+    "referenceClass": "GUIDELINE",
+    "note": "Guideline only — not a regulatory limit."
+  },
+  "parameterDefinition": {
+    "id": "pm10",
+    "name": "PM10",
+    "displayName": "Particulate matter ≤10 µm (PM10)",
+    "unit": "µg/m³",
+    "description": "Inhalable particulate matter mass concentration. Annual means apply for long-term criterion.",
+    "measurementMethod": "See WHO AQG 2021 section 3.3.1.1 (page 116) for method description."
+  },
+  "criteria": {
+    "id": "pm10_annual_who_2021",
+    "parameterId": "pm10",
+    "referenceId": "who_aqg_2021",
+    "threshold": 15,
+    "unit": "µg/m³",
+    "evaluationPeriod": "annual_mean",
+    "methodNote": "Recommended annual mean AQG level for long-term PM10 exposure. Source: WHO AQG 2021, section 3.3.1.1, p.116 (Table 3.7).",
+    "applicability": ["ambient_outdoor"],
+    "evidenceReference": {
+      "section": "3.3.1.1",
+      "page": 116,
+      "quote": "The recommendation is an annual PM10 AQG level of 15 µg/m3."
+    }
+  },
+  "provenance": {
+    "sourceUrl": "https://iris.who.int/bitstream/handle/10665/345329/9789240034228-eng.pdf",
+    "rawSource": "docs/REGULAMTAÇÃO_PDF/9789240034228-eng.pdf",
+    "sourceHash": "32f3bf1470e20803decb63ab1ee5babf289b4182bc8af94d62b7a5b998642353",
+    "ingestDate": "2026-09-03",
+    "ingestOperator": "curation_session"
+  },
+  "curation": {
+    "curatorId": "curator:giovane",
+    "curationDate": "2026-09-03",
+    "curationNotes": "Curated annual PM10 criterion from WHO AQG 2021 with threshold from section 3.3.1.1 and Table 3.7 (page 116)."
+  },
+  "validation": {
+    "validationStatus": "PENDING",
+    "validatorId": null,
+    "validationDate": "2026-09-03",
+    "validationNotes": "Evidence aligns with WHO AQG 2021 section 3.3.1.1 (p.116): annual PM10 AQG value = 15 µg/m3. Independent validation remains pending; therefore this record is not approved for use as a core criterion."
+  },
+  "approval": {
+    "approverId": null,
+    "approvalDate": null,
+    "approvalNotes": null,
+    "versionId": null,
+    "manifestEntry": null,
+    "publishedAt": null,
+    "publishedBy": null,
+    "useAsCriteria": null
+  }
+}

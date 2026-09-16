@@ -2,6 +2,21 @@
  * CORE QAI — Humidity Regulatory Catalog
  * Regulatory RC1 — rebuilt for traceability.
  */
+import { HUMIDITY_KNOWLEDGE } from "../../knowledge/humidityCatalog.js";
+
+const ABNT_HUMIDITY_MIN =
+    HUMIDITY_KNOWLEDGE.abnt.min ?? 35;
+
+const ABNT_HUMIDITY_MAX =
+    HUMIDITY_KNOWLEDGE.abnt.max ?? 65;
+
+const ABNT_HUMIDITY_EVALUATION_PERIOD =
+    HUMIDITY_KNOWLEDGE.abnt.evaluationPeriod ?? "instantaneous_reading";
+
+const ABNT_HUMIDITY_CRITERION_NOTE =
+    HUMIDITY_KNOWLEDGE.abnt.methodNote ??
+    "ABNT NBR 17037:2023 gives 35 % to 65 % as a recommended range for indoor relative humidity.";
+
 const HUMIDITY_REGULATORY = Object.freeze({
     parameter: "humidity",
     validationKey: "humidity",
@@ -14,24 +29,23 @@ const HUMIDITY_REGULATORY = Object.freeze({
         corporate: Object.freeze({
             regulated: false,
             type: "RANGE",
-            min: 35,
-            max: 65,
+            min: ABNT_HUMIDITY_MIN,
+            max: ABNT_HUMIDITY_MAX,
             criterionKind: "TECHNICAL_REFERENCE",
-            evaluationPeriod: "instantaneous_reading",
+            evaluationPeriod: ABNT_HUMIDITY_EVALUATION_PERIOD,
             applicability: "non_residential_artificially_conditioned",
             referenceIds: ["abnt_nbr_17037"],
             regulatoryId: "abnt_nbr_17037",
-            criterionNote:
-                "ABNT NBR 17037:2023 gives 35 % to 65 % as a recommended range for indoor relative humidity."
+            criterionNote: ABNT_HUMIDITY_CRITERION_NOTE
         }),
 
         healthcare: Object.freeze({
             regulated: false,
             type: "RANGE",
-            min: 35,
-            max: 65,
+            min: ABNT_HUMIDITY_MIN,
+            max: ABNT_HUMIDITY_MAX,
             criterionKind: "TECHNICAL_REFERENCE",
-            evaluationPeriod: "instantaneous_reading",
+            evaluationPeriod: ABNT_HUMIDITY_EVALUATION_PERIOD,
             applicability: "non_residential_artificially_conditioned",
             referenceIds: ["abnt_nbr_17037"],
             regulatoryId: "abnt_nbr_17037",
@@ -42,10 +56,10 @@ const HUMIDITY_REGULATORY = Object.freeze({
         education: Object.freeze({
             regulated: false,
             type: "RANGE",
-            min: 35,
-            max: 65,
+            min: ABNT_HUMIDITY_MIN,
+            max: ABNT_HUMIDITY_MAX,
             criterionKind: "TECHNICAL_REFERENCE",
-            evaluationPeriod: "instantaneous_reading",
+            evaluationPeriod: ABNT_HUMIDITY_EVALUATION_PERIOD,
             applicability: "non_residential_artificially_conditioned",
             referenceIds: ["abnt_nbr_17037"],
             regulatoryId: "abnt_nbr_17037",

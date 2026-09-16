@@ -75,6 +75,8 @@ const ISO_7730 = Object.freeze({
 
     type: "Norma Internacional",
 
+    referenceClass: "STANDARD",
+
     /*
      * Categoria principal.
      */

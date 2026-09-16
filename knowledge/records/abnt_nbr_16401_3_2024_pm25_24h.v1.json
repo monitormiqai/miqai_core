@@ -1,0 +1,59 @@
+{
+  "reference": {
+    "id": "abnt_nbr_16401_3_2024",
+    "code": "ABNT NBR 16401-3:2024",
+    "title": "Instalações de ar-condicionado — Sistemas centrais e unitários — Parte 3: Qualidade do ar interior",
+    "organization": "Associacao Brasileira de Normas Tecnicas",
+    "year": 2024,
+    "url": "https://www.abnt.org.br/",
+    "referenceClass": "STANDARD",
+    "note": "ABNT NBR 16401-3:2024 is treated as a contextual standard reference for HVAC-related IAQ and ventilation topics. This record preserves the 24-hour temporal limitation required by the consolidated dossier."
+  },
+  "parameterDefinition": {
+    "id": "pm25",
+    "name": "PM2.5",
+    "displayName": "Particulate matter <=2.5 um (PM2.5)",
+    "unit": "ug/m3",
+    "description": "Fine particulate matter mass concentration. The consolidated ABNT NBR 16401-3:2024 criterion is a 24-hour mean reference.",
+    "measurementMethod": "ABNT NBR 16401-3:2024, Parte 3; 24-hour mean criterion."
+  },
+  "criteria": {
+    "id": "pm25_24h_abnt_16401_3_2024",
+    "parameterId": "pm25",
+    "referenceId": "abnt_nbr_16401_3_2024",
+    "threshold": 25,
+    "unit": "ug/m3",
+    "evaluationPeriod": "24h_mean",
+    "methodNote": "ABNT NBR 16401-3:2024 consolidates PM2.5 as a 24-hour mean reference of 25 µg/m³. Instantaneous readings are observational and do not constitute 24-hour compliance.",
+    "applicability": ["corporate", "education", "healthcare"],
+    "temporalGuidance": "A current reading may indicate an elevated environmental condition, but a 24-hour compliance result requires the corresponding observation period."
+  },
+  "provenance": {
+    "sourceUrl": "https://www.abnt.org.br/",
+    "rawSource": "docs/MIQAI_Biblioteca_de_Conhecimento_Dossie_Consolidado_2026-09-09.md",
+    "sourceHash": null,
+    "ingestDate": "2026-09-09",
+    "ingestOperator": "curation_session"
+  },
+  "curation": {
+    "curatorId": "curator:giovane",
+    "curationDate": "2026-09-09",
+    "curationNotes": "Curated from the consolidated dossier. PM2.5 is retained as a 24-hour mean reference and is not represented as an instantaneous threshold."
+  },
+  "validation": {
+    "validationStatus": "PENDING",
+    "validatorId": null,
+    "validationDate": "2026-09-09",
+    "validationNotes": "The consolidated dossier confirms PM2.5 = 25 µg/m³ as a 24-hour mean reference. Independent primary-source validation remains pending."
+  },
+  "approval": {
+    "approverId": null,
+    "approvalDate": null,
+    "approvalNotes": null,
+    "versionId": null,
+    "manifestEntry": null,
+    "publishedAt": null,
+    "publishedBy": null,
+    "useAsCriteria": null
+  }
+}

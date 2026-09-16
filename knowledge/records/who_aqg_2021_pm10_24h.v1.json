@@ -1,0 +1,63 @@
+{
+  "reference": {
+    "id": "who_aqg_2021",
+    "code": "9789240034228",
+    "title": "WHO global air quality guidelines: particulate matter (PM2.5 and PM10), ozone, nitrogen dioxide, sulfur dioxide and carbon monoxide",
+    "organization": "World Health Organization",
+    "year": 2021,
+    "url": "https://iris.who.int/bitstream/handle/10665/345329/9789240034228-eng.pdf",
+    "referenceClass": "GUIDELINE",
+    "note": "Guideline only — not a regulatory limit."
+  },
+  "parameterDefinition": {
+    "id": "pm10",
+    "name": "PM10",
+    "displayName": "Particulate matter ≤10 µm (PM10)",
+    "unit": "µg/m³",
+    "description": "Inhalable particulate matter mass concentration. 24-hour averages apply for 24h criterion.",
+    "measurementMethod": "See WHO AQG 2021 section 3.3.2.1 (pages 120-121) for method description."
+  },
+  "criteria": {
+    "id": "pm10_24h_who_2021",
+    "parameterId": "pm10",
+    "referenceId": "who_aqg_2021",
+    "threshold": 45,
+    "unit": "µg/m³",
+    "evaluationPeriod": "24h_mean",
+    "methodNote": "Defined as the 99th percentile of the annual distribution of 24-hour average concentrations (equivalent to ~3-4 days exceedance/year). Source: WHO AQG 2021, section 3.3.2.1, pp.120-121 (Table 3.9).",
+    "applicability": ["ambient_outdoor"],
+    "evidenceReference": {
+      "section": "3.3.2.1",
+      "page": 120,
+      "quote": "The recommendation is a short-term (24-hour) PM10 AQG level of 45 µg/m3, defined as the 99th percentile (equivalent to three to four exceedance days per year) of the annual distribution of 24-hour average concentrations."
+    }
+  },
+  "provenance": {
+    "sourceUrl": "https://iris.who.int/bitstream/handle/10665/345329/9789240034228-eng.pdf",
+    "rawSource": "docs/REGULAMTAÇÃO_PDF/9789240034228-eng.pdf",
+    "sourceHash": "32f3bf1470e20803decb63ab1ee5babf289b4182bc8af94d62b7a5b998642353",
+    "ingestDate": "2026-09-03",
+    "ingestOperator": "curation_session"
+  },
+  "curation": {
+    "curatorId": "curator:giovane",
+    "curationDate": "2026-09-03",
+    "curationNotes": "Curated PM10 24h criterion from WHO AQG 2021 with threshold and method from section 3.3.2.1 and Table 3.9 (pages 120-121)."
+  },
+  "validation": {
+    "validationStatus": "PENDING",
+    "validatorId": null,
+    "validationDate": "2026-09-03",
+    "validationNotes": "Evidence aligns with WHO AQG 2021 section 3.3.2.1 (pp.120-121): PM10 24-hour AQG value = 45 µg/m3, defined as the 99th percentile of annual distribution of 24-hour average concentrations (~3-4 exceedance days/year). Independent validation remains pending; therefore this record is not approved for use as a core criterion."
+  },
+  "approval": {
+    "approverId": null,
+    "approvalDate": null,
+    "approvalNotes": null,
+    "versionId": null,
+    "manifestEntry": null,
+    "publishedAt": null,
+    "publishedBy": null,
+    "useAsCriteria": null
+  }
+}

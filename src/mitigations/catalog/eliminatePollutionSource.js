@@ -34,20 +34,20 @@ const ELIMINATE_POLLUTION_SOURCE = Object.freeze({
      * Nome interno.
      */
 
-    name: "Eliminate Pollution Source",
+    name: "Investigate and control suspected source",
 
     /*
      * Título para apresentação.
      */
 
-    title: "Eliminar ou controlar a fonte de poluição",
+    title: "Investigar e controlar fonte suspeita de particulado ou contaminação",
 
     /*
      * Descrição técnica.
      */
 
     description:
-        "Recomenda-se identificar, remover, isolar ou controlar a fonte responsável pela emissão de contaminantes no ambiente, reduzindo a exposição dos ocupantes e restabelecendo a qualidade do ar.",
+        "Quando houver material particulado elevado ou sinais compatíveis com contaminação, recomenda-se investigar a origem do material e, se houver indicação, controlar ou isolar a fonte suspeita. A presença de uma fonte externa não é determinada por esta hipótese isoladamente.",
 
     /*
      * Referências técnicas.
@@ -55,10 +55,7 @@ const ELIMINATE_POLLUTION_SOURCE = Object.freeze({
 
     referenceIds: [
 
-        "ashrae62_1",
-
-        "abnt_nbr_16401",
-
+        "ashrae62_1"
 
     ],
 

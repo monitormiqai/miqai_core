@@ -6,6 +6,38 @@
  * 60-second sensor reading must not be represented as compliance with
  * that 24-hour criterion.
  */
+import { PM25_KNOWLEDGE } from "../../knowledge/pm25Catalog.js";
+
+const ABNT_PM25_THRESHOLD =
+    PM25_KNOWLEDGE.abnt.threshold ?? 25;
+
+const ABNT_PM25_UNIT =
+    PM25_KNOWLEDGE.abnt.unit ?? "µg/m³";
+
+const ABNT_PM25_EVALUATION_PERIOD =
+    PM25_KNOWLEDGE.abnt.evaluationPeriod ?? "24h_mean";
+
+const ABNT_PM25_TEMPORAL_GUIDANCE =
+    PM25_KNOWLEDGE.abnt.temporalGuidance ??
+    "A current reading may be flagged as above the reference value, but the 24-hour reference must not be represented as a 24-hour compliance result without the required observation period.";
+
+const ABNT_PM25_CRITERION_NOTE =
+    PM25_KNOWLEDGE.abnt.methodNote ??
+    "ABNT NBR 17037:2023 gives 25 µg/m³ as a 24-hour mean reference value. An instantaneous reading above this value indicates the need for additional measurements or source diagnosis; it is not by itself a 24-hour compliance failure.";
+
+const WHO_PM25_THRESHOLD =
+    PM25_KNOWLEDGE.who.threshold ?? 15;
+
+const WHO_PM25_UNIT =
+    PM25_KNOWLEDGE.who.unit ?? "µg/m³";
+
+const WHO_PM25_EVALUATION_PERIOD =
+    PM25_KNOWLEDGE.who.evaluationPeriod ?? "24h_mean";
+
+const WHO_PM25_CRITERION_NOTE =
+    PM25_KNOWLEDGE.who.methodNote ??
+    "WHO 2021 guideline value for PM2.5 is a 24-hour exposure reference. It is not an instantaneous indoor legal limit.";
+
 const PM25_REGULATORY = Object.freeze({
     parameter: "pm25",
     validationKey: "pm25",
@@ -19,34 +51,31 @@ const PM25_REGULATORY = Object.freeze({
             regulated: false,
             type: "OBSERVATION",
             criterionKind: "TECHNICAL_REFERENCE",
-            evaluationPeriod: "24h_mean",
+            evaluationPeriod: ABNT_PM25_EVALUATION_PERIOD,
             currentObservation: "ABOVE_REFERENCE_MAY_BE_FLAGGED",
             historicalAssessmentRequired: true,
-            referenceThreshold: 25,
-            referenceUnit: "µg/m³",
+            referenceThreshold: ABNT_PM25_THRESHOLD,
+            referenceUnit: ABNT_PM25_UNIT,
             applicability: "indoor_air",
             referenceIds: ["abnt_nbr_17037", "who_aqg_2021"],
             regulatoryId: "abnt_nbr_17037",
-            temporalGuidance:
-                "A current reading may be flagged as above the reference value, but the 24-hour reference must not be represented as a 24-hour compliance result without the required observation period.",
-            criterionNote:
-                "ABNT NBR 17037:2023 gives 25 µg/m³ as a 24-hour mean reference value. An instantaneous reading above this value indicates the need for additional measurements or source diagnosis; it is not by itself a 24-hour compliance failure."
+            temporalGuidance: ABNT_PM25_TEMPORAL_GUIDANCE,
+            criterionNote: ABNT_PM25_CRITERION_NOTE
         }),
 
         healthcare: Object.freeze({
             regulated: false,
             type: "OBSERVATION",
             criterionKind: "TECHNICAL_REFERENCE",
-            evaluationPeriod: "24h_mean",
+            evaluationPeriod: ABNT_PM25_EVALUATION_PERIOD,
             currentObservation: "ABOVE_REFERENCE_MAY_BE_FLAGGED",
             historicalAssessmentRequired: true,
-            referenceThreshold: 25,
-            referenceUnit: "µg/m³",
+            referenceThreshold: ABNT_PM25_THRESHOLD,
+            referenceUnit: ABNT_PM25_UNIT,
             applicability: "indoor_air",
             referenceIds: ["abnt_nbr_17037", "who_aqg_2021"],
             regulatoryId: "abnt_nbr_17037",
-            temporalGuidance:
-                "A current reading may be flagged as above the reference value, but the 24-hour reference must not be represented as a 24-hour compliance result without the required observation period.",
+            temporalGuidance: ABNT_PM25_TEMPORAL_GUIDANCE,
             criterionNote:
                 "24-hour reference; instantaneous readings are treated as evidence requiring further assessment, not as direct 24-hour PASS/FAIL."
         }),
@@ -55,16 +84,15 @@ const PM25_REGULATORY = Object.freeze({
             regulated: false,
             type: "OBSERVATION",
             criterionKind: "TECHNICAL_REFERENCE",
-            evaluationPeriod: "24h_mean",
+            evaluationPeriod: ABNT_PM25_EVALUATION_PERIOD,
             currentObservation: "ABOVE_REFERENCE_MAY_BE_FLAGGED",
             historicalAssessmentRequired: true,
-            referenceThreshold: 25,
-            referenceUnit: "µg/m³",
+            referenceThreshold: ABNT_PM25_THRESHOLD,
+            referenceUnit: ABNT_PM25_UNIT,
             applicability: "indoor_air",
             referenceIds: ["abnt_nbr_17037", "who_aqg_2021"],
             regulatoryId: "abnt_nbr_17037",
-            temporalGuidance:
-                "A current reading may be flagged as above the reference value, but the 24-hour reference must not be represented as a 24-hour compliance result without the required observation period.",
+            temporalGuidance: ABNT_PM25_TEMPORAL_GUIDANCE,
             criterionNote:
                 "24-hour reference; instantaneous readings are not converted into 24-hour compliance."
         }),
@@ -73,34 +101,32 @@ const PM25_REGULATORY = Object.freeze({
             regulated: false,
             type: "OBSERVATION",
             criterionKind: "TECHNICAL_REFERENCE",
-            evaluationPeriod: "24h_mean",
+            evaluationPeriod: WHO_PM25_EVALUATION_PERIOD,
             currentObservation: "ABOVE_REFERENCE_MAY_BE_FLAGGED",
             historicalAssessmentRequired: true,
-            referenceThreshold: 15,
-            referenceUnit: "µg/m³",
+            referenceThreshold: WHO_PM25_THRESHOLD,
+            referenceUnit: WHO_PM25_UNIT,
             applicability: "ambient_air_context",
             referenceIds: ["who_aqg_2021"],
             regulatoryId: "who_aqg_2021",
             temporalGuidance:
                 "A current reading may be flagged as above the reference value, but the 24-hour reference must not be represented as a 24-hour compliance result without the required observation period.",
-            criterionNote:
-                "WHO 2021 guideline value for PM2.5 is a 24-hour exposure reference. It is not an instantaneous indoor legal limit."
+            criterionNote: WHO_PM25_CRITERION_NOTE
         }),
 
         datacenter: Object.freeze({
             regulated: false,
             type: "OBSERVATION",
             criterionKind: "TECHNICAL_REFERENCE",
-            evaluationPeriod: "24h_mean",
+            evaluationPeriod: ABNT_PM25_EVALUATION_PERIOD,
             currentObservation: "ABOVE_REFERENCE_MAY_BE_FLAGGED",
             historicalAssessmentRequired: true,
-            referenceThreshold: 25,
-            referenceUnit: "µg/m³",
+            referenceThreshold: ABNT_PM25_THRESHOLD,
+            referenceUnit: ABNT_PM25_UNIT,
             applicability: "indoor_air",
             referenceIds: ["abnt_nbr_17037", "who_aqg_2021"],
             regulatoryId: "abnt_nbr_17037",
-            temporalGuidance:
-                "A current reading may be flagged as above the reference value, but the 24-hour reference must not be represented as a 24-hour compliance result without the required observation period.",
+            temporalGuidance: ABNT_PM25_TEMPORAL_GUIDANCE,
             criterionNote:
                 "24-hour reference; instantaneous readings are not treated as direct compliance."
         })

@@ -240,16 +240,55 @@ console.log("========================================\n");
 
         });
 
+    const hypothesis =
+        ctx.hypotheses.matches.find(
+            item =>
+                item.id === "outdoor_pollution"
+        );
+
     assert.ok(
-        hasHypothesis(
-            ctx,
-            "outdoor_pollution"
-        ),
+        hypothesis,
         "outdoor_pollution deveria ser identificado quando houver elevated_particulate."
     );
 
+    assert.match(
+        hypothesis.title,
+        /investig|possível/i,
+        "outdoor_pollution deve ser apresentada como hipótese investigativa."
+    );
+
+    assert.match(
+        hypothesis.description,
+        /material particulado elevado foi observado/i,
+        "A descrição deve registrar o particulado elevado observado."
+    );
+
+    assert.match(
+        hypothesis.description,
+        /origem não pode ser determinada pela medição disponível/i,
+        "A descrição deve explicitar que a origem não foi determinada pela medição disponível."
+    );
+
+    assert.match(
+        hypothesis.description,
+        /fontes internas continuam possíveis/i,
+        "A descrição deve preservar a possibilidade de fontes internas."
+    );
+
+    assert.match(
+        hypothesis.description,
+        /contribuição de particulado externo é apenas uma possibilidade a investigar/i,
+        "A descrição deve manter a contribuição externa como possibilidade a investigar."
+    );
+
+    assert.doesNotMatch(
+        hypothesis.description,
+        /detecção|detected|poluição externa.*confirm|causa.*determinada/i,
+        "outdoor_pollution não deve ser apresentada como detecção ou certeza de poluição externa."
+    );
+
     console.log(
-        "✓ Particulado elevado pode gerar outdoor_pollution"
+        "✓ Particulado elevado gera hipótese outdoor_pollution investigativa e não conclusiva"
     );
 
 }

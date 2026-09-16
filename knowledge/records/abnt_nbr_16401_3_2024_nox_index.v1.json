@@ -1,0 +1,59 @@
+{
+  "reference": {
+    "id": "abnt_nbr_16401_3_2024",
+    "code": "ABNT NBR 16401-3:2024",
+    "title": "Instalações de ar-condicionado — Sistemas centrais e unitários — Parte 3: Qualidade do ar interior",
+    "organization": "Associacao Brasileira de Normas Tecnicas",
+    "year": 2024,
+    "url": "https://www.abnt.org.br/",
+    "referenceClass": "STANDARD",
+    "note": "ABNT NBR 16401-3:2024 is treated as a contextual standard reference for HVAC-related IAQ and ventilation topics. This record preserves the absence of a specific equivalent criterion for NOx Index."
+  },
+  "parameterDefinition": {
+    "id": "noxIndex",
+    "name": "NOx Index",
+    "displayName": "Sensirion NOx Index",
+    "unit": "index",
+    "description": "Relative NOx index for contextual monitoring only. The consolidated dossier did not find a specific equivalent criterion in ABNT NBR 16401-3:2024.",
+    "measurementMethod": "Contextual index interpretation without conversion to concentration; no specific criterion identified in the consolidated ABNT NBR 16401-3:2024 scope."
+  },
+  "criteria": {
+    "id": "nox_index_abnt_16401_3_2024_no_specific_criterion",
+    "parameterId": "noxIndex",
+    "referenceId": "abnt_nbr_16401_3_2024",
+    "threshold": null,
+    "unit": "index",
+    "evaluationPeriod": "current_reading",
+    "methodNote": "NO_SPECIFIC_CRITERION_FOUND: ABNT NBR 16401-3:2024 does not provide a specific equivalent criterion for the NOx Index. This record does not convert NOx Index into NO2 concentration, nor into ppm or µg/m³, and is not operational for direct compliance.",
+    "applicability": ["corporate", "education", "healthcare"],
+    "temporalGuidance": "The NOx Index remains contextual and relative; not a concentration-based compliance criterion."
+  },
+  "provenance": {
+    "sourceUrl": "https://www.abnt.org.br/",
+    "rawSource": "docs/MIQAI_Biblioteca_de_Conhecimento_Dossie_Consolidado_2026-09-09.md",
+    "sourceHash": null,
+    "ingestDate": "2026-09-09",
+    "ingestOperator": "curation_session"
+  },
+  "curation": {
+    "curatorId": "curator:giovane",
+    "curationDate": "2026-09-09",
+    "curationNotes": "Curated from the consolidated dossier. NOx Index is retained as a contextual relative indicator without a direct equivalent criterion under ABNT NBR 16401-3:2024."
+  },
+  "validation": {
+    "validationStatus": "PENDING",
+    "validatorId": null,
+    "validationDate": "2026-09-09",
+    "validationNotes": "The dossier confirms that no specific equivalent criterion was found for NOx Index under ABNT NBR 16401-3:2024. Conversion to NO2 or concentration units is not supported. Independent primary-source validation remains pending."
+  },
+  "approval": {
+    "approverId": null,
+    "approvalDate": null,
+    "approvalNotes": null,
+    "versionId": null,
+    "manifestEntry": null,
+    "publishedAt": null,
+    "publishedBy": null,
+    "useAsCriteria": null
+  }
+}

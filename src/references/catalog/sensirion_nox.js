@@ -80,6 +80,8 @@ const SENSIRION_NOX = Object.freeze({
 
     type: "Referência Técnica",
 
+    referenceClass: "MANUFACTURER",
+
     /*
      * Categoria principal.
      */
@@ -279,6 +281,9 @@ const SENSIRION_NOX = Object.freeze({
 
     measurementModel:
         "relative_index",
+
+    regulatoryStatus:
+        "not_regulatory_limit",
 
     /*
      * Faixa de saída documentada para o NOx Index.

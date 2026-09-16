@@ -347,19 +347,19 @@ assert.equal(
 
     response.metrics.qaiScore.score,
 
-    null,
+    83,
 
-    "QAI Score deveria permanecer UNKNOWN neste cenário."
+    "QAI Score V1 deveria calcular 83 neste cenário."
 
 );
 
-assert.equal(
+assert.notEqual(
 
     response.metrics.qaiScore.level,
 
     "UNKNOWN",
 
-    "QAI Score deveria estar em UNKNOWN."
+    "QAI Score V1 não deveria estar UNKNOWN neste cenário."
 
 );
 
@@ -367,19 +367,17 @@ assert.equal(
 
     response.metrics.qaiScore.dominantFactor,
 
-    null,
+    "temperature",
 
-    "dominantFactor deveria ser null quando o Score é UNKNOWN."
+    "dominantFactor deveria ser temperature no Score V1."
 
 );
 
 console.log(
 
-    "✓ QAI Score UNKNOWN sem componentes métricos"
+    "✓ QAI Score V1 calculado no contrato JSON"
 
 );
-
-
 /* ======================================================================
  * 8. CO2 ANALYSIS
  * ----------------------------------------------------------------------

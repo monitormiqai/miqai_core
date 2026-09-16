@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Reference",
+  "type": "object",
+  "required": ["id", "code", "title", "organization", "referenceClass"],
+  "properties": {
+    "id": { "type": "string" },
+    "code": { "type": "string" },
+    "title": { "type": "string" },
+    "organization": { "type": "string" },
+    "publisher": { "type": "string" },
+    "country": { "type": "string" },
+    "year": { "type": ["integer", "string"] },
+    "status": { "type": "string" },
+    "url": { "type": "string", "format": "uri" },
+    "referenceClass": { "type": "string", "enum": ["REGULATORY","STANDARD","GUIDELINE","TECHNICAL","MANUFACTURER","CONTEXTUAL"] },
+    "scope": { "type": "array", "items": { "type": "string" } },
+    "sections": { "type": ["object", "null"] },
+    "rawSource": { "type": ["string", "null"] }
+  }
+}

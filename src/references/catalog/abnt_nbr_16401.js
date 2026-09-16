@@ -31,6 +31,8 @@ const ABNT_NBR_16401 = Object.freeze({
 
     type: "Norma Técnica",
 
+    referenceClass: "CONTEXTUAL",
+
     category: "Climatização",
 
     scope: [
@@ -46,7 +48,7 @@ const ABNT_NBR_16401 = Object.freeze({
 
     year: 2021,
 
-    status: "CURRENT",
+    status: "LEGACY",
 
     applicability: [
 
@@ -173,10 +175,10 @@ const ABNT_NBR_16401 = Object.freeze({
     }),
 
     description:
-        "Estabelece requisitos para projeto, instalação, operação e manutenção de sistemas de climatização, incluindo critérios de conforto térmico, ventilação e qualidade do ar interior.",
+        "Representação histórica e legada da ABNT NBR 16401 no catálogo do CORE. Mantida para rastreabilidade, precedência contextual e resolução de referência, sem constituir critério operacional atual nem substituir a NBR 16401-3:2024 consolidada em Knowledge.",
 
     citation:
-        "ABNT NBR 16401:2021 — Instalações de ar-condicionado — Sistemas centrais e unitários.",
+        "ABNT NBR 16401:2021 — legado do catálogo CORE para rastreabilidade histórica e resolução contextual. Não representa critério operacional atual do runtime.",
 
     url:
         "https://www.abntcatalogo.com.br/"

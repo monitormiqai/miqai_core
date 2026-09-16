@@ -214,15 +214,84 @@ function validateObservation(value) {
 }
 
 
+function getOperationalContextApplicability(environment) {
+
+    const env =
+        String(environment ?? "").toLowerCase();
+
+    if (
+        env === "corporate" ||
+        env === "healthcare" ||
+        env === "education" ||
+        env === "residential" ||
+        env === "datacenter"
+    ) {
+        return "indoor_air";
+    }
+
+    return null;
+
+}
+
+
+function isApplicabilityCompatible(ruleApplicability, contextApplicability) {
+
+    if (!ruleApplicability || !contextApplicability) {
+        return true;
+    }
+
+    if (
+        contextApplicability === "indoor_air" &&
+        ruleApplicability === "ambient_outdoor"
+    ) {
+        return false;
+    }
+
+    return true;
+
+}
+
+function hasOperationalRange(rule) {
+
+    if (!rule || rule.type !== "RANGE") {
+        return false;
+    }
+
+    if (
+        rule.min == null ||
+        rule.max == null
+    ) {
+        return false;
+    }
+
+    const min = Number(rule.min);
+    const max = Number(rule.max);
+
+    return Number.isFinite(min) && Number.isFinite(max);
+
+}
 
 
 /* ======================================================================
  * CURRENT ASSESSMENT
  * ====================================================================== */
 
-function assessCurrentCondition(value, rule) {
+function assessCurrentCondition(value, rule, contextApplicability = null) {
+
+    if (
+        !isApplicabilityCompatible(
+            rule.applicability,
+            contextApplicability
+        )
+    ) {
+        return "NOT_ASSESSED";
+    }
 
     if (rule.type === "RANGE") {
+
+        if (!hasOperationalRange(rule)) {
+            return "NOT_ASSESSED";
+        }
 
         if (value < rule.min) return "BELOW_REFERENCE";
         if (value > rule.max) return "ABOVE_REFERENCE";
@@ -253,10 +322,14 @@ function assessCurrentCondition(value, rule) {
     return "NOT_ASSESSED";
 }
 
-function buildAssessmentMetadata(value, rule) {
+function buildAssessmentMetadata(value, rule, contextApplicability = null) {
 
     const currentAssessment =
-        assessCurrentCondition(value, rule);
+        assessCurrentCondition(
+            value,
+            rule,
+            contextApplicability
+        );
 
     const historicalAssessmentRequired =
         rule.historicalAssessmentRequired === true;
@@ -335,6 +408,9 @@ export function validate(ctx) {
     const regulatory =
         ctx.regulatory || {};
 
+    const contextApplicability =
+        getOperationalContextApplicability(ctx.environment);
+
     const validation = {};
 
     for (const [parameter, rule] of Object.entries(regulatory)) {
@@ -367,7 +443,68 @@ export function validate(ctx) {
                     rule.regulated,
 
                 regulatoryId:
-                    rule.regulatoryId
+                    rule.regulatoryId,
+
+                criterionKind:
+                    rule.criterionKind ?? null,
+
+                applicability:
+                    rule.applicability ?? null,
+
+                referenceThreshold:
+                    rule.referenceThreshold ?? null,
+
+                referenceIds:
+                    Array.isArray(rule.referenceIds)
+                        ? [...rule.referenceIds]
+                        : []
+
+            };
+
+            continue;
+
+        }
+
+        if (
+            rule.type === "RANGE" &&
+            !hasOperationalRange(rule)
+        ) {
+
+            validation[parameter] = {
+
+                parameter,
+
+                validationKey:
+                    rule.validationKey,
+
+                displayName:
+                    rule.displayName,
+
+                description:
+                    rule.description,
+
+                unit:
+                    rule.unit,
+
+                regulated:
+                    rule.regulated,
+
+                regulatoryId:
+                    rule.regulatoryId,
+
+                ...buildAssessmentMetadata(
+                    value,
+                    rule,
+                    contextApplicability
+                ),
+
+                value,
+
+                state: "OBSERVATION",
+
+                severity: "INFO",
+
+                passed: null
 
             };
 
@@ -416,7 +553,11 @@ export function validate(ctx) {
             regulatoryId:
                 rule.regulatoryId,
 
-            ...buildAssessmentMetadata(value, rule),
+            ...buildAssessmentMetadata(
+                value,
+                rule,
+                contextApplicability
+            ),
 
             ...result
 

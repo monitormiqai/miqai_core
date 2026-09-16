@@ -73,6 +73,8 @@ const ASHRAE62_1 = Object.freeze({
 
     type: "Norma Técnica",
 
+    referenceClass: "STANDARD",
+
     /*
      * Categoria principal.
      */

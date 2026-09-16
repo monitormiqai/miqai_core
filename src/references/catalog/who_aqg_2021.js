@@ -74,6 +74,8 @@ const WHO_AQG_2021 = Object.freeze({
 
     type: "Diretriz Internacional",
 
+    referenceClass: "GUIDELINE",
+
     /*
      * Categoria principal.
      */

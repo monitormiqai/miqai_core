@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Criteria",
+  "type": "object",
+  "required": ["id", "parameterId", "referenceId", "evaluationPeriod"],
+  "properties": {
+    "id": { "type": "string" },
+    "parameterId": { "type": "string" },
+    "referenceId": { "type": "string" },
+    "referenceSection": { "type": ["string", "null"] },
+    "threshold": { "type": ["number", "null"] },
+    "unit": { "type": ["string", "null"] },
+    "evaluationPeriod": { "type": "string" },
+    "methodNote": { "type": ["string", "null"] },
+    "applicability": { "type": ["array", "null"], "items": { "type": "string" } },
+    "temporalGuidance": { "type": ["string", "null"] }
+  }
+}

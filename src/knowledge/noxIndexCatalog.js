@@ -1,0 +1,56 @@
+import fs from "node:fs";
+import path from "node:path";
+
+const RECORDS_DIR = path.join(process.cwd(), "knowledge", "records");
+
+function isRuntimeEligible(record) {
+    const validationStatus =
+        record?.validation?.validationStatus;
+
+    const useAsCriteria =
+        record?.approval?.useAsCriteria;
+
+    return (
+        validationStatus === "APPROVED" &&
+        useAsCriteria === true
+    );
+}
+
+function readJsonIfExists(fileName) {
+    try {
+        const filePath = path.join(RECORDS_DIR, fileName);
+        const raw = fs.readFileSync(filePath, "utf8");
+        return JSON.parse(raw);
+    } catch {
+        return null;
+    }
+}
+
+function normalizeRecord(record, fallbackReferenceId) {
+    if (!isRuntimeEligible(record)) {
+        return {
+            referenceId: fallbackReferenceId,
+            unit: null,
+            evaluationPeriod: null,
+            methodNote: null
+        };
+    }
+
+    const criteria = record?.criteria ?? {};
+
+    return {
+        referenceId: criteria.referenceId ?? fallbackReferenceId,
+        unit: criteria.unit ?? record?.parameterDefinition?.unit ?? null,
+        evaluationPeriod: criteria.evaluationPeriod ?? null,
+        methodNote: criteria.methodNote ?? null
+    };
+}
+
+const sensirionRecord = normalizeRecord(
+    readJsonIfExists("sensirion_nox_index.v1.json"),
+    "sensirion_nox"
+);
+
+export const NOX_INDEX_KNOWLEDGE = Object.freeze({
+    sensirion: sensirionRecord
+});

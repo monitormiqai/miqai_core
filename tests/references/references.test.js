@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 
 import resolveReferences
     from "../../src/references/resolver.js";
+import REFERENCE_CATALOG
+    from "../../src/references/index.js";
 
 
 console.log("\n========================================");
@@ -46,6 +48,82 @@ function assertReferenceContract(result) {
     );
 
 }
+
+
+/* ======================================================================
+ * CATALOG INTEGRITY
+ * ====================================================================== */
+
+const REFERENCE_CLASSES = new Set([
+    "REGULATORY",
+    "STANDARD",
+    "GUIDELINE",
+    "TECHNICAL",
+    "MANUFACTURER",
+    "CONTEXTUAL"
+]);
+
+assert.equal(
+    REFERENCE_CATALOG.length,
+    9,
+    "O catálogo oficial deve preservar as nove referências V1."
+);
+
+const catalogIds =
+    REFERENCE_CATALOG.map(reference => reference.id);
+
+const legacyAbntReference =
+    REFERENCE_CATALOG.find(reference => reference.id === "abnt_nbr_16401");
+
+assert.ok(
+    legacyAbntReference,
+    "A referência ABNT NBR 16401 precisa existir no catálogo legado."
+);
+
+assert.equal(
+    legacyAbntReference.referenceClass,
+    "CONTEXTUAL",
+    "A representação legada da ABNT NBR 16401 deve ser contextual e não operacional."
+);
+
+assert.equal(
+    legacyAbntReference.status,
+    "LEGACY",
+    "A referência ABNT NBR 16401 deve permanecer explicitamente como legado histórico."
+);
+
+assert.equal(
+    new Set(catalogIds).size,
+    catalogIds.length,
+    "O catálogo não pode possuir IDs duplicados."
+);
+
+for (const reference of REFERENCE_CATALOG) {
+
+    assert.ok(
+        REFERENCE_CLASSES.has(reference.referenceClass),
+        `referenceClass inválida para ${reference.id}`
+    );
+
+}
+
+assert.equal(
+    REFERENCE_CATALOG.find(
+        reference => reference.id === "sensirion_voc"
+    ).regulatoryStatus,
+    "not_regulatory_limit"
+);
+
+assert.equal(
+    REFERENCE_CATALOG.find(
+        reference => reference.id === "sensirion_nox"
+    ).regulatoryStatus,
+    "not_regulatory_limit"
+);
+
+console.log(
+    "✓ Catálogo possui referenceClass válida e IDs únicos"
+);
 
 
 /* ======================================================================
@@ -131,8 +209,9 @@ console.log(
  *
  * Evidence declara as referências aplicáveis.
  *
- * A referência brasileira deve possuir precedência sobre a internacional
- * quando ambas forem aplicáveis ao contexto brasileiro.
+ * A referência brasileira legada deve manter precedência somente como
+ * resolução contextual de referência, não como criação de critério
+ * operacional novo ou threshold universal.
  * ====================================================================== */
 
 const co2Context = {

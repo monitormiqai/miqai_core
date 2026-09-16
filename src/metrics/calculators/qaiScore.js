@@ -3,40 +3,163 @@
  * CORE QAI
  * QAI Score Calculator
  * ----------------------------------------------------------------------
- * Arquivo   : qaiScore.js
- * Módulo    : Metrics
- * Versão    : 1.1.0
- * Status    : RC2 - REVISÃO CO2
+ * Versão   : 3.0.0
+ * Status   : RC - SCORE V1
  *
- * Objetivo
- * ----------------------------------------------------------------------
- * Calcular o QAI Score principal do CORE utilizando os indicadores
- * produzidos pela Metrics Engine e os pesos definidos para o
- * Domain ativo.
+ * QAI Score V1 = fotografia quantitativa da condição ambiental atual.
  *
- * O QAI Score representa exclusivamente a composição dos indicadores
- * quantitativos definidos para a métrica global.
+ * Universo oficial:
+ *   temperature
+ *   humidity
+ *   pm25
+ *   pm10
  *
- * O indicador operacional de ocupação NÃO participa do QAI Score.
+ * Regulatory e Score permanecem independentes.
  *
- * CO2 permanece disponível para Validation, Evidence, Diagnostics,
- * Hypotheses, Relationships e Mitigations, mas não influencia
- * diretamente ou indiretamente o QAI Score por meio de occupancy.
+ * Regulatory:
+ *   PM2.5 / PM10 → avaliação temporal própria, incluindo 24h_mean
+ *
+ * Score:
+ *   PM2.5 / PM10 → leitura instantânea atual
+ *
+ * Este módulo:
+ * - NÃO define thresholds;
+ * - NÃO define referências;
+ * - NÃO interpreta regulamentação;
+ * - NÃO cria critérios;
+ * - NÃO produz diagnóstico;
+ * - NÃO produz evidência;
+ * - NÃO produz hipótese;
+ * - NÃO produz mitigação.
+ *
+ * O conhecimento do Score define a curva.
+ * A normalização calcula o índice.
  * ======================================================================
  */
 
-import QAI_WEIGHTS from "../config/qaiWeights.js";
-import { resolveScoreLevel } from "../utils/scoreLevel.js";
+import QAI_SCORE_PARAMETERS
+    from "../config/qaiScoreParameters.js";
 
+import QAI_SCORE_KNOWLEDGE
+    from "../config/qaiScoreKnowledge.js";
+
+import {
+    validateQaiScoreParameter
+} from "../validators/qaiScoreValidation.js";
+
+import {
+    normalizePiecewise,
+    weightedGeometricMean
+} from "../utils/scoreNormalization.js";
+
+import {
+    resolveScoreLevel
+} from "../utils/scoreLevel.js";
+
+
+/**
+ * ----------------------------------------------------------------------
+ * COMPONENTES
+ * ----------------------------------------------------------------------
+ *
+ * O valor ambiental é obtido da Validation.
+ *
+ * O Score não utiliza metric.score, pois os índices de Score são
+ * calculados aqui a partir do valor validado + Score Knowledge.
+ * ----------------------------------------------------------------------
+ */
+function getScoreComponents(ctx) {
+
+    const components = [];
+
+    for (const parameter of QAI_SCORE_PARAMETERS) {
+
+        const scoreValidation =
+            validateQaiScoreParameter(
+                ctx,
+                parameter
+            );
+
+        if (!scoreValidation.eligible) {
+            continue;
+        }
+
+        const knowledge =
+            QAI_SCORE_KNOWLEDGE[parameter];
+
+        if (!knowledge) {
+            continue;
+        }
+
+        const validation =
+            ctx?.validation?.[parameter];
+
+        if (!validation) {
+            continue;
+        }
+
+        const value =
+            validation.value;
+
+        if (
+            value === null ||
+            value === undefined ||
+            !Number.isFinite(value)
+        ) {
+            continue;
+        }
+
+        const points =
+            knowledge.normalization?.points;
+
+        if (
+            !Array.isArray(points) ||
+            points.length < 2
+        ) {
+            continue;
+        }
+
+        const score =
+            normalizePiecewise(
+                value,
+                points
+            );
+
+        if (
+            score === null ||
+            !Number.isFinite(score)
+        ) {
+            continue;
+        }
+
+        components.push({
+
+            parameter,
+
+            value,
+
+            score,
+
+            weight:
+                scoreValidation.weight
+
+        });
+
+    }
+
+    return components;
+
+}
+
+
+/**
+ * ----------------------------------------------------------------------
+ * QAI SCORE V1
+ * ----------------------------------------------------------------------
+ */
 export function calculateQaiScore(ctx) {
 
-    const metrics =
-        ctx.metrics || {};
-
-    const domain =
-        ctx.domain?.id;
-
-    if (!domain) {
+    if (!ctx.domain?.id) {
 
         throw new Error(
             "Domain não definido."
@@ -44,106 +167,20 @@ export function calculateQaiScore(ctx) {
 
     }
 
-    const weights =
-        QAI_WEIGHTS[domain];
-
-    if (!weights) {
-
-        throw new Error(
-            `Pesos do Domain '${domain}' não encontrados.`
-        );
-
-    }
-
-    let weightedScore = 0;
-
-    let totalWeight = 0;
+    const components =
+        getScoreComponents(ctx);
 
     /*
-     * ================================================================
-     * COMPONENTES OFICIAIS DO QAI SCORE
-     * ================================================================
+     * O Score global somente é produzido quando
+     * todos os quatro componentes oficiais estão disponíveis.
      *
-     * Occupancy foi deliberadamente removido da composição.
-     *
-     * O indicador occupancy permanece disponível no CORE como
-     * indicador operacional auxiliar, mas não participa do cálculo
-     * do QAI Score enquanto sua estimativa depender exclusivamente
-     * do comportamento do CO2.
-     *
-     * CO2 também não é componente direto do Score.
+     * Não produzir Score parcial.
      */
 
-    const components = [
-
-        {
-            name: "thermalComfort",
-            score: metrics.thermalComfort?.score,
-            weight: weights.thermalComfort
-        },
-
-        {
-            name: "airQuality",
-            score: metrics.airQuality?.score,
-            weight: weights.airQuality
-        },
-
-        {
-            name: "particulateLoad",
-            score: metrics.particulateLoad?.score,
-            weight: weights.particulateLoad
-        }
-
-    ];
-
-    let lowestScore = Infinity;
-
-    const validComponents = [];
-
-    for (const component of components) {
-
-        if (
-            component.score === null ||
-            component.score === undefined
-        ) {
-
-            continue;
-
-        }
-
-        if (
-            component.weight === null ||
-            component.weight === undefined ||
-            component.weight <= 0
-        ) {
-
-            continue;
-
-        }
-
-        validComponents.push(component);
-
-        weightedScore +=
-            component.score *
-            component.weight;
-
-        totalWeight +=
-            component.weight;
-
-        if (component.score < lowestScore) {
-
-            lowestScore =
-                component.score;
-
-        }
-
-    }
-
-    /*
-     * Nenhum componente disponível.
-     */
-
-    if (totalWeight === 0) {
+    if (
+        components.length !==
+        QAI_SCORE_PARAMETERS.length
+    ) {
 
         return {
 
@@ -151,49 +188,72 @@ export function calculateQaiScore(ctx) {
 
             level: "UNKNOWN",
 
-            dominantFactor: null
+            dominantFactor: null,
+
+            components
 
         };
 
     }
 
     /*
-     * ================================================================
-     * FATOR DOMINANTE
-     * ================================================================
+     * Média geométrica ponderada.
      *
-     * Determina o pior indicador somente quando existir um único
-     * componente com a menor pontuação.
+     * Os quatro parâmetros possuem peso 0.25 no Knowledge.
      */
 
+    const rawScore =
+        weightedGeometricMean(
+            components
+        );
+
+    if (
+        rawScore === null ||
+        !Number.isFinite(rawScore)
+    ) {
+
+        return {
+
+            score: null,
+
+            level: "UNKNOWN",
+
+            dominantFactor: null,
+
+            components
+
+        };
+
+    }
+
+    const score =
+        Math.round(rawScore);
+
+    /*
+     * O fator dominante é o componente com menor índice.
+     *
+     * Em caso de empate, não há fator único dominante.
+     */
+
+    const lowestScore =
+        Math.min(
+            ...components.map(
+                component =>
+                    component.score
+            )
+        );
+
     const worstComponents =
-        validComponents.filter(
-
+        components.filter(
             component =>
-                component.score === lowestScore
-
+                component.score ===
+                lowestScore
         );
 
     const dominantFactor =
         worstComponents.length === 1
-            ? worstComponents[0].name
+            ? worstComponents[0].parameter
             : null;
-
-    /*
-     * ================================================================
-     * SCORE FINAL
-     * ================================================================
-     *
-     * A divisão pelo totalWeight permite a normalização dos pesos
-     * efetivamente disponíveis.
-     */
-
-    const score = Math.round(
-
-        weightedScore /
-        totalWeight
-
-    );
 
     return {
 
@@ -202,7 +262,9 @@ export function calculateQaiScore(ctx) {
         level:
             resolveScoreLevel(score),
 
-        dominantFactor
+        dominantFactor,
+
+        components
 
     };
 

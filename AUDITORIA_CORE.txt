@@ -1,0 +1,840 @@
+============================================================
+CORE QAI - AUDITORIA ESTRUTURAL
+Data: 2026-09-01 09:33:32
+============================================================
+
+### 1. LOCAL DO PROJETO ###
+
+Path                                                     
+----                                                     
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core
+
+
+
+
+### 2. PACKAGE.JSON ###
+{
+  "name": "core-qai",
+  "version": "1.0.0",
+  "description": "CORE QAI - Knowledge Engine for Indoor Air Quality Analysis",
+  "type": "module",
+  "main": "src/engine/analysis.js",
+  "exports": {
+    ".": "./src/engine/analysis.js"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js tests/**/*.test.js"
+  },
+  "files": [
+    "src"
+  ],
+  "author": "Giovane Lopes",
+  "license": "Proprietary",
+  "private": true,
+  "keywords": [
+    "air-quality",
+    "iaq",
+    "knowledge-engine",
+    "core-qai",
+    "miqai"
+  ]
+}
+
+### 3. ESTRUTURA DO SRC ###
+src\diagnostics\catalog\dewPointCondensation.js
+src\diagnostics\catalog\highCo2.js
+src\diagnostics\catalog\highHumidity.js
+src\diagnostics\catalog\highNox.js
+src\diagnostics\catalog\highOccupancy.js
+src\diagnostics\catalog\highPm10.js
+src\diagnostics\catalog\highPm25.js
+src\diagnostics\catalog\highTemperature.js
+src\diagnostics\catalog\highVoc.js
+src\diagnostics\catalog\index.js
+src\diagnostics\catalog\insufficientVentilation.js
+src\diagnostics\catalog\lowHumidity.js
+src\diagnostics\catalog\lowTemperature.js
+src\diagnostics\catalog\normalEnvironment.js
+src\diagnostics\catalog\particulatePollution.js
+src\diagnostics\catalog\poorAirQuality.js
+src\diagnostics\catalog\thermalDiscomfort.js
+src\diagnostics\index.js
+src\domains\corporateDomain.js
+src\domains\datacenterDomain.js
+src\domains\educationDomain.js
+src\domains\healthcareDomain.js
+src\domains\index.js
+src\domains\residentialDomain.js
+src\engine\analysis.js
+src\engine\constants.js
+src\engine\context.js
+src\engine\normalize.js
+src\engine\pipeline.js
+src\engine\responseBuilder.js
+src\environmentalScenarios\catalog\index.js
+src\environmentalScenarios\catalog\warmHumid.js
+src\environmentalScenarios\index.js
+src\evidences\catalog\dewPointCondensation.js
+src\evidences\catalog\elevatedCo2.js
+src\evidences\catalog\elevatedNox.js
+src\evidences\catalog\elevatedParticulate.js
+src\evidences\catalog\elevatedVoc.js
+src\evidences\catalog\index.js
+src\evidences\catalog\normalEnvironment.js
+src\evidences\catalog\thermalDeviation.js
+src\evidences\index.js
+src\hypotheses\catalog\chemicalContamination.js
+src\hypotheses\catalog\dewPointCondensation.js
+src\hypotheses\catalog\excessiveOccupancy.js
+src\hypotheses\catalog\hvacFailure.js
+src\hypotheses\catalog\index.js
+src\hypotheses\catalog\insufficientAirRenewal.js
+src\hypotheses\catalog\normalOperation.js
+src\hypotheses\catalog\outdoorPollution.js
+src\hypotheses\index.js
+src\impacts\catalog\biologicalRisk.js
+src\impacts\catalog\humidityRelatedRisk.js
+src\impacts\catalog\index.js
+src\impacts\catalog\thermalDiscomfort.js
+src\impacts\index.js
+src\metrics\calculators\airQuality.js
+src\metrics\calculators\co2Analysis.js
+src\metrics\calculators\dewPoint.js
+src\metrics\calculators\healthRisk.js
+src\metrics\calculators\occupancy.js
+src\metrics\calculators\particulateLoad.js
+src\metrics\calculators\qaiScore.js
+src\metrics\calculators\thermalComfort.js
+src\metrics\config\levels.js
+src\metrics\config\qaiWeights.js
+src\metrics\index.js
+src\metrics\metricsEngine.js
+src\metrics\utils\scoreLevel.js
+src\mitigations\catalog\controlHumidity.js
+src\mitigations\catalog\eliminatePollutionSource.js
+src\mitigations\catalog\increaseVentilation.js
+src\mitigations\catalog\index.js
+src\mitigations\catalog\inspectHvacSystem.js
+src\mitigations\catalog\maintainCurrentOperation.js
+src\mitigations\catalog\reduceOccupancy.js
+src\mitigations\catalog\useAirPurification.js
+src\mitigations\index.js
+src\references\catalog\abnt_nbr_16401.js
+src\references\catalog\abnt_nbr_17037.js
+src\references\catalog\ashrae55.js
+src\references\catalog\ashrae62_1.js
+src\references\catalog\iso_7730.js
+src\references\catalog\nr17.js
+src\references\catalog\sensirion_nox.js
+src\references\catalog\sensirion_voc.js
+src\references\catalog\who_aqg_2021.js
+src\references\index.js
+src\references\resolver.js
+src\regulatory\catalog\co2.js
+src\regulatory\catalog\humidity.js
+src\regulatory\catalog\nc05.js
+src\regulatory\catalog\nc1.js
+src\regulatory\catalog\nc10.js
+src\regulatory\catalog\nc25.js
+src\regulatory\catalog\nc4.js
+src\regulatory\catalog\noxIndex.js
+src\regulatory\catalog\pm1.js
+src\regulatory\catalog\pm10.js
+src\regulatory\catalog\pm25.js
+src\regulatory\catalog\pm4.js
+src\regulatory\catalog\temperature.js
+src\regulatory\catalog\typicalParticleSize.js
+src\regulatory\catalog\vocIndex.js
+src\regulatory\index.js
+src\regulatory\package.json
+src\regulatory\README.md
+src\regulatory\regulatory.rc1.test.js
+src\relationships\catalog\index.js
+src\relationships\catalog\warmHumidHighCo2.js
+src\relationships\index.js
+src\validation\index.js
+src\validation\validationEngine.js
+
+### 4. ESTRUTURA DOS TESTES ###
+tests\diagnostics\diagnostics.test.js
+tests\evidences\evidences.test.js
+tests\hypotheses\hypotheses.test.js
+tests\impacts\impacts.test.js
+tests\integration\co2InternalOnlyContract.test.js
+tests\integration\diagnosticsEvidences.test.js
+tests\integration\finalSemantics.test.js
+tests\integration\generateRealJson.test.js
+tests\integration\jsonContract.test.js
+tests\integration\jsonReal.test.js
+tests\integration\json-real-output.json
+tests\integration\metricsEngine.test.js
+tests\integration\scenarios.test.js
+tests\metrics\co2Analysis.test.js
+tests\metrics\dewPoint.test.js
+tests\metrics\healthRisk.test.js
+tests\metrics\qai.test.js
+tests\metrics\unknownCalculators.test.js
+tests\mitigations\mitigations.test.js
+tests\pipeline.e2e.test.js
+tests\pipeline.test.js
+tests\references\references.test.js
+tests\relationships\relationships.test.js
+tests\run-all.js
+tests\validation.test.js
+
+### 5. PIPELINE.JS ###
+/**
+ * ======================================================================
+ * CORE QAI
+ * Pipeline
+ * ----------------------------------------------------------------------
+ * Arquivo   : pipeline.js
+ * Módulo    : Core Engine
+ * Versão    : 1.0.0
+ * Status    : RC1 - CONGELADO
+ *
+ * Objetivo
+ * ----------------------------------------------------------------------
+ * Orquestrar a execução oficial do CORE QAI.
+ *
+ * Este módulo não contém regras ambientais.
+ * Não interpreta leituras.
+ * Não executa cálculos.
+ *
+ * Apenas coordena a execução das etapas do pipeline.
+ * ======================================================================
+ */
+
+import { normalize } from "./normalize.js";
+import { buildResponse } from "./responseBuilder.js";
+
+import { resolveDomain } from "../domains/index.js";
+import { resolveRegulatory } from "../regulatory/index.js";
+
+import { validate } from "../validation/index.js";
+import { calculateMetrics } from "../metrics/index.js";
+
+import DiagnosticLibrary from "../diagnostics/index.js";
+import EvidenceLibrary from "../evidences/index.js";
+import HypothesisLibrary from "../hypotheses/index.js";
+import MitigationLibrary from "../mitigations/index.js";
+
+import resolveReferences from "../references/resolver.js";
+
+import EnvironmentalScenarioLibrary from "../environmentalScenarios/index.js";
+import RelationshipsLibrary from "../relationships/index.js";
+import ImpactsLibrary from "../impacts/index.js";
+
+
+
+
+
+/* ======================================================================
+ * PIPELINE
+ * ====================================================================== */
+
+export function executePipeline(ctx) {
+
+    ctx.engine.pipeline = [];
+
+    executeStep(ctx, "normalize", () => {
+
+        normalize(ctx);
+
+    });
+
+    executeStep(ctx, "domain", () => {
+
+        resolveDomain(ctx);
+
+    });
+
+    executeStep(ctx, "regulatory", () => {
+
+        resolveRegulatory(ctx);
+
+    });
+
+    executeStep(ctx, "validation", () => {
+
+        validate(ctx);
+
+    });
+
+    executeStep(ctx, "metrics", () => {
+
+        calculateMetrics(ctx);
+
+    });
+
+    executeStep(ctx, "diagnostic", () => {
+
+        DiagnosticLibrary.execute(ctx);
+
+    });
+
+    executeStep(ctx, "evidence", () => {
+
+        EvidenceLibrary.execute(ctx);
+
+    });
+
+    executeStep(ctx, "hypothesis", () => {
+
+        HypothesisLibrary.execute(ctx);
+
+    });
+
+    executeStep(ctx, "mitigation", () => {
+
+        MitigationLibrary.execute(ctx);
+
+    });
+
+    executeStep(ctx, "environmentalScenario", () => {
+
+        EnvironmentalScenarioLibrary.execute(ctx);
+
+    });
+
+    executeStep(ctx, "relationships", () => {
+
+        RelationshipsLibrary.execute(ctx);
+
+    });
+
+        executeStep(ctx, "impacts", () => {
+
+        ImpactsLibrary.execute(ctx);
+
+    });
+
+
+
+
+    /*
+     * ================================================================
+     * REFERENCES
+     * ================================================================
+     *
+     * O Reference Resolver deve executar antes da construção
+     * da resposta final.
+     *
+     * Dessa forma, buildResponse(ctx) recebe o resultado completo
+     * da esteira, incluindo as referências normativas e técnicas.
+     */
+
+    executeStep(ctx, "references", () => {
+
+        ctx.references =
+            resolveReferences(ctx);
+
+    });
+
+    /*
+     * ================================================================
+     * PROCESSING TIME
+     * ================================================================
+     *
+     * O processamento é finalizado somente depois que todas as
+     * etapas analíticas, incluindo References, foram concluídas.
+     */
+
+    ctx.engine.finishedAt = Date.now();
+
+    ctx.engine.processingTime =
+
+        ctx.engine.finishedAt -
+
+        ctx.engine.startedAt;
+
+    /*
+     * ================================================================
+     * RESPONSE
+     * ================================================================
+     *
+     * A resposta é construída por último para que contenha
+     * todo o resultado produzido pelo CORE QAI.
+     */
+
+    executeStep(ctx, "response", () => {
+
+        buildResponse(ctx);
+
+    });
+
+}
+
+
+/* ======================================================================
+ * PIPELINE STEP
+ * ====================================================================== */
+
+function executeStep(ctx, name, fn) {
+
+    ctx.engine.pipeline.push(name);
+
+    fn();
+
+}
+
+### 6. RESPONSEBUILDER.JS ###
+/**
+ * ======================================================================
+ * CORE QAI
+ * Response Builder
+ * ----------------------------------------------------------------------
+ * Arquivo   : responseBuilder.js
+ * Módulo    : Core Engine
+ * Versão    : 1.0.0
+ * Status    : RC1 - CONGELADO
+ *
+ * Objetivo
+ * ----------------------------------------------------------------------
+ * Construir a resposta oficial do CORE QAI.
+ *
+ * Este módulo não executa cálculos.
+ * Não interpreta resultados.
+ * Não aplica regras.
+ *
+ * Apenas organiza a saída produzida pelos módulos do CORE.
+ * ======================================================================
+ */
+
+import {
+    CORE_INFO,
+    ANALYSIS_STATUS
+} from "./constants.js";
+
+/* ======================================================================
+ * RESPONSE BUILDER
+ * ======================================================================
+ */
+
+export function buildResponse(ctx) {
+
+    /*
+     * O processingTime é conhecido somente após a execução
+     * completa do pipeline.
+     */
+
+    const processingTime =
+
+        Date.now() -
+
+        ctx.engine.startedAt;
+
+    ctx.engine.finishedAt = Date.now();
+
+    ctx.engine.processingTime = processingTime;
+
+    ctx.response = Object.freeze({
+
+        /* ==========================================================
+         * METADATA
+         * ========================================================== */
+
+        metadata: Object.freeze({
+
+            engine: CORE_INFO.NAME,
+
+            version: CORE_INFO.VERSION,
+
+            apiVersion: CORE_INFO.API_VERSION,
+
+            status: ANALYSIS_STATUS.OK,
+
+            environment: ctx.environment,
+
+            timestamp: new Date().toISOString(),
+
+            processingTime
+
+        }),
+
+        /* ==========================================================
+         * DOMAIN
+         * ========================================================== */
+
+        domain: ctx.domain,
+
+        /* ==========================================================
+         * VALIDATION
+         * ========================================================== */
+
+        validation: ctx.validation,
+
+        /* ==========================================================
+         * METRICS
+         * ========================================================== */
+
+        metrics: ctx.metrics,
+
+        /* ==========================================================
+         * DIAGNOSIS
+         * ========================================================== */
+
+        diagnosis: ctx.diagnosis,
+
+        /* ==========================================================
+         * EVIDENCE
+         * ========================================================== */
+
+        evidence: ctx.evidence,
+
+        /* ==========================================================
+         * HYPOTHESES
+         * ========================================================== */
+
+        hypotheses: ctx.hypotheses,
+
+        /* ==========================================================
+         * MITIGATION
+         * ========================================================== */
+
+        mitigation: ctx.mitigation,
+
+
+        /* ==========================================================
+        * ENVIRONMENTAL SCENARIO
+        * ========================================================== */
+
+        environmentalScenario:
+            ctx.environmentalScenario,
+
+        /* ==========================================================
+         * RELATIONSHIPS
+         * ========================================================== */
+
+        relationships:
+            ctx.relationships,
+
+
+        /* ==========================================================
+         * IMPACTS
+         * ========================================================== */
+
+        impacts:
+            ctx.impacts,    
+
+
+
+        /* ==========================================================
+         * REFERENCES
+         * ========================================================== */
+
+        references: ctx.references
+
+    });
+
+    return ctx.response;
+
+}
+
+### 7. ARQUIVOS INDEX DOS DOMINIOS ###
+
+FullName                                                                                             
+--------                                                                                             
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\index.js                   
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\index.js           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\domains\index.js                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\environmentalScenarios\index.js        
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\environmentalScenarios\catalog\index.js
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\index.js                     
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\index.js             
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\index.js                    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\index.js            
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\impacts\index.js                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\impacts\catalog\index.js               
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\index.js                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\index.js                   
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\index.js           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\references\index.js                    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\regulatory\index.js                    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\relationships\index.js                 
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\relationships\catalog\index.js         
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\validation\index.js                    
+
+
+
+
+### 8. USOS DE CTX ENTRE OS MODULOS ###
+
+Path                                                                                                          LineNumber Line                                                                             
+----                                                                                                          ---------- ----                                                                             
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\index.js                                    62     ctx.diagnosis = {                                                            
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\dewPointCondensation.js             21         const humidity = ctx.validation?.humidity;                               
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\dewPointCondensation.js             22         const dewPoint = ctx.metrics?.dewPoint;                                  
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highCo2.js                          40             ctx.validation?.co2?.state === "HIGH"                                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highHumidity.js                     27             ctx.validation?.humidity?.currentAssessment === "ABOVE_REFERENCE"    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highNox.js                          27             ctx.validation?.noxIndex?.state === "HIGH"                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highOccupancy.js                    28             ctx.metrics?.occupancy?.level === "HIGH" ||                          
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highOccupancy.js                    29             ctx.metrics?.occupancy?.level === "VERY_HIGH"                        
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highPm10.js                         27             ctx.validation?.pm10?.currentAssessment === "ABOVE_REFERENCE"        
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highPm25.js                         51             ctx.validation?.pm25?.currentAssessment === "ABOVE_REFERENCE"        
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highTemperature.js                  27             ctx.validation?.temperature?.currentAssessment === "ABOVE_REFERENCE" 
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highVoc.js                          27             ctx.validation?.vocIndex?.currentAssessment === "ABOVE_REFERENCE"    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\insufficientVentilation.js          41             ctx.validation ?? {};                                                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\lowHumidity.js                      27             ctx.validation?.humidity?.currentAssessment === "BELOW_REFERENCE"    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\lowTemperature.js                   27             ctx.validation?.temperature?.currentAssessment === "BELOW_REFERENCE" 
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\normalEnvironment.js                56         const validation = ctx.validation ?? {};                                 
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\particulatePollution.js             53         const metrics = ctx.metrics ?? {};                                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\poorAirQuality.js                   53         const metrics = ctx.metrics ?? {};                                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\thermalDiscomfort.js                57         const metrics = ctx.metrics ?? {};                                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\thermalDiscomfort.js                66             ctx.validation?.temperature;                                         
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\thermalDiscomfort.js                69             ctx.validation?.humidity;                                            
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\domains\index.js                                        63     ctx.domain =                                                                 
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\engine\pipeline.js                                     144         ctx.references =                                                         
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\engine\responseBuilder.js                               78         domain: ctx.domain,                                                      
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\engine\responseBuilder.js                               84         validation: ctx.validation,                                              
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\engine\responseBuilder.js                               90         metrics: ctx.metrics,                                                    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\engine\responseBuilder.js                               96         diagnosis: ctx.diagnosis,                                                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\engine\responseBuilder.js                              102         evidence: ctx.evidence,                                                  
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\engine\responseBuilder.js                              108         hypotheses: ctx.hypotheses,                                              
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\engine\responseBuilder.js                              114         mitigation: ctx.mitigation,                                              
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\engine\responseBuilder.js                              122             ctx.environmentalScenario,                                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\engine\responseBuilder.js                              129             ctx.relationships,                                                   
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\engine\responseBuilder.js                              137             ctx.impacts,                                                         
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\engine\responseBuilder.js                              145         references: ctx.references                                               
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\environmentalScenarios\index.js                         72     ctx.environmentalScenario = {                                                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\environmentalScenarios\catalog\warmHumid.js             22             ctx.validation?.temperature;                                         
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\environmentalScenarios\catalog\warmHumid.js             25             ctx.validation?.humidity;                                            
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\index.js                                      62     ctx.evidence = {                                                             
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\dewPointCondensation.js               30         const humidity = ctx.validation?.humidity;                               
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\dewPointCondensation.js               31         const dewPoint = ctx.metrics?.dewPoint;                                  
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\elevatedCo2.js                       115      *     ctx.metrics.co2Analysis.elevated === true                             
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\elevatedCo2.js                       127             ctx.metrics?.co2Analysis;                                            
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\elevatedNox.js                        76         ctx.validation?.noxIndex;                                                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\elevatedParticulate.js                84             ctx.validation?.pm25;                                                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\elevatedParticulate.js                87             ctx.validation?.pm10;                                                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\elevatedVoc.js                        76         ctx.validation?.vocIndex;                                                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\normalEnvironment.js                  89             ctx.validation ?? {};                                                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\thermalDeviation.js                   86             ctx.validation?.temperature;                                         
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\thermalDeviation.js                   89             ctx.validation?.humidity;                                            
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\index.js                                     63     ctx.hypotheses = {                                                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\chemicalContamination.js             83             ctx.evidence.records.some(                                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\dewPointCondensation.js              26             ctx.diagnosis?.matches?.some(                                        
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\excessiveOccupancy.js                78             ctx.metrics?.occupancy?.level ===                                    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\hvacFailure.js                       78             ctx.diagnosis?.primary?.id ===                                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\insufficientAirRenewal.js            78             ctx.diagnosis?.primary?.id ===                                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\normalOperation.js                   91             ctx.evidence?.primary?.id ===                                        
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\outdoorPollution.js                  79             ctx.evidence.records.some(                                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\impacts\index.js                                        54         ctx.relationships?.matches ?? [];                                        
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\impacts\index.js                                        70         ctx.impacts = {                                                          
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\impacts\index.js                                       177     ctx.impacts = {                                                              
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\metricsEngine.js                                18  * de m�tricas e organizar seus resultados em ctx.metrics.                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\metricsEngine.js                                21  *      ctx.validation                                                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\metricsEngine.js                                22  *      ctx.domain                                                               
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\metricsEngine.js                                26  *      ctx.metrics                                                              
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\metricsEngine.js                               117     ctx.metrics = metrics;                                                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\metricsEngine.js                               133     ctx.metrics =                                                                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\airQuality.js                       32  *      ctx.validation                                                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\airQuality.js                      157         ctx.validation ?? {};                                                    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\co2Analysis.js                     104         ctx.validation?.co2;                                                     
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\dewPoint.js                         23  *      ctx.validation.temperature                                               
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\dewPoint.js                         24  *      ctx.validation.humidity                                                  
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\dewPoint.js                        114         ctx.validation ?? {};                                                    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\occupancy.js                        31  *      ctx.validation                                                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\particulateLoad.js                  29  *      ctx.validation                                                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\particulateLoad.js                 146         ctx.validation ?? {};                                                    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\qaiScore.js                         34         ctx.metrics || {};                                                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\qaiScore.js                         37         ctx.domain?.id;                                                          
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\thermalComfort.js                   32  *      ctx.validation                                                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\metrics\calculators\thermalComfort.js                  140         ctx.validation ?? {};                                                    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\index.js                                    63     ctx.mitigation = {                                                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\controlHumidity.js                  27             ctx.hypotheses?.matches?.some(                                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\eliminatePollutionSource.js         79             ctx.hypotheses?.matches?.some(                                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\increaseVentilation.js              79             ctx.hypotheses?.primary?.id ===                                      
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\inspectHvacSystem.js                82             ctx.hypotheses?.matches?.some(                                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\maintainCurrentOperation.js         81             ctx.hypotheses?.primary?.id ===                                      
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\reduceOccupancy.js                  80             ctx.hypotheses?.matches?.some(                                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\useAirPurification.js               80         ctx.evidence?.records?.some(                                             
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\references\resolver.js                                 817         ctx.domain?.id ||                                                        
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\references\resolver.js                                 833             ctx.domain?.jurisdiction ||                                          
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\references\resolver.js                                 841     for (const [parameter, validation] of Object.entries(ctx.validation || {})) {
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\references\resolver.js                                 857             ctx.regulatory?.[parameter];                                         
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\references\resolver.js                                 878         ctx.evidence?.primary ||                                                 
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\references\resolver.js                                 882         Array.isArray(ctx.evidence?.records)                                     
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\references\resolver.js                                 884             ? ctx.evidence.records                                               
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\references\resolver.js                                 889         ctx.diagnosis?.primary ||                                                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\references\resolver.js                                 893         ctx.hypotheses?.primary ||                                               
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\references\resolver.js                                1045                 ctx.validation,                                                  
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\regulatory\index.js                                     60     const domain = ctx.domain;                                                   
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\regulatory\index.js                                     90     ctx.regulatory = Object.freeze(regulatory);                                  
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\regulatory\regulatory.rc1.test.js                       27         Object.keys(ctx.regulatory).length,                                      
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\regulatory\regulatory.rc1.test.js                       32     for (const [parameter, rule] of Object.entries(ctx.regulatory)) {            
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\relationships\index.js                                  47     ctx.relationships = {                                                        
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\relationships\catalog\warmHumidHighCo2.js              133             ctx.validation ?? {};                                                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\relationships\catalog\warmHumidHighCo2.js              142             ctx.metrics?.co2Analysis;                                            
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\relationships\catalog\warmHumidHighCo2.js              155             ctx.environmentalScenario?.matches?.some(                            
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\validation\validationEngine.js                          22  *      ctx.regulatory                                                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\validation\validationEngine.js                          25  *      ctx.validation                                                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\validation\validationEngine.js                         336         ctx.regulatory || {};                                                    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\validation\validationEngine.js                         427     ctx.validation =                                                             
+
+
+
+
+### 9. CATALOGOS ###
+
+--- .\src\diagnostics\catalog ---
+
+FullName                                                                                                     Length
+--------                                                                                                     ------
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\dewPointCondensation.js       879
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highCo2.js                   1139
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highHumidity.js               718
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highNox.js                    714
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highOccupancy.js              955
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highPm10.js                   852
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highPm25.js                  1660
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highTemperature.js            717
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\highVoc.js                    714
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\index.js                     2497
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\insufficientVentilation.js   1955
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\lowHumidity.js                718
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\lowTemperature.js             717
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\normalEnvironment.js         1707
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\particulatePollution.js      1674
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\poorAirQuality.js            1629
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\diagnostics\catalog\thermalDiscomfort.js         2342
+
+
+
+
+--- .\src\evidences\catalog ---
+
+FullName                                                                                                Length
+--------                                                                                                ------
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\dewPointCondensation.js   1122
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\elevatedCo2.js            4208
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\elevatedNox.js            1897
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\elevatedParticulate.js    2395
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\elevatedVoc.js            1889
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\index.js                  1383
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\normalEnvironment.js      3131
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\evidences\catalog\thermalDeviation.js       2547
+
+
+
+
+--- .\src\hypotheses\catalog ---
+
+FullName                                                                                                   Length
+--------                                                                                                   ------
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\chemicalContamination.js    2237
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\dewPointCondensation.js     1119
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\excessiveOccupancy.js       1912
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\hvacFailure.js              1884
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\index.js                    1458
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\insufficientAirRenewal.js   1951
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\normalOperation.js          2264
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\hypotheses\catalog\outdoorPollution.js         1983
+
+
+
+
+--- .\src\mitigations\catalog ---
+
+FullName                                                                                                      Length
+--------                                                                                                      ------
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\controlHumidity.js             984
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\eliminatePollutionSource.js   2020
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\increaseVentilation.js        1839
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\index.js                      1503
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\inspectHvacSystem.js          2012
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\maintainCurrentOperation.js   1932
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\reduceOccupancy.js            1951
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\mitigations\catalog\useAirPurification.js         2093
+
+
+
+
+--- .\src\relationships\catalog ---
+
+FullName                                                                                                Length
+--------                                                                                                ------
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\relationships\catalog\index.js               930
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\relationships\catalog\warmHumidHighCo2.js   5212
+
+
+
+
+--- .\src\environmentalScenarios ---
+
+FullName                                                                                                  Length
+--------                                                                                                  ------
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\environmentalScenarios\index.js               1939
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\environmentalScenarios\catalog\index.js        362
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\environmentalScenarios\catalog\warmHumid.js    809
+
+
+
+
+--- .\src\impacts ---
+
+FullName                                                                                             Length
+--------                                                                                             ------
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\impacts\index.js                         4291
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\impacts\catalog\biologicalRisk.js        1443
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\impacts\catalog\humidityRelatedRisk.js   1280
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\impacts\catalog\index.js                  925
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\src\impacts\catalog\thermalDiscomfort.js     1241
+
+
+
+
+### 10. REFERENCIAS A CLIMCARE ###
+
+Path                                                                                   LineNumber Line                              
+----                                                                                   ---------- ----                              
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\AUDITORIA_CORE.txt                  787 ### 10. REFERENCIAS A CLIMCARE ###
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\package.json.bak                     17     "climcare",                   
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\package.json.bak2                    20     "climcare",                   
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\package.json.test-runner.bak         20     "climcare",                   
+
+
+
+
+### 11. SINTAXE DE TODOS OS JS DO SRC ###
+OK - nenhum erro de sintaxe encontrado no SRC.
+
+### 12. TESTES DISPONIVEIS ###
+
+FullName                                                                                                   
+--------                                                                                                   
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\pipeline.e2e.test.js                       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\pipeline.test.js                           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\validation.test.js                         
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\diagnostics\diagnostics.test.js            
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\evidences\evidences.test.js                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\hypotheses\hypotheses.test.js              
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\impacts\impacts.test.js                    
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\integration\co2InternalOnlyContract.test.js
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\integration\diagnosticsEvidences.test.js   
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\integration\finalSemantics.test.js         
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\integration\generateRealJson.test.js       
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\integration\jsonContract.test.js           
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\integration\jsonReal.test.js               
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\integration\metricsEngine.test.js          
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\integration\scenarios.test.js              
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\metrics\co2Analysis.test.js                
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\metrics\dewPoint.test.js                   
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\metrics\healthRisk.test.js                 
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\metrics\qai.test.js                        
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\metrics\unknownCalculators.test.js         
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\mitigations\mitigations.test.js            
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\references\references.test.js              
+C:\Users\Giovane\Desktop\MONITOR_MIQAI\monitor\miqai_core\tests\relationships\relationships.test.js        
+
+
+
+
+### 13. EXECUCAO DOS TESTES ###
+Comando: npm.cmd test
+------------------------------------------------------------
+
+### 14. FIM DA AUDITORIA ###
+Arquivos gerados:
+AUDITORIA_CORE.txt
+AUDITORIA_TESTES.txt

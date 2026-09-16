@@ -1,0 +1,63 @@
+{
+  "reference": {
+    "id": "who_aqg_2021",
+    "code": "9789240034228",
+    "title": "WHO global air quality guidelines: particulate matter (PM2.5 and PM10), ozone, nitrogen dioxide, sulfur dioxide and carbon monoxide",
+    "organization": "World Health Organization",
+    "year": 2021,
+    "url": "https://iris.who.int/bitstream/handle/10665/345329/9789240034228-eng.pdf",
+    "referenceClass": "GUIDELINE",
+    "note": "Guideline only — not a regulatory limit."
+  },
+  "parameterDefinition": {
+    "id": "pm25",
+    "name": "PM2.5",
+    "displayName": "Particulate matter ≤2.5 µm (PM2.5)",
+    "unit": "µg/m³",
+    "description": "Fine particulate matter mass concentration. 24-hour averages apply for 24h criterion.",
+    "measurementMethod": "See WHO AQG 2021 section 3.2.3.1 (page 88) for method description."
+  },
+  "criteria": {
+    "id": "pm25_24h_who_2021",
+    "parameterId": "pm25",
+    "referenceId": "who_aqg_2021",
+    "threshold": 15,
+    "unit": "µg/m³",
+    "evaluationPeriod": "24h_mean",
+    "methodNote": "Defined as the 99th percentile of the annual distribution of 24-hour mean concentrations (equivalent to ~3–4 days exceedance/year). Source: WHO AQG 2021, section 3.2.3.1, p.88.",
+    "applicability": ["ambient_outdoor"],
+    "evidenceReference": {
+      "section": "3.2.3.1",
+      "page": 88,
+      "quote": "The PM2.5 guideline value for 24-hour mean concentrations is 15 µg/m³. This is defined as the 99th percentile of the annual distribution of 24-hour mean concentrations."
+    }
+  },
+  "provenance": {
+    "sourceUrl": "https://iris.who.int/bitstream/handle/10665/345329/9789240034228-eng.pdf",
+    "rawSource": "docs/REGULAMTAÇÃO_PDF/9789240034228-eng.pdf",
+    "sourceHash": "32f3bf1470e20803decb63ab1ee5babf289b4182bc8af94d62b7a5b998642353",
+    "ingestDate": "2026-09-02",
+    "ingestOperator": "curation_session"
+  },
+  "curation": {
+    "curatorId": "curator:giovane",
+    "curationDate": "2026-09-02",
+    "curationNotes": "Curated PM2.5 24h criterion from WHO AQG 2021; numeric threshold and method noted from provided evidence (section 3.2.3.1, p.88)."
+  },
+  "validation": {
+    "validationStatus": "PENDING",
+    "validatorId": null,
+    "validationDate": "2026-09-03",
+    "validationNotes": "Evidence aligns with WHO AQG 2021, section 3.2.3.1, p.88: PM2.5 24-hour guideline value = 15 µg/m³, defined as the 99th percentile of the annual distribution of 24-hour mean concentrations. Independent validation remains pending; therefore this record is not approved for use as a core criterion."
+  },
+  "approval": {
+    "approverId": null,
+    "approvalDate": null,
+    "approvalNotes": null,
+    "versionId": null,
+    "manifestEntry": null,
+    "publishedAt": null,
+    "publishedBy": null,
+    "useAsCriteria": null
+  }
+}

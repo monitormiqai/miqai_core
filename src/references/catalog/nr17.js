@@ -74,6 +74,8 @@ const NR17 = Object.freeze({
 
     type: "Norma Regulamentadora",
 
+    referenceClass: "REGULATORY",
+
     /*
      * Categoria principal.
      */

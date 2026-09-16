@@ -41,20 +41,61 @@ for (const domainName of domains) {
             `${domainName}/${parameter}: regulated ausente`
         );
 
-        assert.ok(
-            "criterionKind" in rule,
-            `${domainName}/${parameter}: criterionKind ausente`
-        );
+        if (rule.role === "COMPLEMENTARY") {
+            assert.equal(
+                rule.role,
+                "COMPLEMENTARY",
+                `${domainName}/${parameter}: role inválida`
+            );
 
-        assert.ok(
-            "evaluationPeriod" in rule,
-            `${domainName}/${parameter}: evaluationPeriod ausente`
-        );
+            assert.ok(
+                typeof rule.scoreEligible === "boolean",
+                `${domainName}/${parameter}: scoreEligible ausente`
+            );
 
-        assert.ok(
-            Array.isArray(rule.referenceIds),
-            `${domainName}/${parameter}: referenceIds ausente`
-        );
+            assert.ok(
+                typeof rule.sourceType === "string" && rule.sourceType.length > 0,
+                `${domainName}/${parameter}: sourceType ausente`
+            );
+
+            assert.ok(
+                typeof rule.sourceId === "string" && rule.sourceId.length > 0,
+                `${domainName}/${parameter}: sourceId ausente`
+            );
+
+            assert.ok(
+                typeof rule.sourceUrl === "string" && rule.sourceUrl.length > 0,
+                `${domainName}/${parameter}: sourceUrl ausente`
+            );
+
+            assert.ok(
+                rule.regulatoryId === null || typeof rule.regulatoryId === "string",
+                `${domainName}/${parameter}: regulatoryId inválido`
+            );
+
+        } else {
+            assert.ok(
+                "criterionKind" in rule,
+                `${domainName}/${parameter}: criterionKind ausente`
+            );
+
+            assert.ok(
+                "evaluationPeriod" in rule,
+                `${domainName}/${parameter}: evaluationPeriod ausente`
+            );
+
+            assert.ok(
+                Array.isArray(rule.referenceIds),
+                `${domainName}/${parameter}: referenceIds ausente`
+            );
+
+            if ("referenceThreshold" in rule) {
+                assert.ok(
+                    Number.isFinite(rule.referenceThreshold),
+                    `${domainName}/${parameter}: referenceThreshold inválido`
+                );
+            }
+        }
 
         if (rule.type === "RANGE") {
             assert.ok(

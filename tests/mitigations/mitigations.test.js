@@ -269,12 +269,33 @@ console.log("========================================\n");
 
         });
 
+    const mitigation =
+        ctx.mitigation.actions.find(
+            item =>
+                item.id === "eliminate_pollution_source"
+        );
+
     assert.ok(
-        hasMitigation(
-            ctx,
-            "eliminate_pollution_source"
-        ),
+        mitigation,
         "eliminate_pollution_source deveria existir com particulado elevado."
+    );
+
+    assert.match(
+        mitigation.title,
+        /investig|suspeita|condicional/i,
+        "A mitigação deve manter linguagem investigativa/condicional."
+    );
+
+    assert.match(
+        mitigation.description,
+        /investigar|fonte suspeita|possível/i,
+        "A mitigação deve indicar investigação de origem suspeita e não confirmação."
+    );
+
+    assert.doesNotMatch(
+        mitigation.description,
+        /fonte responsável|fonte identificada|confirmada|poluição externa.*detectada/i,
+        "A mitigação não deve afirmar que uma fonte externa foi identificada ou confirmada."
     );
 
     assert.ok(
@@ -286,7 +307,7 @@ console.log("========================================\n");
     );
 
     console.log(
-        "✓ Particulado elevado gera ações de mitigação"
+        "✓ Particulado elevado gera ações de mitigação investigativas sem afirmar fonte determinada"
     );
 
 }

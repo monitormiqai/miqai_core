@@ -5,6 +5,21 @@
  * Regulatory only declares the knowledge applicable to each Domain.
  * It does not calculate, diagnose, infer causes or recommend actions.
  */
+import { TEMPERATURE_KNOWLEDGE } from "../../knowledge/temperatureCatalog.js";
+
+const ABNT_TEMPERATURE_MIN =
+    TEMPERATURE_KNOWLEDGE.abnt.min ?? 21;
+
+const ABNT_TEMPERATURE_MAX =
+    TEMPERATURE_KNOWLEDGE.abnt.max ?? 26;
+
+const ABNT_TEMPERATURE_EVALUATION_PERIOD =
+    TEMPERATURE_KNOWLEDGE.abnt.evaluationPeriod ?? "instantaneous_reading";
+
+const ABNT_TEMPERATURE_CRITERION_NOTE =
+    TEMPERATURE_KNOWLEDGE.abnt.methodNote ??
+    "ABNT NBR 17037:2023 specifies 21 °C to 26 °C for indoor dry-bulb air temperature. This is a technical reference for indoor air quality, not a universal legal limit.";
+
 const TEMPERATURE_REGULATORY = Object.freeze({
     parameter: "temperature",
     validationKey: "temperature",
@@ -17,24 +32,23 @@ const TEMPERATURE_REGULATORY = Object.freeze({
         corporate: Object.freeze({
             regulated: false,
             type: "RANGE",
-            min: 21,
-            max: 26,
+            min: ABNT_TEMPERATURE_MIN,
+            max: ABNT_TEMPERATURE_MAX,
             criterionKind: "TECHNICAL_REFERENCE",
-            evaluationPeriod: "instantaneous_reading",
+            evaluationPeriod: ABNT_TEMPERATURE_EVALUATION_PERIOD,
             applicability: "non_residential_artificially_conditioned",
             referenceIds: ["abnt_nbr_17037"],
             regulatoryId: "abnt_nbr_17037",
-            criterionNote:
-                "ABNT NBR 17037:2023 specifies 21 °C to 26 °C for indoor dry-bulb air temperature. This is a technical reference for indoor air quality, not a universal legal limit."
+            criterionNote: ABNT_TEMPERATURE_CRITERION_NOTE
         }),
 
         healthcare: Object.freeze({
             regulated: false,
             type: "RANGE",
-            min: 21,
-            max: 26,
+            min: ABNT_TEMPERATURE_MIN,
+            max: ABNT_TEMPERATURE_MAX,
             criterionKind: "TECHNICAL_REFERENCE",
-            evaluationPeriod: "instantaneous_reading",
+            evaluationPeriod: ABNT_TEMPERATURE_EVALUATION_PERIOD,
             applicability: "non_residential_artificially_conditioned",
             referenceIds: ["abnt_nbr_17037"],
             regulatoryId: "abnt_nbr_17037",
@@ -45,10 +59,10 @@ const TEMPERATURE_REGULATORY = Object.freeze({
         education: Object.freeze({
             regulated: false,
             type: "RANGE",
-            min: 21,
-            max: 26,
+            min: ABNT_TEMPERATURE_MIN,
+            max: ABNT_TEMPERATURE_MAX,
             criterionKind: "TECHNICAL_REFERENCE",
-            evaluationPeriod: "instantaneous_reading",
+            evaluationPeriod: ABNT_TEMPERATURE_EVALUATION_PERIOD,
             applicability: "non_residential_artificially_conditioned",
             referenceIds: ["abnt_nbr_17037"],
             regulatoryId: "abnt_nbr_17037",

@@ -76,6 +76,8 @@ const ABNT_NBR_17037 = Object.freeze({
 
     type: "Norma Técnica",
 
+    referenceClass: "STANDARD",
+
     /*
      * Categoria principal.
      */

@@ -1,0 +1,59 @@
+{
+  "reference": {
+    "id": "abnt_nbr_16401_3_2024",
+    "code": "ABNT NBR 16401-3:2024",
+    "title": "Instalações de ar-condicionado — Sistemas centrais e unitários — Parte 3: Qualidade do ar interior",
+    "organization": "Associacao Brasileira de Normas Tecnicas",
+    "year": 2024,
+    "url": "https://www.abnt.org.br/",
+    "referenceClass": "STANDARD",
+    "note": "ABNT NBR 16401-3:2024 consolidated as a contextual standard reference for HVAC-related IAQ and ventilation topics. This record does not create a universal indoor CO2 limit or direct runtime compliance criterion."
+  },
+  "parameterDefinition": {
+    "id": "co2",
+    "name": "Carbon Dioxide",
+    "displayName": "Indoor carbon dioxide concentration",
+    "unit": "ppm",
+    "description": "Indoor carbon dioxide concentration used as a contextual indicator of ventilation and air renewal; the consolidated ABNT NBR 16401-3:2024 record does not create a universal indoor maximum.",
+    "measurementMethod": "Contextual ventilation assessment based on internal CO2 differential, site conditions, and external CO2 conditions; no universal indoor threshold is defined here."
+  },
+  "criteria": {
+    "id": "co2_contextual_differential_abnt_16401_3_2024",
+    "parameterId": "co2",
+    "referenceId": "abnt_nbr_16401_3_2024",
+    "threshold": null,
+    "unit": "ppm",
+    "evaluationPeriod": "contextual_assessment",
+    "methodNote": "ABNT NBR 16401-3:2024 supports CO2 appraisal only as a contextual differential linked to air renewal/ventilation. The consolidated MIQAI dossier records differentials of 500 ppm and 700 ppm only as contextual references for ventilation assessment. This depends on external CO2, airflow, occupancy and time, and does not create a universal indoor limit or direct compliance criterion. This record is not operational for direct compliance by the current hardware and does not create a co2Outdoor criterion or operational differential in the runtime contract.",
+    "applicability": ["corporate", "education", "healthcare"],
+    "temporalGuidance": "Contextual ventilation assessment depends on external CO2, air exchange, occupancy and time; this record does not establish a universal indoor maximum or automatic compliance."
+  },
+  "provenance": {
+    "sourceUrl": "https://www.abnt.org.br/",
+    "rawSource": "docs/MIQAI_Biblioteca_de_Conhecimento_Dossie_Consolidado_2026-09-09.md",
+    "sourceHash": null,
+    "ingestDate": "2026-09-09",
+    "ingestOperator": "curation_session"
+  },
+  "curation": {
+    "curatorId": "curator:giovane",
+    "curationDate": "2026-09-09",
+    "curationNotes": "Curated from the consolidated dossier for ABNT NBR 16401-3:2024. CO2 is retained as a contextual ventilation observation, not as a universal threshold or direct compliance criterion."
+  },
+  "validation": {
+    "validationStatus": "PENDING",
+    "validatorId": null,
+    "validationDate": "2026-09-09",
+    "validationNotes": "Dossier confirms contextual CO2 differentials of 500 ppm and 700 ppm for ventilation assessment, but not as a universal indoor maximum or direct hardware compliance criterion. Independent primary-source validation remains pending."
+  },
+  "approval": {
+    "approverId": null,
+    "approvalDate": null,
+    "approvalNotes": null,
+    "versionId": null,
+    "manifestEntry": null,
+    "publishedAt": null,
+    "publishedBy": null,
+    "useAsCriteria": null
+  }
+}

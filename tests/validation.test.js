@@ -76,4 +76,123 @@ console.log("========================================\n");
     console.log("✓ CO₂ interno permanece contextual sem threshold universal");
 }
 
+{
+    const ctx = build({ pm25: 20 });
+
+    ctx.regulatory = {
+        ...ctx.regulatory,
+        pm25: {
+            ...ctx.regulatory.pm25,
+            threshold: 10,
+            referenceThreshold: 100
+        }
+    };
+
+    validate(ctx);
+
+    const pm25 = ctx.validation.pm25;
+
+    assert.equal(
+        pm25.currentAssessment,
+        "ABOVE_REFERENCE"
+    );
+
+    console.log("✓ threshold prevalece sobre referenceThreshold");
+}
+
+{
+    const ctx = build({ pm25: 20 });
+
+    ctx.regulatory = {
+        ...ctx.regulatory,
+        pm25: {
+            ...ctx.regulatory.pm25,
+            threshold: undefined,
+            referenceThreshold: 10
+        }
+    };
+
+    validate(ctx);
+
+    const pm25 = ctx.validation.pm25;
+
+    assert.equal(
+        pm25.currentAssessment,
+        "ABOVE_REFERENCE"
+    );
+
+    console.log("✓ referenceThreshold é usado quando threshold não existe");
+}
+
+{
+    const ctx = build({ pm25: 20 });
+
+    ctx.regulatory = {
+        ...ctx.regulatory,
+        pm25: {
+            ...ctx.regulatory.pm25,
+            threshold: undefined,
+            referenceThreshold: 10,
+            applicability: "ambient_outdoor",
+            criterionKind: "TECHNICAL_REFERENCE",
+            referenceIds: ["who_aqg_2021"]
+        }
+    };
+
+    validate(ctx);
+
+    const pm25 = ctx.validation.pm25;
+
+    assert.equal(
+        pm25.currentAssessment,
+        "NOT_ASSESSED"
+    );
+    assert.equal(
+        pm25.criterionKind,
+        "TECHNICAL_REFERENCE"
+    );
+    assert.equal(
+        pm25.applicability,
+        "ambient_outdoor"
+    );
+    assert.equal(
+        pm25.referenceThreshold,
+        10
+    );
+    assert.deepEqual(
+        pm25.referenceIds,
+        ["who_aqg_2021"]
+    );
+
+    console.log("✓ mismatch de applicability não gera ABOVE_REFERENCE operacional e preserva semântica");
+}
+
+{
+    const ctx = build({ temperature: 25 });
+
+    ctx.regulatory = {
+        ...ctx.regulatory,
+        temperature: {
+            ...ctx.regulatory.temperature,
+            type: "RANGE",
+            min: undefined,
+            max: undefined,
+            criterionKind: "TECHNICAL_REFERENCE",
+            applicability: "indoor_air",
+            referenceIds: ["abnt_nbr_17037"]
+        }
+    };
+
+    validate(ctx);
+
+    const temperature = ctx.validation.temperature;
+
+    assert.equal(temperature.currentAssessment, "NOT_ASSESSED");
+    assert.equal(temperature.state, "OBSERVATION");
+    assert.equal(temperature.passed, null);
+    assert.deepEqual(temperature.referenceIds, ["abnt_nbr_17037"]);
+
+    console.log("✓ RANGE sem min/max mantém metadata e não dispara comparação operacional");
+}
+
 console.log("\n✓ VALIDATION — PASSED\n");

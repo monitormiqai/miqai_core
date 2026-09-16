@@ -653,7 +653,45 @@ console.log("========================================\n");
 
 
 /* ======================================================================
- * 16. EVIDENCE NÃO CRIA CAMADAS ANALÍTICAS
+ * 16. AUSÊNCIA NÃO GERA NORMALIDADE
+ * ====================================================================== */
+
+{
+
+    const ctx =
+        buildContext({
+
+            temperature: null,
+            humidity: null,
+            co2: null,
+            pm25: null,
+            pm10: null,
+            vocIndex: null,
+            noxIndex: null
+
+        });
+
+    const evidence =
+        ctx.evidence.records.find(
+            item =>
+                item.id === "normal_environment"
+        );
+
+    assert.equal(
+        evidence,
+        undefined,
+        "Dados ausentes não devem produzir normal_environment."
+    );
+
+    console.log(
+        "✓ Ausência de dados não gera normal_environment"
+    );
+
+}
+
+
+/* ======================================================================
+ * 17. EVIDENCE NÃO CRIA CAMADAS ANALÍTICAS
  * ====================================================================== */
 
 {

@@ -82,6 +82,8 @@ const SENSIRION_VOC = Object.freeze({
 
     type: "Referência Técnica",
 
+    referenceClass: "MANUFACTURER",
+
     /*
      * Categoria principal.
      */

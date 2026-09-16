@@ -1,99 +1,97 @@
 /**
- * ======================================================================
- * CORE QAI
- * Hypothesis
- * ----------------------------------------------------------------------
- * Arquivo   : normalOperation.js
- * Módulo    : Hypotheses
- * Versão    : 1.0.0
- * Status    : RC2
- *
- * Objetivo
- * ----------------------------------------------------------------------
- * Representar a hipótese de operação normal do ambiente.
- *
- * Esta hipótese é compatível com um cenário em que não foram
- * identificadas não conformidades regulatórias ou evidências que
- * indiquem comprometimento da qualidade do ar interno.
- *
- * Não afirma ausência absoluta de riscos.
- * Apenas representa a hipótese técnica mais compatível com os
- * indicadores observados durante a análise.
- * ======================================================================
- */
+
+* ======================================================================
+* CORE QAI
+* Hypothesis
+* ---
+* Arquivo   : normalOperation.js
+* Módulo    : Hypotheses
+* Versão    : 1.0.0
+* Status    : RC2 - CORREÇÃO SEMÂNTICA
+*
+* Objetivo
+* ---
+* Representar a hipótese de operação atual compatível com os dados
+* observados durante a análise.
+*
+* Esta hipótese não constitui declaração de conformidade global.
+*
+* Não afirma ausência absoluta de riscos.
+* Apenas representa a hipótese técnica mais compatível com os
+* indicadores observados durante a análise.
+* ======================================================================
+  */
 
 const NORMAL_OPERATION = Object.freeze({
 
-    /*
-     * Identificador único.
-     */
+/*
+ * Identificador único.
+ */
 
-    id: "normal_operation",
+id: "normal_operation",
 
-    /*
-     * Nome interno.
-     */
+/*
+ * Nome interno.
+ */
 
-    name: "Normal Operation",
+name: "Normal Operation",
 
-    /*
-     * Título para apresentação.
-     */
+/*
+ * Título para apresentação.
+ */
 
-    title:
-        "Operação ambiental compatível com condições normais",
+title:
+    "Condições observadas compatíveis com a operação atual",
 
-    /*
-     * Descrição técnica.
-     */
+/*
+ * Descrição técnica.
+ */
 
-    description:
-        "As evidências observadas são compatíveis com condições normais de operação do ambiente, sem indicação de desvios relevantes em relação aos critérios regulatórios avaliados.",
+description:
+    "As evidências observadas são compatíveis com a operação atual do ambiente, sem indicação de desvio nos parâmetros efetivamente avaliados. Esta hipótese não representa declaração de conformidade global.",
 
-    /*
-     * Referências técnicas.
-     */
+/*
+ * Referências técnicas.
+ */
 
-    referenceIds: [
+referenceIds: [
 
-        "ashrae55",
+    "ashrae55",
 
-        "ashrae62_1",
+    "ashrae62_1"
 
-        "abnt_nbr_16401"
+],
 
-    ],
+/*
+ * Prioridade.
+ */
 
-    /*
-     * Prioridade.
-     */
+priority: 0,
 
-    priority: 0,
+/*
+ * Critério de ativação.
+ *
+ * A hipótese não recalcula condições ambientais.
+ *
+ * Ela apenas consome o resultado produzido pelas
+ * camadas anteriores do CORE.
+ *
+ * A condição de operação atual é representada pela
+ * Evidence Library através da evidência:
+ *
+ * normal_environment
+ */
 
-    /*
-     * Critério de ativação.
-     *
-     * A hipótese não recalcula condições ambientais.
-     *
-     * Ela apenas consome o resultado produzido pelas
-     * camadas anteriores do CORE.
-     *
-     * A condição de operação normal é representada pela
-     * Evidence Library através da evidência:
-     *
-     * normal_environment
-     */
+when(ctx) {
 
-    when(ctx) {
+    return (
 
-        return (
+        ctx.evidence?.primary?.id ===
+        "normal_environment"
 
-            ctx.evidence?.primary?.id ===
-            "normal_environment"
+    );
 
-        );
-
-    }
+}
 
 });
 

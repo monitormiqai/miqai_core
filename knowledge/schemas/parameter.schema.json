@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ParameterDefinition",
+  "type": "object",
+  "required": ["id", "name", "unit"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "displayName": { "type": "string" },
+    "unit": { "type": "string" },
+    "description": { "type": ["string", "null"] },
+    "measurementMethod": { "type": ["string", "null"] },
+    "typicalRange": { "type": ["object", "null"] }
+  }
+}

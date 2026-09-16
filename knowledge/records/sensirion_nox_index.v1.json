@@ -1,0 +1,57 @@
+{
+  "reference": {
+    "id": "sensirion_nox",
+    "code": "SENSIRION NOx INDEX",
+    "title": "Indice de NOx da Sensirion",
+    "organization": "Sensirion",
+    "year": 2022,
+    "url": "https://sensirion.com/media/documents/9F289B95/6294DFFC/Info_Note_NOx_Index.pdf",
+    "referenceClass": "MANUFACTURER",
+    "note": "Manufacturer technical reference. NOx Index is a relative index and not a regulatory concentration limit."
+  },
+  "parameterDefinition": {
+    "id": "noxIndex",
+    "name": "NOx Index",
+    "displayName": "Sensirion NOx Index",
+    "unit": "index",
+    "description": "Relative NOx index used as an operational indicator; it is not a direct NOx concentration.",
+    "measurementMethod": "Sensirion Gas Index Algorithm relative index derived from recent environmental baseline."
+  },
+  "criteria": {
+    "id": "nox_index_sensirion_reference",
+    "parameterId": "noxIndex",
+    "referenceId": "sensirion_nox",
+    "unit": "index",
+    "evaluationPeriod": "current_reading",
+    "methodNote": "Sensirion NOx Index is an operational relative index. No regulatory concentration limit is inferred from the index.",
+    "applicability": ["corporate", "healthcare", "education", "residential", "datacenter"]
+  },
+  "provenance": {
+    "sourceUrl": "https://sensirion.com/media/documents/9F289B95/6294DFFC/Info_Note_NOx_Index.pdf",
+    "rawSource": "src/references/catalog/sensirion_nox.js",
+    "sourceHash": null,
+    "ingestDate": "2026-09-08",
+    "ingestOperator": "curation_session"
+  },
+  "curation": {
+    "curatorId": "curator:giovane",
+    "curationDate": "2026-09-08",
+    "curationNotes": "Curated from existing reference catalog and current regulatory semantics. NOx Index remains a relative manufacturer technical indicator and not a concentration or regulatory threshold."
+  },
+  "validation": {
+    "validationStatus": "PENDING",
+    "validatorId": null,
+    "validationDate": "2026-09-08",
+    "validationNotes": "Existing runtime semantics were transcribed into Knowledge, but approval for runtime consumption remains pending."
+  },
+  "approval": {
+    "approverId": null,
+    "approvalDate": null,
+    "approvalNotes": null,
+    "versionId": null,
+    "manifestEntry": null,
+    "publishedAt": null,
+    "publishedBy": null,
+    "useAsCriteria": null
+  }
+}

@@ -11,8 +11,8 @@
  * Objetivo
  * ----------------------------------------------------------------------
  * Registrar evidência de concentração de CO₂ acima do critério
- * diferencial de referência quando essa condição tiver sido
- * identificada pelo CO₂ Analysis Calculator.
+ * de referência utilizado na análise complementar quando essa
+ * condição tiver sido identificada pelo CO₂ Analysis Calculator.
  *
  * IMPORTANTE
  * ----------------------------------------------------------------------
@@ -60,7 +60,7 @@ const ELEVATED_CO2 = Object.freeze({
      */
 
     description:
-        "Foi observada concentração de CO₂ acima do critério diferencial de referência utilizado na análise complementar do CORE QAI.",
+        "Foi observada concentração elevada de CO₂ segundo a classificação contextual interna do CORE QAI.",
 
     /*
      * ================================================================
