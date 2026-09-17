@@ -360,12 +360,12 @@ function analyze(reading) {
      * ------------------------------------------------------------ */
 
     assert.equal(
-        publicResponse.foundation.available,
+        publicResponse.evidence.available,
         true
     );
 
     assert.equal(
-        publicResponse.foundation.explanation,
+        publicResponse.evidence.explanation,
         coreResponse.evidence.primary.description
     );
 
@@ -375,7 +375,7 @@ function analyze(reading) {
      * ------------------------------------------------------------ */
 
     assert.equal(
-        publicResponse.references.length > 0,
+        publicResponse.references.items.length > 0,
         true
     );
 }

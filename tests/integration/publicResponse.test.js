@@ -353,27 +353,31 @@ function analyze(reading) {
      * ------------------------------------------------------------ */
 
     assert.equal(
-        publicResponse.foundation.available,
+        publicResponse.evidence.available,
         true
     );
 
     assert.equal(
-        publicResponse.foundation.explanation,
+        publicResponse.evidence.explanation,
         coreResponse.evidence.primary.description
     );
 
     /* ------------------------------------------------------------
-     * REFERENCES
-     * ------------------------------------------------------------ */
+ * REFERENCES
+ * ------------------------------------------------------------ */
 
     assert.ok(
-        Array.isArray(publicResponse.references)
+        publicResponse.references &&
+        typeof publicResponse.references === "object"
     );
 
     assert.ok(
-        publicResponse.references.length > 0
+        Array.isArray(publicResponse.references.items)
     );
 
+    assert.ok(
+        publicResponse.references.items.length > 0
+    );
     /* ------------------------------------------------------------
      * NÃO-CRIAÇÃO ANALÍTICA
      * ------------------------------------------------------------ */

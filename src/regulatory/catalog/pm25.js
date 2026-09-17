@@ -6,6 +6,7 @@
  * 60-second sensor reading must not be represented as compliance with
  * that 24-hour criterion.
  */
+
 import { PM25_KNOWLEDGE } from "../../knowledge/pm25Catalog.js";
 
 const ABNT_PM25_THRESHOLD =
@@ -19,7 +20,7 @@ const ABNT_PM25_EVALUATION_PERIOD =
 
 const ABNT_PM25_TEMPORAL_GUIDANCE =
     PM25_KNOWLEDGE.abnt.temporalGuidance ??
-    "A current reading may be flagged as above the reference value, but the 24-hour reference must not be represented as a 24-hour compliance result without the required observation period.";
+    "Uma leitura atual pode ser sinalizada como acima do valor de referência, mas a referência de 24 horas não deve ser representada como um resultado de conformidade de 24 horas sem o período de observação necessário.";
 
 const ABNT_PM25_CRITERION_NOTE =
     PM25_KNOWLEDGE.abnt.methodNote ??
@@ -110,7 +111,7 @@ const PM25_REGULATORY = Object.freeze({
             referenceIds: ["who_aqg_2021"],
             regulatoryId: "who_aqg_2021",
             temporalGuidance:
-                "A current reading may be flagged as above the reference value, but the 24-hour reference must not be represented as a 24-hour compliance result without the required observation period.",
+                "Uma leitura atual pode ser sinalizada como acima do valor de referência, mas a referência de 24 horas não deve ser representada como um resultado de conformidade de 24 horas sem o período de observação necessário.",
             criterionNote: WHO_PM25_CRITERION_NOTE
         }),
 

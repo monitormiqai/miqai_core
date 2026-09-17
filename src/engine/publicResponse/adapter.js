@@ -159,9 +159,7 @@ function adaptFollowUp(response) {
     const validation = response?.validation ?? {};
 
     for (const parameter of ["pm25", "pm10"]) {
-        addGuidance(
-            validation[parameter]?.temporalGuidance
-        );
+        addGuidance(validation[parameter]?.temporalGuidance);
     }
 
     addGuidance(
@@ -174,13 +172,13 @@ function adaptFollowUp(response) {
     };
 }
 
-function adaptFoundation(response) {
+function adaptEvidence(response) {
     const evidence = response?.evidence?.records ?? [];
 
     return {
         available: evidence.length > 0,
         explanation: response?.evidence?.primary?.description ?? null,
-        evidence: evidence.map(item => ({
+        items: evidence.map(item => ({
             id: item.id ?? null,
             title: item.title ?? null,
             description: item.description ?? null,
@@ -190,11 +188,11 @@ function adaptFoundation(response) {
 }
 
 function adaptReferences(response) {
-    const references = [];
+    const items = [];
     const source = response?.references;
 
     if (source?.primary?.reference) {
-        references.push({
+        items.push({
             id: source.primary.reference.id ?? null,
             code: source.primary.reference.code ?? null,
             title:
@@ -206,7 +204,7 @@ function adaptReferences(response) {
 
     for (const item of source?.secondary ?? []) {
         if (item.reference) {
-            references.push({
+            items.push({
                 id: item.reference.id ?? null,
                 code: item.reference.code ?? null,
                 title:
@@ -217,7 +215,10 @@ function adaptReferences(response) {
         }
     }
 
-    return references;
+    return {
+        available: items.length > 0,
+        items
+    };
 }
 
 export function adaptPublicResponse(response) {
@@ -234,10 +235,7 @@ export function adaptPublicResponse(response) {
 
     const dewPoint = metrics.dewPoint;
 
-    if (
-        dewPoint?.value !== undefined &&
-        dewPoint?.value !== null
-    ) {
+    if (dewPoint?.value !== undefined && dewPoint?.value !== null) {
         readings.push({
             parameter: "dewPoint",
             value: dewPoint.value,
@@ -258,15 +256,14 @@ export function adaptPublicResponse(response) {
     );
 
     const impacts = adaptImpacts(response.impacts);
-
     const action = adaptActions(response.mitigation);
 
-return Object.freeze({
-    version: PUBLIC_RESPONSE_VERSION,
+    return Object.freeze({
+        version: PUBLIC_RESPONSE_VERSION,
 
-    timestamp: response.metadata?.timestamp ?? null,
+        timestamp: response.metadata?.timestamp ?? null,
 
-    status: {
+        status: {
             state: response.metadata?.status ?? "ERROR",
             message: null
         },
@@ -292,7 +289,7 @@ return Object.freeze({
 
         followUp: adaptFollowUp(response),
 
-        foundation: adaptFoundation(response),
+        evidence: adaptEvidence(response),
 
         references: adaptReferences(response)
     });

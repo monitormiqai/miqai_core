@@ -1,3 +1,4 @@
+
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -5,6 +6,9 @@ import { fileURLToPath } from "node:url";
 
 import AnalisarQualidadeAmbiental from "../../src/engine/analysis.js";
 
+import {
+    adaptPublicResponse
+} from "../../src/engine/publicResponse/index.js";
 
 /* ======================================================================
  * PATHS
@@ -23,7 +27,6 @@ const outputFile = path.join(
     "json-real-v1.json"
 );
 
-
 /* ======================================================================
  * HEADER
  * ====================================================================== */
@@ -32,38 +35,26 @@ console.log("\n========================================");
 console.log("CORE QAI — REAL JSON V1");
 console.log("========================================\n");
 
-
 /* ======================================================================
  * 1. EXECUÇÃO DA API PÚBLICA
  * ====================================================================== */
 
-const response = AnalisarQualidadeAmbiental({
-
+const coreResponse = AnalisarQualidadeAmbiental({
     environment: "corporate",
 
     reading: {
-
         temperature: 23,
-
         humidity: 50,
-
         co2: 650,
-
         pm25: 6,
-
         pm10: 12,
-
         vocIndex: 90,
-
         noxIndex: 1
-
     }
-
 });
 
-
 assert.ok(
-    response,
+    coreResponse,
     "A API pública não produziu response."
 );
 
@@ -71,9 +62,23 @@ console.log(
     "✓ API pública executada"
 );
 
+/* ======================================================================
+ * 2. PUBLIC RESPONSE V1
+ * ====================================================================== */
+
+const response = adaptPublicResponse(coreResponse);
+
+assert.ok(
+    response,
+    "Public Response V1 não foi produzido."
+);
+
+console.log(
+    "✓ Public Response V1 adaptado"
+);
 
 /* ======================================================================
- * 2. SERIALIZAÇÃO
+ * 3. SERIALIZAÇÃO
  * ====================================================================== */
 
 const json = JSON.stringify(
@@ -84,16 +89,15 @@ const json = JSON.stringify(
 
 assert.ok(
     json,
-    "Não foi possível serializar o response."
+    "Não foi possível serializar o Public Response V1."
 );
 
 console.log(
     "✓ Response serializado"
 );
 
-
 /* ======================================================================
- * 3. GARANTIR DIRETÓRIO
+ * 4. GARANTIR DIRETÓRIO
  * ====================================================================== */
 
 fs.mkdirSync(
@@ -103,9 +107,8 @@ fs.mkdirSync(
     }
 );
 
-
 /* ======================================================================
- * 4. GRAVAÇÃO DO JSON REAL
+ * 5. GRAVAÇÃO DO JSON REAL
  * ====================================================================== */
 
 fs.writeFileSync(
@@ -123,9 +126,8 @@ console.log(
     "✓ JSON REAL salvo"
 );
 
-
 /* ======================================================================
- * 5. LEITURA NOVAMENTE
+ * 6. LEITURA NOVAMENTE
  * ====================================================================== */
 
 const savedJson =
@@ -143,9 +145,8 @@ console.log(
     "✓ JSON REAL lido novamente"
 );
 
-
 /* ======================================================================
- * 6. VALIDAR JSON
+ * 7. VALIDAR JSON
  * ====================================================================== */
 
 const parsed =
@@ -154,16 +155,15 @@ const parsed =
 assert.deepEqual(
     parsed,
     JSON.parse(json),
-    "JSON salvo não corresponde ao payload serializado produzido pela API."
+    "JSON salvo não corresponde ao payload serializado produzido pelo Public Response V1."
 );
 
 console.log(
     "✓ Integridade do JSON preservada"
 );
 
-
 /* ======================================================================
- * 7. RESUMO ESTRUTURAL
+ * 8. RESUMO ESTRUTURAL
  * ====================================================================== */
 
 console.log("\n----------------------------------------");
@@ -181,7 +181,6 @@ console.log("----------------------------------------");
 console.log(
     Object.keys(parsed)
 );
-
 
 /* ======================================================================
  * RESULTADO
