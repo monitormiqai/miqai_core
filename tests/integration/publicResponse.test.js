@@ -277,6 +277,14 @@ function analyze(reading) {
         coreResponse.metrics.qaiScore.level
     );
 
+    assert.deepEqual(
+        publicResponse.current.qaiScore.publicInterpretation,
+        {
+            title: "Condição ambiental geral favorável",
+            description: "O nível geral do ambiente está em uma condição favorável. Esse resultado indica um desempenho aceitável, com manutenção e monitoramento contínuos como prática adequada."
+        }
+    );
+
     /* ------------------------------------------------------------
      * NORMAL — SEM CENÁRIO
      * ------------------------------------------------------------ */

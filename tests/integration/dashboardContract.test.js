@@ -421,6 +421,13 @@ function analyze(reading) {
         (coreResponse.environmentalScenario.primary.description ?? null)
     );
 
+    assert.deepEqual(
+        publicResponse.current.qaiScore.publicInterpretation,
+        {
+            title: "Condição ambiental preocupante",
+            description: "O nível geral do ambiente está abaixo do desejado. Esse resultado indica que a condição atual exige atenção e acompanhamento mais próximo."
+        }
+    );
 
     /* ------------------------------------------------------------
      * Relationship

@@ -882,6 +882,53 @@ O consumidor não precisa conhecer toda a implementação interna do CORE.
 
 ---
 
+## UX-001 — Representação pública do QAI Score
+
+PROBLEMA:
+POOR, GOOD e demais níveis técnicos do CORE são válidos metodologicamente, mas não comunicam o significado de forma compreensível ao usuário final.
+
+TRATAMENTO:
+Manter o `level` técnico e fornecer uma interpretação pública na camada Public Response, sem mover lógica de cálculo para o Dashboard.
+
+MOTIVO:
+Evitar que a interface apresente códigos internos do CORE sem tradução pública.
+
+CAMADA:
+Public Response / UX.
+
+NÃO ALTERADO:
+Metodologia do QAI Score V1, pesos, normalização e regras internas do CORE.
+
+VALIDAÇÃO:
+Testes automatizados e inspeção do JSON real.
+
+## UX-002 — Descrição pública do cenário
+
+PROBLEMA:
+`scenario.description` pode chegar em `null` mesmo quando um cenário relevante foi identificado.
+
+TRATAMENTO:
+Fornecer a descrição no catálogo do cenário e expô-la na Public Response, sem alterar a regra de identificação, ID ou título do cenário.
+
+MOTIVO:
+O Dashboard não deve inventar explicações para um cenário já reconhecido pelo CORE.
+
+CAMADA:
+CORE / Public Response.
+
+## UX-003 — FollowUp
+
+DECISÃO:
+Manter `followUp` como nome técnico do contrato.
+
+REPRESENTAÇÃO UX:
+"O que acompanhar".
+
+MOTIVO:
+Separar o contrato técnico do texto de apresentação da interface.
+
+---
+
 # 29. Por que Isso é Importante para Escala
 
 A separação permite que o MIQAI cresça de poucos dispositivos para milhares sem exigir que cada equipamento carregue toda a inteligência.

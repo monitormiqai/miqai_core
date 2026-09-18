@@ -14,6 +14,10 @@ const WARM_HUMID = Object.freeze({
 
     name: "Ambiente quente e úmido",
 
+    title: "Ambiente quente e úmido",
+
+    description: "Ambiente em que a temperatura e a umidade relativa estão elevadas em conjunto, caracterizando uma condição quente e úmida.",
+
     priority: 80,
 
     when(ctx) {

@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "timestamp": "2026-09-17T21:03:09.067Z",
+  "timestamp": "2026-09-18T19:51:04.420Z",
   "status": {
     "state": "OK",
     "message": null
@@ -88,7 +88,11 @@
     "qaiScore": {
       "available": true,
       "value": 83,
-      "level": "GOOD"
+      "level": "GOOD",
+      "publicInterpretation": {
+        "title": "Condição ambiental geral favorável",
+        "description": "O nível geral do ambiente está em uma condição favorável. Esse resultado indica um desempenho aceitável, com manutenção e monitoramento contínuos como prática adequada."
+      }
     }
   },
   "scenario": {

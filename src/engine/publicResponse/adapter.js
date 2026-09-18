@@ -34,6 +34,41 @@ const READING_KEYS = [
     "noxIndex"
 ];
 
+const QAI_SCORE_PUBLIC_INTERPRETATION = Object.freeze({
+    EXCELLENT: {
+        title: "Condição ambiental excelente",
+        description: "O nível geral do ambiente está em uma condição muito favorável para operação estável e conforto contínuo."
+    },
+    GOOD: {
+        title: "Condição ambiental geral favorável",
+        description: "O nível geral do ambiente está em uma condição favorável. Esse resultado indica um desempenho aceitável, com manutenção e monitoramento contínuos como prática adequada."
+    },
+    MODERATE: {
+        title: "Condição ambiental moderada",
+        description: "O nível geral do ambiente está em uma condição moderada. Esse resultado indica que o ambiente requer atenção e acompanhamento para manter o desempenho desejado."
+    },
+    POOR: {
+        title: "Condição ambiental preocupante",
+        description: "O nível geral do ambiente está abaixo do desejado. Esse resultado indica que a condição atual exige atenção e acompanhamento mais próximo."
+    }
+});
+
+function adaptQaiScorePublicInterpretation(level) {
+    const interpretation = QAI_SCORE_PUBLIC_INTERPRETATION[level];
+
+    if (!interpretation) {
+        return {
+            title: null,
+            description: null
+        };
+    }
+
+    return {
+        title: interpretation.title,
+        description: interpretation.description
+    };
+}
+
 function adaptReading(parameter, source) {
     if (!source) {
         return {
@@ -66,14 +101,21 @@ function adaptQaiScore(metrics) {
         return {
             available: false,
             value: null,
-            level: "UNKNOWN"
+            level: "UNKNOWN",
+            publicInterpretation: {
+                title: null,
+                description: null
+            }
         };
     }
+
+    const level = source.level ?? "UNKNOWN";
 
     return {
         available: source.score !== null && source.score !== undefined,
         value: source.score ?? null,
-        level: source.level ?? "UNKNOWN"
+        level,
+        publicInterpretation: adaptQaiScorePublicInterpretation(level)
     };
 }
 
