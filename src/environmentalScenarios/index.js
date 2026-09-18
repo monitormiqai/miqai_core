@@ -38,6 +38,12 @@ function execute(ctx) {
                 name:
                     scenario.name,
 
+                title:
+                    scenario.title,
+
+                description:
+                    scenario.description,
+
                 priority:
                     scenario.priority
 
