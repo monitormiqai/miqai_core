@@ -1,11 +1,12 @@
 {
   "name": "core-qai",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CORE QAI - Knowledge Engine for Indoor Air Quality Analysis",
   "type": "module",
   "main": "src/engine/analysis.js",
   "exports": {
-    ".": "./src/engine/analysis.js"
+    ".": "./src/engine/analysis.js",
+    "./public-response": "./src/engine/publicResponse/adapter.js"
   },
   "scripts": {
     "test": "node --test tests/*.test.js tests/**/*.test.js"
